@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,css,json,yml,yaml}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,css,json,yml,yaml}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "prepare": "husky install"

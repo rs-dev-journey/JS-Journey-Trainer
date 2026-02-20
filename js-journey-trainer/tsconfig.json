@@ -26,12 +26,10 @@
     "moduleResolution": "bundler",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "strict": true,
-    "erasableSyntaxOnly": true,
   },
   "include": [
     "src"

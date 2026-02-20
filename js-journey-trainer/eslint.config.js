@@ -8,8 +8,10 @@ import importPlugin from 'eslint-plugin-import';
 import unicorn from 'eslint-plugin-unicorn';
 
 export default [
+  {
+    ignores: ['node_modules/**', 'dist/**', 'vitest.config.ts', 'vite.config.ts'],
+  },
   js.configs.recommended,
-  prettierConfig,
   {
     files: ['**/*.ts'],
     languageOptions: {
@@ -40,10 +42,7 @@ export default [
       'prettier/prettier': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
-      '@typescript-eslint/consistent-type-assertions': [
-        'error',
-        { assertionStyle: 'never' },
-      ],
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
 
       'no-debugger': 'off',
       'no-console': 'off',
@@ -68,6 +67,16 @@ export default [
           },
         },
       ],
+      'max-lines-per-function': ['error', { max: 50, skipBlankLines: true, skipComments: true }],
+      '@typescript-eslint/no-magic-numbers': [
+        'error',
+        {
+          ignore: [0, 1, -1],
+          ignoreArrayIndexes: true,
+          ignoreEnums: true,
+          enforceConst: true,
+        },
+      ],
     },
     settings: {
       'import/resolver': {
@@ -81,12 +90,5 @@ export default [
       },
     },
   },
-  {
-    ignores: [
-      'node_modules/**',
-      'dist/**',
-      'vitest.config.ts',
-      'vite.config.ts',
-    ],
-  },
+  prettierConfig,
 ];
