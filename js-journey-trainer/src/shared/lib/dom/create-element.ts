@@ -18,7 +18,9 @@ export default function createElement<T extends keyof HTMLElementTagNameMap>(
 
   if (attributes !== undefined) {
     for (const [key, value] of Object.entries(attributes)) {
-      element.setAttribute(key, String(value));
+      if (value === false || value === null) continue;
+      if (value === true) element.setAttribute(key, '');
+      else element.setAttribute(key, String(value));
     }
   }
 
