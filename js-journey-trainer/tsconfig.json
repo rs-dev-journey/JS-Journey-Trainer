@@ -12,12 +12,14 @@
     "lib": [
       "ES2022",
       "DOM",
-      "DOM.Iterable"
+      "DOM.Iterable",
+      "ESNext.Disposable"
     ],
     "types": [
-      "vite/client"
+      "vite/client",
+      "vitest/globals"
     ],
-    
+
     "sourceMap": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
