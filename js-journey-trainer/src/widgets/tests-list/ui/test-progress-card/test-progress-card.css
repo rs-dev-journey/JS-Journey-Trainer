@@ -1,0 +1,130 @@
+.test-card {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #1b2333;
+  color: #e6edf3;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.test-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.test-card__title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.test-card__body {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.test-card__media {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.test-card__image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.test-card__description {
+  margin: 0;
+  font-size: 14px;
+  color: #9aa7b5;
+}
+
+.test-card__meta {
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.test-card__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.test-card__meta-label {
+  font-size: 12px;
+  color: #8b98a7;
+}
+
+.test-card__meta-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.test-card__open-button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.test-card__open-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+}
+
+.test-card__open-button:active {
+  transform: translateY(0);
+}
+
+.status-completed {
+  color: #4ade80;
+}
+
+.status-notCompleted {
+  color: #fbbf24;
+}
+
+@media (max-width: 380px) {
+  .test-card__meta {
+    flex-direction: column;
+  }
+
+  .test-card__open-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 280px) {
+  .test-card__media {
+    flex-direction: column;
+  }
+
+  .test-card__image {
+    align-self: flex-start;
+  }
+}
