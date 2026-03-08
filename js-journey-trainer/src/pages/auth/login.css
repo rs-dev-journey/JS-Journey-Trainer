@@ -6,7 +6,7 @@
   background: #fff;
 }
 
-.form-section {
+.section-form {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
@@ -16,7 +16,6 @@
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
   line-height: 1.2;
-  ;
 }
 
 .form {
@@ -58,7 +57,6 @@
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.12),
     0 2px 0 rgba(255, 255, 255, 0.25) inset;
-
 }
 
 .button-form:hover {
@@ -70,4 +68,9 @@
 .button-form:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.error-input {
+  font-size: 0.85rem;
+  color: #d12dc6;
 }

@@ -4,7 +4,7 @@ import './login.css';
 type InputForm = {
   labelText: string;
   id: string;
-  name: string;
+  name: 'username' | 'email' | 'password';
   type: string;
   placeholder: string;
   required?: boolean;
@@ -27,10 +27,21 @@ export function createInputForm(c: InputForm) {
     },
   });
 
-  const inputGroup = createElement('div', {
-    classList: ['input-group'],
-    children: [label, input],
+  const errorMessage = createElement('p', {
+    classList: ['error-input'],
+    textContent: '',
   });
 
-  return { inputGroup, label, input };
+  const inputGroup = createElement('div', {
+    classList: ['input-group'],
+    children: [label, input, errorMessage],
+  });
+
+  return { inputGroup, label, input, errorMessage };
+}
+
+export function firstLetterCapitalize(value: string) {
+  const firsLetter = value.trim();
+  if (!firsLetter) return '';
+  return firsLetter[0].toUpperCase() + firsLetter.slice(1);
 }
