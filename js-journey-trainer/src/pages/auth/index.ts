@@ -1,5 +1,5 @@
 import './login.css';
-import { submitForm } from './model';
+import { createSubmitHandler } from './model';
 import { createInputForm, firstLetterCapitalize } from './ui';
 
 export function createLoginLayout() {
@@ -77,9 +77,11 @@ export function renderLoginPage(root: HTMLElement) {
   section.append(form);
   root.append(container);
 
-  submitForm(form, {
+  const handler = createSubmitHandler({
     username: nameInput.errorMessage,
     email: emailInput.errorMessage,
     password: passwordInput.errorMessage,
   });
+
+  form.addEventListener('submit', handler);
 }
