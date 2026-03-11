@@ -36,6 +36,7 @@
     "vitest": "^4.0.18"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.1",
     "normalize.css": "^8.0.1"
   }
 }
