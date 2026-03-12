@@ -1,11 +1,11 @@
 import { apiSignUp } from '@/shared/api/supabase/auth.api';
-import type { loginFormData, Errors, ErrorElement } from './types';
+import type { loginFormData, Errors, ErrorElement, StatusAuth } from './types';
 
 const USERNAME_REGEX = /^[A-Za-z0-9]{3,10}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
-export function createSubmitHandler(errorElements: ErrorElement) {
+export function createSubmitHandler(errorElements: ErrorElement, serverAnswer: StatusAuth) {
   return async function submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
@@ -14,18 +14,27 @@ export function createSubmitHandler(errorElements: ErrorElement) {
 
     const data = getLoginFormData(form);
     const errors = validateInputForm(data);
+
     const email = data.email.trim();
     const password = data.password.trim();
-    console.log('email:', JSON.stringify(email));
 
     renderLoginErrors(errorElements, errors);
     if (hasErrors(errors)) return;
 
+    serverAnswer.serverErrorElement.textContent = '';
+    serverAnswer.statusElement.textContent = '';
+
+    serverAnswer.submitButton.disabled = true;
+    serverAnswer.statusElement.textContent = 'Please, wait';
+
     try {
       await apiSignUp(email, password);
-      console.log('SIGNED UP');
+      serverAnswer.statusElement.textContent = 'Account created!';
     } catch (error) {
-      console.error('SUPABASE ERROR', error);
+      serverAnswer.statusElement.textContent = '';
+      serverAnswer.serverErrorElement.textContent = getSupabaseErrorMessage(error);
+    } finally {
+      serverAnswer.submitButton.disabled = false;
     }
   };
 }
@@ -71,7 +80,20 @@ function validateInputForm(data: loginFormData): Errors {
   if (!password) {
     errors.password = 'Password is required';
   } else if (!PASSWORD_REGEX.test(password)) {
-    errors.password = 'Passsword must be at least 4 characters, one letter and one number';
+    errors.password = 'Passsword must be at least 6 characters, one letter and one number';
   }
   return errors;
+}
+
+function getSupabaseErrorMessage(error: unknown): string {
+  if (!(error instanceof Error)) {
+    return 'Something went wrong. Please try again';
+  }
+
+  const message = error.message.toLowerCase();
+
+  if (message.includes('rate limit')) return 'Too many attempts. Try again later.';
+  if (message.includes('weak password')) return 'Password is too weak, min 6 characters.';
+  if (message.includes('invalid login')) return 'Invalid email or password.';
+  return error.message;
 }

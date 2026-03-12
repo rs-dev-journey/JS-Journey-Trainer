@@ -24,16 +24,17 @@ export function addUsernameCapitalize(input: HTMLInputElement) {
   });
 }
 
-export function renderLoginPage(root: HTMLElement) {
-  const { container, section } = createLoginLayout();
-
+function createAuthForm() {
   const form = document.createElement('form');
   form.className = 'form';
   form.id = 'loginForm';
   form.noValidate = true;
 
-  const error = document.createElement('p');
-  error.className = 'error-form';
+  const serverError = document.createElement('p');
+  serverError.className = 'server-error-form';
+
+  const status = document.createElement('p');
+  status.className = 'status-form';
 
   const nameInput = createInputForm({
     labelText: 'Please, write your name',
@@ -67,21 +68,32 @@ export function renderLoginPage(root: HTMLElement) {
   buttonSubmitForm.type = 'submit';
 
   form.append(
-    error,
     nameInput.inputGroup,
     emailInput.inputGroup,
     passwordInput.inputGroup,
     buttonSubmitForm,
+    status,
+    serverError,
   );
+  return { form, buttonSubmitForm, status, serverError, nameInput, emailInput, passwordInput };
+}
+
+export function renderLoginPage(root: HTMLElement) {
+  const { container, section } = createLoginLayout();
+  const { form, buttonSubmitForm, status, serverError, nameInput, emailInput, passwordInput } =
+    createAuthForm();
 
   section.append(form);
   root.append(container);
 
-  const handler = createSubmitHandler({
-    username: nameInput.errorMessage,
-    email: emailInput.errorMessage,
-    password: passwordInput.errorMessage,
-  });
+  const handler = createSubmitHandler(
+    {
+      username: nameInput.errorMessage,
+      email: emailInput.errorMessage,
+      password: passwordInput.errorMessage,
+    },
+    { submitButton: buttonSubmitForm, statusElement: status, serverErrorElement: serverError },
+  );
 
   form.addEventListener('submit', handler);
 }

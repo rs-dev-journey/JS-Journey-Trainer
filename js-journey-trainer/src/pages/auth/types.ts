@@ -15,3 +15,9 @@ export type ErrorElement = {
   email: HTMLParagraphElement;
   password: HTMLParagraphElement;
 };
+
+export type StatusAuth = {
+  statusElement: HTMLElement;
+  serverErrorElement: HTMLElement;
+  submitButton: HTMLButtonElement;
+};
