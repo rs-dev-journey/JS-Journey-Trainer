@@ -1,11 +1,12 @@
+import { apiSignUp } from '@/shared/api/supabase/auth.api';
 import type { loginFormData, Errors, ErrorElement } from './types';
 
 const USERNAME_REGEX = /^[A-Za-z0-9]{3,10}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
-const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{4,}$/;
+const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
 export function createSubmitHandler(errorElements: ErrorElement) {
-  return function submitHandler(event: SubmitEvent) {
+  return async function submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -13,11 +14,19 @@ export function createSubmitHandler(errorElements: ErrorElement) {
 
     const data = getLoginFormData(form);
     const errors = validateInputForm(data);
+    const email = data.email.trim();
+    const password = data.password.trim();
+    console.log('email:', JSON.stringify(email));
 
     renderLoginErrors(errorElements, errors);
     if (hasErrors(errors)) return;
 
-    console.log('OK', { username: data.username, email: data.email });
+    try {
+      await apiSignUp(email, password);
+      console.log('SIGNED UP');
+    } catch (error) {
+      console.error('SUPABASE ERROR', error);
+    }
   };
 }
 
