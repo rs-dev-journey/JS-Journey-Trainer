@@ -1,11 +1,15 @@
-import { apiSignUp } from '@/shared/api/supabase/auth.api';
+import { apiSignIn, apiSignUp } from '@/shared/api/supabase/auth.api';
 import type { loginFormData, Errors, ErrorElement, StatusAuth } from './types';
 
 const USERNAME_REGEX = /^[A-Za-z0-9]{3,10}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
-export function createSubmitHandler(errorElements: ErrorElement, serverAnswer: StatusAuth) {
+export function createSubmitHandler(
+  errorElements: ErrorElement,
+  serverAnswer: StatusAuth,
+  getActiveTab: () => 'signup' | 'signin',
+) {
   return async function submitHandler(event: SubmitEvent) {
     event.preventDefault();
 
@@ -13,7 +17,8 @@ export function createSubmitHandler(errorElements: ErrorElement, serverAnswer: S
     if (!(form instanceof HTMLFormElement)) return;
 
     const data = getLoginFormData(form);
-    const errors = validateInputForm(data);
+    const activeTab = getActiveTab();
+    const errors = validateInputForm(data, activeTab);
 
     const email = data.email.trim();
     const password = data.password.trim();
@@ -28,8 +33,13 @@ export function createSubmitHandler(errorElements: ErrorElement, serverAnswer: S
     serverAnswer.statusElement.textContent = 'Please, wait';
 
     try {
-      await apiSignUp(email, password);
-      serverAnswer.statusElement.textContent = 'Account created!';
+      if (activeTab === 'signin') {
+        await apiSignIn(email, password);
+        serverAnswer.statusElement.textContent = 'Logged in ';
+      } else {
+        await apiSignUp(email, password);
+        serverAnswer.statusElement.textContent = 'Account created!';
+      }
     } catch (error) {
       serverAnswer.statusElement.textContent = '';
       serverAnswer.serverErrorElement.textContent = getSupabaseErrorMessage(error);
@@ -58,17 +68,19 @@ function hasErrors(errors: Errors): boolean {
   return Boolean(errors.username || errors.email || errors.password);
 }
 
-function validateInputForm(data: loginFormData): Errors {
+function validateInputForm(data: loginFormData, activeTab: 'signup' | 'signin'): Errors {
   const errors: Errors = {};
 
   const username = data.username.trim();
   const email = data.email.trim();
   const password = data.password.trim();
 
-  if (!username) {
-    errors.username = 'Name is required';
-  } else if (!USERNAME_REGEX.test(username)) {
-    errors.username = 'Username should be 3-10 symbols (letters,numbers 0-9)';
+  if (activeTab === 'signup') {
+    if (!username) {
+      errors.username = 'Name is required';
+    } else if (!USERNAME_REGEX.test(username)) {
+      errors.username = 'Username should be 3-10 symbols (letters,numbers 0-9)';
+    }
   }
 
   if (!email) {
