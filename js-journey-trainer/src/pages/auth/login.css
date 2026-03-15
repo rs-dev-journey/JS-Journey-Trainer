@@ -1,5 +1,5 @@
 body {
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
 }
 
 .container-form {
@@ -21,7 +21,7 @@ body {
   content: '';
   position: absolute;
   inset: 1;
-  background: rgba(2, 6, 23, 0.40);
+  background: rgba(2, 6, 23, 0.4);
 }
 
 .text-auth,
@@ -172,7 +172,6 @@ body {
   font-size: 0.85rem;
   color: #d12dc6;
 }
-
 
 @media (max-width: 900px) {
   .container-form {
