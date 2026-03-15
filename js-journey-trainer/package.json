@@ -29,6 +29,7 @@
     "eslint-plugin-unicorn": "^63.0.0",
     "globals": "^17.3.0",
     "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "jsdom": "^28.1.0",
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
@@ -37,5 +38,12 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "npm test -- --findRelatedTests --passWithNoTests"
+    ]
   }
 }
