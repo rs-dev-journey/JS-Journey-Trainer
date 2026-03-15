@@ -68,7 +68,7 @@ function hasErrors(errors: Errors): boolean {
   return Boolean(errors.username || errors.email || errors.password);
 }
 
-function validateInputForm(data: loginFormData, activeTab: 'signup' | 'signin'): Errors {
+export function validateInputForm(data: loginFormData, activeTab: 'signup' | 'signin'): Errors {
   const errors: Errors = {};
 
   const username = data.username.trim();
@@ -97,7 +97,7 @@ function validateInputForm(data: loginFormData, activeTab: 'signup' | 'signin'):
   return errors;
 }
 
-function getSupabaseErrorMessage(error: unknown): string {
+export function getSupabaseErrorMessage(error: unknown): string {
   if (!(error instanceof Error)) {
     return 'Something went wrong. Please try again';
   }
