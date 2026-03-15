@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateInputForm, getSupabaseErrorMessage } from '../model';
+import { validateInputForm, getSupabaseErrorMessage } from '../validation';
 
 describe('validateInputForm', () => {
   it('signup: username is required', () => {
