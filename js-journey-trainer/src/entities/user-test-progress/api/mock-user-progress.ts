@@ -13,7 +13,7 @@ export const userProgressMock: UserTestProgress[] = [
     userId: 'user-1',
     testId: 'js-scope-closures',
     status: 'completed',
-    attemptsCount: 1,
+    attemptsCount: 2,
     lastScorePercent: 50,
   },
 

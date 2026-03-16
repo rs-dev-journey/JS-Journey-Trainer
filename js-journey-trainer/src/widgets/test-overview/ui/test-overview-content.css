@@ -1,0 +1,234 @@
+.test-overview {
+  min-height: 100vh;
+  color: #e7edf9;
+}
+
+.test-overview__header {
+  margin-bottom: 36px;
+  background: #0f1724;
+}
+
+.test-overview__heading {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.test-overview__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(44, 87, 182, 0.95);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.test-overview__back:hover {
+  color: #e2e8f0;
+}
+
+.test-overview__title {
+  padding: 16px 24px;
+  margin: 0 0 10px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #f3f7ff;
+}
+
+.test-overview__description {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(145, 170, 230, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 18px;
+  line-height: 1.45;
+  color: #d7e2f4;
+}
+
+.test-overview__attempts {
+  padding: 16px;
+  margin-bottom: 36px;
+}
+
+.test-overview__attempts-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.test-overview__attempts-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #f0f4ff;
+}
+
+.test-overview__empty-attempts {
+  margin: 0;
+  padding: 20px 22px;
+  border: 1px solid rgba(145, 170, 230, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #c7d2e8;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.attempts-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+.attempts-table thead {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.attempts-table th,
+.attempts-table td {
+  padding: 22px 20px;
+  text-align: left;
+}
+
+.attempts-table th {
+  position: relative;
+  border-bottom: 1px solid rgba(145, 170, 230, 0.14);
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #eef3ff;
+}
+
+.attempts-table thead th:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 0;
+  width: 1px;
+  height: 1.6em;
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%);
+  transition: background-color 0.2s;
+  content: '';
+}
+
+.attempts-table td {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #dbe5f7;
+}
+
+.attempts-table tbody tr:not(:last-child) td {
+  border-bottom: 1px solid rgba(145, 170, 230, 0.1);
+}
+
+.attempts-table tbody tr:hover {
+  background: #1b2333;
+}
+
+.attempts-table th:nth-child(1),
+.attempts-table td:nth-child(1) {
+  width: 46%;
+}
+
+.attempts-table th:nth-child(2),
+.attempts-table td:nth-child(2) {
+  width: 24%;
+}
+
+.attempts-table th:nth-child(3),
+.attempts-table td:nth-child(3) {
+  width: 30%;
+}
+
+.test-overview__actions {
+  width: 100%;
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.test-overview__start-button,
+.test-overview__answers-button {
+  min-height: 32px;
+  padding: 4px 15px;
+  border: 1px solid rgba(132, 168, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(44, 87, 182, 0.95);
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.test-overview__start-button:hover,
+.test-overview__answers-button:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 30px rgba(18, 42, 96, 0.42);
+}
+
+.test-overview__start-button:active,
+.test-overview__answers-button:active {
+  filter: brightness(0.98);
+}
+
+.test-overview__start-button:focus-visible,
+.test-overview__answers-button:focus-visible {
+  outline: 2px solid #89aefc;
+  outline-offset: 3px;
+}
+
+.test-overview__answers-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: grayscale(0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 18px rgba(18, 42, 96, 0.2);
+}
+
+@media (max-width: 768px) {
+  .test-overview__description {
+    font-size: 17px;
+    padding: 16px;
+  }
+
+  .test-overview__attempts-title {
+    font-size: 22px;
+  }
+
+  .attempts-table th,
+  .attempts-table td {
+    padding: 16px 14px;
+    font-size: 16px;
+  }
+
+  .test-overview__start-button,
+  .test-overview__answers-button {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 540px) {
+  .test-overview__attempts-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 300px) {
+  .test-overview__actions {
+    flex-wrap: wrap;
+  }
+}

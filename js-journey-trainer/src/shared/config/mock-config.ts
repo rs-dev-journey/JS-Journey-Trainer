@@ -1,4 +1,4 @@
 export const mockConfig = {
-  delayMs: 500,
+  delayMs: 1000,
   shouldFail: false,
 };

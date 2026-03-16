@@ -1,6 +1,5 @@
 .tests-page {
   min-height: 100vh;
-  /* padding: 10px; */
   background: #131a26;
 }
 
@@ -8,7 +7,7 @@
   padding: 4px 16px;
   margin-bottom: 28px;
   background: #0f1724;
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .tests-page__title {

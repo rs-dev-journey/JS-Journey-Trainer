@@ -24,3 +24,19 @@ export function createTestPage(userId: string) {
 
   return page;
 }
+
+export interface LastAttemptWrongAnswer {
+  // id: string;
+  userId: string;
+  testId: string;
+  attemptId: string; // под вопросом
+
+  questionId: string;
+  selectIndex: number;
+  correctIndex: number;
+
+  questionSnapshot: {
+    question: string;
+    options: string[];
+  };
+}

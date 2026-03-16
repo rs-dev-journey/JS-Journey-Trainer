@@ -15,3 +15,7 @@ export interface Test {
   questionCount: number;
   questions: Question[];
 }
+
+export type TestState = {
+  currentTest: Test | null;
+};
