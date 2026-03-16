@@ -36,3 +36,26 @@ PR с тестами: https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/
 |`src/entities/stats/api/__tests__/repository.spec.ts`	| Тестирование `DataRepository`. Проверка структуры возвращаемых объектов и корректность работы асинхронных моков.|
 
 PR с тестами: https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/24
+
+
+**@kupzov2000**
+
+**Что тестирую:**  
+ - **Форматирование данных:** Преобразование времени и дат в строковый формат для отображения в UI.
+ - **Парсинг URL:** Корректное извлечение `testId` из `pathname`.
+ - **Логику прохождения теста:** Расчёт результата теста, процента правильных ответов и времени прохождения.
+ - **Селекторы состояния:** Получение текущего вопроса, номера вопроса и процента прогресса.
+ - **Хранилище состояния теста:** Корректность обновления состояния при переходе между вопросами и сохранении ответов.
+ - **API моков:** Фильтрацию и возврат попыток пользователя, а также обработку ошибок.
+
+| Файл | Описание |
+|:---|:---|
+|`src/shared/lib/time/format-duration.test.ts`| Проверка функции `formatDuration`: преобразование миллисекунд в строку формата `mm:ss`. |
+|`src/shared/lib/date/format-date.test.ts`| Тестирование функции `formatDate`: преобразование timestamp в строку формата `YYYY-MM-DD HH:mm`, включая корректную работу ведущих нулей. |
+|`src/pages/test-run-page/lib/__tests__/get-test-id.test.ts`| Проверка функции `getTestIdFromPathname`: извлечение `testId` из `location.pathname` и обработка некорректного пути. |
+|`src/features/run-test/model/__tests__/calculate-result.test.ts`| Тестирование функции `calculateResult`: проверка подсчёта правильных ответов, процента результата, времени прохождения и списка неправильных ответов. |
+|`src/features/run-test/model/__tests__/selectors.test.ts`| Проверка селекторов состояния теста: получение текущего вопроса, номера вопроса, определение последнего вопроса и расчёт процента прогресса. |
+|`src/features/run-test/model/__tests__/store.test.ts`| Тестирование `runTestState`: проверка инициализации состояния, перехода к следующему вопросу, сохранения ответов и сброса состояния. |
+|`src/entities/attempt/api/__tests__/get-user-test-attempts.test.ts`| Проверка `getUserTestAttempts`: фильтрация попыток по `userId` и `testId`, возврат пустого массива при отсутствии данных и обработка ошибки при `mockConfig.shouldFail`. |
+
+PR с тестами: https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/26
