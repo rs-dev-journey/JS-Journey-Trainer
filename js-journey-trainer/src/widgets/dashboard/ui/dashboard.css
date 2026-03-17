@@ -4,7 +4,7 @@ body {
   gap: 20px;
   flex-wrap: wrap;
   padding: 20px;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg-color, #f8f9fa);
 }
 
@@ -43,7 +43,7 @@ body {
 .chart-card .card-content.column {
   flex-direction: column;
 }
-.chart-card [id^=chart-] {
+.chart-card [id^='chart-'] {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,7 +114,8 @@ body {
 }
 
 @keyframes camelWalk {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-30px) scaleX(1);
   }
   48% {
@@ -144,4 +145,4 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}/*# sourceMappingURL=dashboard.css.map */
+} /*# sourceMappingURL=dashboard.css.map */

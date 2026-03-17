@@ -1,1 +1,1 @@
-export { DashboardService } from './ui/DashboardService';
+export { DashboardService } from './ui/dashboard-service';

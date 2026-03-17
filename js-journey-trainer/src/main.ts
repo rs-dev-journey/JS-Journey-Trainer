@@ -5,14 +5,13 @@ console.log('hi!');
 import { DashboardService } from '@/widgets/dashboard';
 
 const bootstrap = async () => {
-    try {
-        await DashboardService.init();
+  try {
+    await DashboardService.init();
 
-        console.log('Dashboard successfully initialized 🐫');
-        
-    } catch (error) {
-        console.error('App start error:', error);
-    }
+    console.log('Dashboard successfully initialized 🐫');
+  } catch (error) {
+    console.error('App start error:', error);
+  }
 };
 
 document.addEventListener('DOMContentLoaded', bootstrap);
