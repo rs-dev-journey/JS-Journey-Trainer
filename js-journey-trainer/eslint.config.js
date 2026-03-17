@@ -90,5 +90,25 @@ export default [
       },
     },
   },
+
+  {
+    files: ['**/__tests__/**/*.ts', '**/*.spec.ts', '**/*.test.ts'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+      'max-lines-per-function': 'off',
+    },
+  },
   prettierConfig,
 ];
