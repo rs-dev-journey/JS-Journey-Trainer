@@ -1,6 +1,7 @@
 import './login.css';
 import { createSubmitHandler } from './model';
 import { createInputForm, firstLetterCapitalize } from './ui';
+import createElement from '@/shared/lib/dom/create-element';
 
 export function createLoginLayout() {
   const container = document.createElement('div');
@@ -23,23 +24,32 @@ export function createLoginLayout() {
   return { container, authBlock };
 }
 
-export function addUsernameCapitalize(input: HTMLInputElement) {
-  input.addEventListener('blur', () => {
-    input.value = firstLetterCapitalize(input.value);
-  });
+export function handleUsernameBlur(event: FocusEvent) {
+  const input = event.currentTarget;
+  if (!(input instanceof HTMLInputElement)) return;
+  input.value = firstLetterCapitalize(input.value);
+}
+
+export function attachUsernameCapitalize(input: HTMLInputElement) {
+  input.addEventListener('blur', handleUsernameBlur);
 }
 
 function createLoginForm() {
-  const form = document.createElement('form');
-  form.className = 'form';
-  form.id = 'loginForm';
-  form.noValidate = true;
+  const form = createElement('form', {
+    classList: ['form'],
+    attributes: {
+      id: 'loginForm',
+      novalidate: true,
+    },
+  });
 
-  const serverError = document.createElement('p');
-  serverError.className = 'server-error-form';
+  const serverError = createElement('p', {
+    classList: ['server-error-form'],
+  });
 
-  const status = document.createElement('p');
-  status.className = 'status-form';
+  const status = createElement('p', {
+    classList: ['status-form'],
+  });
 
   return { form, serverError, status };
 }
@@ -53,7 +63,7 @@ function createAuthInputs() {
     placeholder: 'Your name',
   });
 
-  addUsernameCapitalize(nameInput.input);
+  attachUsernameCapitalize(nameInput.input);
 
   const emailInput = createInputForm({
     labelText: 'Write your email',
@@ -74,30 +84,38 @@ function createAuthInputs() {
 }
 
 function createAuthButton() {
-  const buttonSubmitForm = document.createElement('button');
-  buttonSubmitForm.className = 'button-form';
-  buttonSubmitForm.textContent = 'Submit';
-  buttonSubmitForm.type = 'submit';
-
+  const buttonSubmitForm = createElement('button', {
+    classList: ['button-form'],
+    textContent: 'Submit',
+    attributes: {
+      type: 'submit',
+    },
+  });
   return { buttonSubmitForm };
 }
 
 function createAuthTabs() {
-  const tabs = document.createElement('div');
-  tabs.className = 'tabs-form';
+  const tabSignUp = createElement('button', {
+    classList: ['tab-signup', 'tab-active'],
+    textContent: 'Sign Up',
+    attributes: {
+      type: 'button',
+    },
+  });
 
-  const tabSignUp = document.createElement('button');
-  tabSignUp.type = 'button';
-  tabSignUp.className = 'tab-signup';
-  tabSignUp.textContent = 'Sign Up';
-  tabSignUp.classList.add('tab-active');
+  const tabSignIn = createElement('button', {
+    classList: ['tab-signin'],
+    textContent: 'Sign In',
+    attributes: {
+      type: 'button',
+    },
+  });
 
-  const tabSignIn = document.createElement('button');
-  tabSignIn.type = 'button';
-  tabSignIn.className = 'tab-signin';
-  tabSignIn.textContent = 'Sign In';
+  const tabs = createElement('div', {
+    classList: ['tabs-form'],
+    children: [tabSignUp, tabSignIn],
+  });
 
-  tabs.append(tabSignUp, tabSignIn);
   return { tabs, tabSignUp, tabSignIn };
 }
 

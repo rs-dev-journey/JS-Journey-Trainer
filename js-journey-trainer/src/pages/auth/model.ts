@@ -1,5 +1,5 @@
 import { apiSignIn, apiSignUp } from '@/shared/api/supabase/auth.api';
-import type { loginFormData, Errors, ErrorElement, StatusAuth } from './types';
+import type { LoginFormData, Errors, ErrorElement, StatusAuth } from './types';
 import { validateInputForm, getSupabaseErrorMessage } from './validation';
 
 export function createSubmitHandler(
@@ -23,35 +23,25 @@ export function createSubmitHandler(
     renderLoginErrors(errorElements, errors);
     if (hasErrors(errors)) return;
 
-    serverAnswer.serverErrorElement.textContent = '';
-    serverAnswer.statusElement.textContent = '';
-
-    serverAnswer.submitButton.disabled = true;
-    serverAnswer.statusElement.textContent = 'Please, wait';
+    setPendingState(serverAnswer);
 
     try {
-      if (activeTab === 'signin') {
-        await apiSignIn(email, password);
-        serverAnswer.statusElement.textContent = 'Logged in ';
-      } else {
-        await apiSignUp(email, password);
-        serverAnswer.statusElement.textContent = 'Account created!';
-      }
+      const successMessage = await submitAuth(activeTab, email, password);
+      setSuccessState(serverAnswer, successMessage);
     } catch (error) {
-      serverAnswer.statusElement.textContent = '';
-      serverAnswer.serverErrorElement.textContent = getSupabaseErrorMessage(error);
+      setErrorState(serverAnswer, error);
     } finally {
-      serverAnswer.submitButton.disabled = false;
+      setIdleState(serverAnswer);
     }
   };
 }
 
-function getLoginFormData(form: HTMLFormElement): loginFormData {
-  const formDate = new FormData(form);
+function getLoginFormData(form: HTMLFormElement): LoginFormData {
+  const formData = new FormData(form);
   return {
-    username: String(formDate.get('username') ?? ''),
-    email: String(formDate.get('email') ?? ''),
-    password: String(formDate.get('password') ?? ''),
+    username: String(formData.get('username') ?? ''),
+    email: String(formData.get('email') ?? ''),
+    password: String(formData.get('password') ?? ''),
   };
 }
 
@@ -63,4 +53,33 @@ function renderLoginErrors(errorElements: ErrorElement, errors: Errors) {
 
 function hasErrors(errors: Errors): boolean {
   return Boolean(errors.username || errors.email || errors.password);
+}
+
+function setPendingState(serverAnswer: StatusAuth) {
+  serverAnswer.serverErrorElement.textContent = '';
+  serverAnswer.statusElement.textContent = 'Please, wait';
+  serverAnswer.submitButton.disabled = true;
+}
+
+function setSuccessState(serverAnswer: StatusAuth, message: string) {
+  serverAnswer.serverErrorElement.textContent = '';
+  serverAnswer.statusElement.textContent = message;
+}
+
+function setErrorState(serverAnswer: StatusAuth, error: unknown) {
+  serverAnswer.statusElement.textContent = '';
+  serverAnswer.serverErrorElement.textContent = getSupabaseErrorMessage(error);
+}
+
+function setIdleState(serverAnswer: StatusAuth) {
+  serverAnswer.submitButton.disabled = false;
+}
+
+async function submitAuth(activeTab: 'signup' | 'signin', email: string, password: string) {
+  if (activeTab === 'signin') {
+    await apiSignIn(email, password);
+    return 'Logged in';
+  }
+  await apiSignUp(email, password);
+  return 'Account created!';
 }

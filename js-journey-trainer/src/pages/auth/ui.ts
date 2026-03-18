@@ -5,25 +5,25 @@ type InputForm = {
   labelText: string;
   id: string;
   name: 'username' | 'email' | 'password';
-  type: string;
+  type: 'text' | 'email' | 'password';
   placeholder: string;
   required?: boolean;
 };
 
-export function createInputForm(c: InputForm) {
+export function createInputForm(inputConfig: InputForm) {
   const label = createElement('label', {
-    textContent: c.labelText,
+    textContent: inputConfig.labelText,
   });
-  label.htmlFor = c.id;
+  label.htmlFor = inputConfig.id;
 
   const input = createElement('input', {
     classList: ['input-form'],
     attributes: {
-      id: c.id,
-      name: c.name,
-      type: c.type,
-      placeholder: c.placeholder,
-      required: c.required ?? false,
+      id: inputConfig.id,
+      name: inputConfig.name,
+      type: inputConfig.type,
+      placeholder: inputConfig.placeholder,
+      required: inputConfig.required ?? false,
     },
   });
 
@@ -41,7 +41,7 @@ export function createInputForm(c: InputForm) {
 }
 
 export function firstLetterCapitalize(value: string) {
-  const firsLetter = value.trim();
-  if (!firsLetter) return '';
-  return firsLetter[0].toUpperCase() + firsLetter.slice(1);
+  const trimmedValue = value.trim();
+  if (!trimmedValue) return '';
+  return trimmedValue[0].toUpperCase() + trimmedValue.slice(1);
 }

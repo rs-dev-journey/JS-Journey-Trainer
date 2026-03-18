@@ -1,10 +1,10 @@
-import type { loginFormData, Errors } from './types';
+import type { LoginFormData, Errors } from './types';
 
 const USERNAME_REGEX = /^[A-Za-z0-9]{3,10}$/;
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]{3,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
-export function validateInputForm(data: loginFormData, activeTab: 'signup' | 'signin'): Errors {
+export function validateInputForm(data: LoginFormData, activeTab: 'signup' | 'signin'): Errors {
   const errors: Errors = {};
 
   const username = data.username.trim();
