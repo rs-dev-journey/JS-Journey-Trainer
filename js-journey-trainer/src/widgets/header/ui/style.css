@@ -1,0 +1,117 @@
+.main-header {
+  width: 100%;
+  flex-basis: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 64px;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+
+  .nav-item {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--bg-secondary);
+
+    img {
+      width: 65%;
+      height: 65%;
+      object-fit: contain;
+    }
+  }
+
+  .user-name {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+}
+
+.theme-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+
+  .moon-icon {
+    display: none;
+  }
+
+  [data-theme='dark'] & {
+    .sun-icon {
+      display: none;
+    }
+    .moon-icon {
+      display: inline;
+    }
+  }
+}
+
+:root,
+[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-primary: #000000;
+  --bg-secondary: #f0f0f0;
+  --border: #ccc;
+  --accent: #fbbf24;
+  --accent-hover: #f59e0b;
+}
+
+[data-theme='dark'] {
+  --bg-color: #333333;
+  --text-primary: #ffffff;
+  --bg-secondary: #444444;
+  --border: #555;
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn {
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #ffffff;
+  }
+}

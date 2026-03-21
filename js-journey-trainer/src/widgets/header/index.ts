@@ -1,0 +1,1 @@
+export { renderHeader } from './ui';
