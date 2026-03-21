@@ -1,6 +1,8 @@
 import { apiSignIn, apiSignUp } from '@/shared/api/supabase/auth.api';
 import type { LoginFormData, Errors, ErrorElement, StatusAuth } from './types';
 import { validateInputForm, getSupabaseErrorMessage } from './validation';
+import { initAuth } from '@/entities/user';
+import { navigate } from '@/app/router';
 
 export function createSubmitHandler(
   errorElements: ErrorElement,
@@ -28,6 +30,10 @@ export function createSubmitHandler(
     try {
       const successMessage = await submitAuth(activeTab, email, password);
       setSuccessState(serverAnswer, successMessage);
+      if (activeTab === 'signin') {
+        await initAuth();
+        navigate('/practice');
+      }
     } catch (error) {
       setErrorState(serverAnswer, error);
     } finally {
@@ -81,5 +87,5 @@ async function submitAuth(activeTab: 'signup' | 'signin', email: string, passwor
     return 'Logged in';
   }
   await apiSignUp(email, password);
-  return 'Account created!';
+  return 'Account created! Now sign in.';
 }
