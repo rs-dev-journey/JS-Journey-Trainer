@@ -1,10 +1,10 @@
 import 'normalize.css';
 import './style.css';
 
-import { renderLoginPage } from './pages/auth';
+import { startApp } from './app';
 
 const root = document.createElement('div');
 root.id = 'app';
 document.body.append(root);
 
-renderLoginPage(root);
+void startApp(root);
