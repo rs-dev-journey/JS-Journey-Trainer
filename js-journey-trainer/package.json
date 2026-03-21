@@ -43,7 +43,7 @@
     "*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write",
-      "npm test -- --findRelatedTests --passWithNoTests"
+      "vitest related --run --passWithNoTests"
     ]
   }
 }
