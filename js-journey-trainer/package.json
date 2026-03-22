@@ -30,6 +30,7 @@
     "globals": "^17.3.0",
     "husky": "^9.1.7",
     "jsdom": "^28.1.0",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
@@ -37,5 +38,15 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "vitest related --run --passWithNoTests"
+    ]
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.59.1"
   }
 }
