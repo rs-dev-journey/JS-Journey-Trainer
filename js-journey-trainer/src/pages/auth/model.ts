@@ -2,7 +2,7 @@ import { apiSignIn, apiSignUp } from '@/shared/api/supabase/auth.api';
 import type { LoginFormData, Errors, ErrorElement, StatusAuth } from './types';
 import { validateInputForm, getSupabaseErrorMessage } from './validation';
 import { initAuth } from '@/entities/user';
-import { navigate } from '@/app/router';
+import { navigate } from '@/shared/lib/router/navigate';
 
 export function createSubmitHandler(
   errorElements: ErrorElement,

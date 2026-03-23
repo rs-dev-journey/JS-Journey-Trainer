@@ -1,4 +1,4 @@
-import { navigate } from '@/app/router';
+import { navigate } from '@/shared/lib/router/navigate';
 
 export function renderHomePage(root: HTMLElement) {
   const wrapper = document.createElement('section');

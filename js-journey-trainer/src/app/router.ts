@@ -8,6 +8,7 @@ import { createTestsPage } from '@/pages/tests-page/example';
 import { createTestOverviewPage } from '@/pages/test-overview-page/example';
 import { createTestRunPage } from '@/pages/test-run-page/example';
 import { renderNotFoundPage } from '@/pages/not-found-page/example';
+import { ROUTE_CHANGE_EVENT } from '@/shared/lib/router/navigate';
 
 type Route = {
   render: (root: HTMLElement) => void;
@@ -112,13 +113,9 @@ function renderCurrentRoute() {
   renderPage(route);
 }
 
-export function navigate(path: string) {
-  history.pushState(null, '', path);
-  renderCurrentRoute();
-}
-
 export function startRouter(root: HTMLElement) {
   appRoot = root;
   globalThis.addEventListener('popstate', renderCurrentRoute);
+  globalThis.addEventListener(ROUTE_CHANGE_EVENT, renderCurrentRoute);
   renderCurrentRoute();
 }
