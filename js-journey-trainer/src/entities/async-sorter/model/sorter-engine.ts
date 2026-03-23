@@ -31,6 +31,18 @@ export const selectNumber = (value: string): void => {
   }
 };
 
+export const handleDrop = (value: string, index: number): void => {
+  if (currentState.userOrder.includes(value)) return;
+
+  if (currentState.userOrder[index] === null) {
+    currentState.userOrder[index] = value;
+
+    if (!currentState.userOrder.includes(null)) {
+      checkResult();
+    }
+  }
+};
+
 export const preventStandardDragOver = (event: DragEvent): void => {
   event.preventDefault();
 };
