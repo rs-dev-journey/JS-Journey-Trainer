@@ -1,0 +1,29 @@
+#score-board {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--glow-color);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.game-object {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 5;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  will-change: transform, top;
+}
+
+.game-object.is-clicked {
+  transform: scale(1.5) rotate(20deg);
+  opacity: 0;
+  pointer-events: none;
+}
