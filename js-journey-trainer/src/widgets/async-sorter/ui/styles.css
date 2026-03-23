@@ -1,0 +1,158 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121212;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 0;
+}
+
+.engine {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 15px;
+  border: 1px solid #333;
+}
+
+.container {
+  border: 1px solid #444;
+  border-radius: 12px;
+  width: 200px;
+  min-height: 180px;
+  padding: 10px;
+  background: #1e1e1e;
+  position: relative;
+}
+
+.container h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #666;
+  text-align: center;
+  margin-top: 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+.visual-task {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: monospace;
+  background: #2d2d2d;
+  border-left: 4px solid #3498db;
+  animation: pop 0.3s ease;
+}
+
+.work-zone {
+  width: 860px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin: auto;
+}
+
+.code-window {
+  width: 100%;
+  background: #282c34;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 5px solid #e1b12c;
+  font-family: 'Fira Code', monospace;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.quiz-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.slots {
+  display: flex;
+  gap: 10px;
+}
+
+.slot {
+  width: 50px;
+  height: 50px;
+  border: 2px dashed #444;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  background: #121212;
+}
+
+.slot.correct {
+  border-color: #2ed573;
+  color: #2ed573;
+}
+
+.slot.occupied {
+  cursor: pointer;
+  background: #2d2d2d;
+  border-style: solid;
+}
+
+.slot.occupied:hover {
+  background: #3d3d3d;
+  border-color: #ff4757;
+}
+
+.options {
+  display: flex;
+  gap: 15px;
+}
+
+.num-card {
+  width: 45px;
+  height: 45px;
+  background: #3498db;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  font-weight: bold;
+}
+
+.console-out {
+  width: 100%;
+  height: 50px;
+  background: #000;
+  color: #2ed573;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
