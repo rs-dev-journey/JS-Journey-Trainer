@@ -1,6 +1,6 @@
 // TODO: temporary page
 import { logout } from '@/entities/user';
-import { navigate } from '@/app/router';
+import { navigate } from '@/shared/lib/router/navigate';
 
 export function renderPracticePage(root: HTMLElement) {
   const title = document.createElement('h1');
