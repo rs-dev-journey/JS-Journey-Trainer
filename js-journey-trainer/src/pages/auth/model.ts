@@ -3,6 +3,7 @@ import type { LoginFormData, Errors, ErrorElement, StatusAuth } from './types';
 import { validateInputForm, getSupabaseErrorMessage } from './validation';
 import { initAuth } from '@/entities/user';
 import { navigate } from '@/shared/lib/router/navigate';
+import { createLoader } from '@/shared/ui/loader';
 
 export function createSubmitHandler(
   errorElements: ErrorElement,
@@ -26,8 +27,10 @@ export function createSubmitHandler(
     if (hasErrors(errors)) return;
 
     setPendingState(serverAnswer);
+    const LOADER_DELAY_MS = 2000;
 
     try {
+      await new Promise((resolve) => setTimeout(resolve, LOADER_DELAY_MS));
       const successMessage = await submitAuth(activeTab, email, password);
       setSuccessState(serverAnswer, successMessage);
       if (activeTab === 'signin') {
@@ -63,7 +66,8 @@ function hasErrors(errors: Errors): boolean {
 
 function setPendingState(serverAnswer: StatusAuth) {
   serverAnswer.serverErrorElement.textContent = '';
-  serverAnswer.statusElement.textContent = 'Please, wait';
+  serverAnswer.statusElement.replaceChildren(createLoader());
+  /*serverAnswer.statusElement.textContent = 'Please, wait';*/
   serverAnswer.submitButton.disabled = true;
 }
 

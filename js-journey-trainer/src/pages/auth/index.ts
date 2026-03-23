@@ -47,7 +47,7 @@ function createLoginForm() {
     classList: ['server-error-form'],
   });
 
-  const status = createElement('p', {
+  const status = createElement('div', {
     classList: ['status-form'],
   });
 
