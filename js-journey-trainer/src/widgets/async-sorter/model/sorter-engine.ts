@@ -1,9 +1,10 @@
-import { playlist } from '../lib/static-data';
+import { playlist } from '@/entities/async-sorter/lib/static-data';
 import type { SorterState } from '../../../entities/async-sorter/model/types';
+import { refreshSorterUI } from '../ui/async-sorter';
 
 export const currentState: SorterState = {
   currentTask: playlist[0],
-  userOrder: Array.from({ length: playlist[0].expected.length }).fill(null),
+  userOrder: Array.from<string | null>({ length: playlist[0].expected.length }).fill(null),
 };
 
 export const checkResult = (): void => {
@@ -28,6 +29,14 @@ export const selectNumber = (value: string): void => {
   if (emptyIndex !== -1) {
     currentState.userOrder[emptyIndex] = value;
     checkResult();
+    refreshSorterUI();
+  }
+};
+
+export const undoStep = (index: number): void => {
+  if (currentState.userOrder[index] !== null) {
+    currentState.userOrder[index] = null;
+    refreshSorterUI();
   }
 };
 
@@ -40,6 +49,7 @@ export const handleDrop = (value: string, index: number): void => {
     if (!currentState.userOrder.includes(null)) {
       checkResult();
     }
+    refreshSorterUI();
   }
 };
 
