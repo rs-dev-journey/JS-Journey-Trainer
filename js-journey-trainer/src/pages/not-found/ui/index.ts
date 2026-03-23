@@ -9,12 +9,18 @@ export function renderNotFoundPage(root: HTMLElement): void {
   const content = createElement('div', {
     classList: ['not-found-container'],
     children: [
-      createElement('h1', { textContent: GAME_CONFIG.MESSAGES.TITLE }),
+      createElement('h1', {
+        textContent: GAME_CONFIG.MESSAGES.TITLE,
+        classList: ['fade-in'],
+      }),
       createElement('p', {
         textContent: GAME_CONFIG.MESSAGES.INTERRUPTED,
-        classList: ['interrupted-text'],
+        classList: ['fade-in', 'delay-interrupted'],
       }),
-      createElement('p', { textContent: GAME_CONFIG.MESSAGES.SUBTITLE }),
+      createElement('p', {
+        textContent: GAME_CONFIG.MESSAGES.SUBTITLE,
+        classList: ['fade-in', 'delay-subtitle'],
+      }),
     ],
   });
 

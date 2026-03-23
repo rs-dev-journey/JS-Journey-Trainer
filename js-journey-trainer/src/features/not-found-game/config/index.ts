@@ -5,6 +5,8 @@ export const GAME_CONFIG = {
   REMOVE_DELAY_MS: 200,
   SPAWN_INTERVAL_MS: 800,
   INITIAL_POS_Y: -100,
+  ROTATION_MIN: -120,
+  ROTATION_MAX: 120,
   MESSAGES: {
     TITLE: 'PAGE NOT FOUND',
     INTERRUPTED: 'Your journey was interrupted...',

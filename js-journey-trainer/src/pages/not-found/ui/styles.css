@@ -12,10 +12,12 @@
 
 body,
 html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
   overflow: hidden;
   background-color: var(--bg-color);
   font-family: 'Arial Black', sans-serif;
@@ -23,14 +25,14 @@ html {
 }
 
 .not-found-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  pointer-events: none;
-  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   width: 90%;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
 }
 
 h1 {
@@ -52,4 +54,36 @@ p {
   margin-top: 10px;
   opacity: 0.8;
   font-weight: bold;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.delay-interrupted {
+  animation-delay: 0.5s;
+}
+
+.delay-subtitle {
+  animation-delay: 1.5s;
+}
+
+.interrupted-text {
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  opacity: 0.7;
 }

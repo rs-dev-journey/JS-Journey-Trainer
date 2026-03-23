@@ -10,26 +10,34 @@ export class GameEngine {
   }
 
   public spawn(container: HTMLElement): void {
-    const item = createFallingObject();
+    const gameObject = createFallingObject();
     const startX = Math.random() * (window.innerWidth - GAME_CONFIG.OBJECT_SIZE_PX);
 
-    item.style.left = `${startX}px`;
-    item.style.top = `${GAME_CONFIG.INITIAL_POS_Y}px`;
+    const rotationRange = GAME_CONFIG.ROTATION_MAX - GAME_CONFIG.ROTATION_MIN;
+    const initialRotation = Math.random() * rotationRange + GAME_CONFIG.ROTATION_MIN;
 
-    container.append(item);
-    this.startFallingAnimation(item);
-    this.bindEvents(item);
+    gameObject.style.left = `${startX}px`;
+    gameObject.style.top = `${GAME_CONFIG.INITIAL_POS_Y}px`;
+    gameObject.style.transform = `rotate(${initialRotation}deg)`;
+
+    container.append(gameObject);
+    this.startFallingAnimation(gameObject, initialRotation);
+    this.bindEvents(gameObject);
   }
 
-  private startFallingAnimation(item: HTMLImageElement): void {
-    let posY = GAME_CONFIG.INITIAL_POS_Y;
+  private startFallingAnimation(item: HTMLImageElement, initialRotation: number): void {
+    let currentPosY = GAME_CONFIG.INITIAL_POS_Y;
     const speed = GAME_CONFIG.FALL_SPEED_MIN + Math.random() * GAME_CONFIG.FALL_SPEED_MAX;
 
     const updatePosition = (): void => {
-      posY += speed;
-      item.style.top = `${posY}px`;
+      currentPosY += speed;
+      item.style.top = `${currentPosY}px`;
 
-      if (posY < window.innerHeight && item.isConnected) {
+      item.style.transform = `translateY(0) rotate(${initialRotation}deg)`;
+
+      const isOutOfBounds = currentPosY > window.innerHeight;
+
+      if (!isOutOfBounds && item.isConnected) {
         requestAnimationFrame(updatePosition);
       } else {
         item.remove();
