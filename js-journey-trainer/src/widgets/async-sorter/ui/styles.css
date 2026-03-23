@@ -132,6 +132,12 @@ body {
   font-weight: bold;
 }
 
+.num-card.used {
+  opacity: 0.3;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
 .console-out {
   width: 100%;
   height: 50px;

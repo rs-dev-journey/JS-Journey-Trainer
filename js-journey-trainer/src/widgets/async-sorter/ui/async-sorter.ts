@@ -18,7 +18,15 @@ export const refreshSorterUI = (): void => {
 
     slot.textContent = value ?? '?';
 
-    slot.classList.toggle('occupied', value);
+    slot.classList.toggle('occupied', !!value);
+  });
+
+  const cards = document.querySelectorAll('.num-card');
+  cards.forEach((card) => {
+    const cardValue = card.textContent;
+    const isUsed = currentState.userOrder.includes(cardValue);
+
+    card.classList.toggle('used', isUsed);
   });
 };
 

@@ -1,6 +1,7 @@
 import { playlist } from '@/entities/async-sorter/lib/static-data';
 import type { SorterState } from '../../../entities/async-sorter/model/types';
 import { refreshSorterUI } from '../ui/async-sorter';
+import { RESULT_DELAY } from '../lib/constants';
 
 export const currentState: SorterState = {
   currentTask: playlist[0],
@@ -28,8 +29,13 @@ export const selectNumber = (value: string): void => {
   const emptyIndex = currentState.userOrder.indexOf(null);
   if (emptyIndex !== -1) {
     currentState.userOrder[emptyIndex] = value;
+
     checkResult();
     refreshSorterUI();
+
+    if (!currentState.userOrder.includes(null)) {
+      setTimeout(checkResult, RESULT_DELAY);
+    }
   }
 };
 
