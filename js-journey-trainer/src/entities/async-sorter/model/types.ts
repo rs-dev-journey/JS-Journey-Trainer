@@ -16,4 +16,6 @@ export interface AsyncSorterTask {
 export interface SorterState {
   currentTask: AsyncSorterTask;
   userOrder: (string | null)[];
+  attempts: number;
+  startTime: number;
 }

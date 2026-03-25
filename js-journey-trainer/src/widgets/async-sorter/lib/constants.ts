@@ -7,3 +7,6 @@ export const ANIMATION_DELAY = {
   STEP_GAP: 600,
   START_PAUSE: 1000,
 } as const;
+
+export const HALF_DIVIDER = 2;
+export const MS_PER_SEC = 1000;

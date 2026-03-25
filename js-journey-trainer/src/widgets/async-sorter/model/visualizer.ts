@@ -72,5 +72,5 @@ export const runVisualLoop = async (steps: readonly VisualStep[]): Promise<void>
   await clearQueue('macro', stack);
 
   const consoleOut = document.querySelector('#visual-console');
-  if (consoleOut) consoleOut.textContent = '> Visualization complete.';
+  if (consoleOut) consoleOut.textContent = '> Visualization is completed.';
 };
