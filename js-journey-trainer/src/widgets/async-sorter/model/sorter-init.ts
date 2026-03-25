@@ -2,6 +2,7 @@ import { playlist } from '../../../entities/async-sorter/lib/static-data';
 import { renderOptions, renderSlots } from '../ui/async-sorter';
 import { currentState } from './sorter-engine';
 import { runVisualLoop } from './visualizer';
+import { sounds } from '../lib/audio-service';
 
 let currentTaskIndex = 0;
 
@@ -12,7 +13,9 @@ export const loadTask = (index: number): void => {
   currentTaskIndex = index;
 
   currentState.currentTask = currentTask;
-  currentState.userOrder = Array.from({ length: currentTask.expected.length }).fill(null);
+  currentState.userOrder = Array.from<string | null>({ length: currentTask.expected.length }).fill(
+    null,
+  );
   currentState.startTime = Date.now();
   currentState.attempts = 0;
 
@@ -71,6 +74,7 @@ export const initAsyncSorter = (): void => {
 
   if (nextButton) {
     nextButton.addEventListener('click', () => {
+      sounds.click();
       loadNewTask();
     });
   }

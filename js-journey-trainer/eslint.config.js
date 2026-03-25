@@ -90,5 +90,13 @@ export default [
       },
     },
   },
+
+  {
+    files: ['src/widgets/async-sorter/lib/audio-service.ts'],
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
+  
   prettierConfig,
 ];

@@ -3,6 +3,7 @@ import type { SorterState } from '../../../entities/async-sorter/model/types';
 import { refreshSorterUI } from '../ui/async-sorter';
 import { RESULT_DELAY, HALF_DIVIDER, MS_PER_SEC } from '../lib/constants';
 import { handleWin } from './sorter-init';
+import { sounds } from '../lib/audio-service';
 
 export const currentState: SorterState = {
   currentTask: playlist[0],
@@ -29,6 +30,7 @@ export const checkResult = async (): Promise<void> => {
 
   if (isCorrect) {
     currentState.isAnimating = true;
+    sounds.correct();
 
     const endTime = Date.now();
     const timeSpent = ((endTime - currentState.startTime) / MS_PER_SEC).toFixed(HALF_DIVIDER);
@@ -36,6 +38,7 @@ export const checkResult = async (): Promise<void> => {
 
     await handleWin();
   } else {
+    sounds.wrong();
     if (consoleOut) consoleOut.textContent = '> ERROR: Incorrect order. Please try again.';
     currentState.userOrder = Array.from<string | null>({
       length: currentState.userOrder.length,
@@ -44,6 +47,8 @@ export const checkResult = async (): Promise<void> => {
 };
 
 export const selectNumber = (value: string): void => {
+  sounds.click();
+
   if (currentState.userOrder.includes(value)) return;
 
   const emptyIndex = currentState.userOrder.indexOf(null);
@@ -60,6 +65,7 @@ export const selectNumber = (value: string): void => {
 };
 
 export const undoStep = (index: number): void => {
+  sounds.undo();
   if (currentState.userOrder[index] !== null) {
     currentState.userOrder[index] = null;
     refreshSorterUI();
