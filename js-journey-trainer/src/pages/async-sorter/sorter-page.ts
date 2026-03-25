@@ -34,8 +34,8 @@ export const renderSorterPage = (): HTMLElement => {
       }),
 
       createElement('div', {
-        classList: ['console-out', 'visual-console'],
-
+        classList: ['console-out'],
+        attributes: { id: 'visual-console' },
         textContent: '> Terminal: waiting for input...',
       }),
     ],

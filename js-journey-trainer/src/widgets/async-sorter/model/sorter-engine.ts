@@ -2,13 +2,19 @@ import { playlist } from '@/entities/async-sorter/lib/static-data';
 import type { SorterState } from '../../../entities/async-sorter/model/types';
 import { refreshSorterUI } from '../ui/async-sorter';
 import { RESULT_DELAY } from '../lib/constants';
+import { runVisualLoop } from './visualizer';
 
 export const currentState: SorterState = {
   currentTask: playlist[0],
   userOrder: Array.from<string | null>({ length: playlist[0].expected.length }).fill(null),
 };
 
-export const checkResult = (): void => {
+let isAnimating = false;
+
+export const checkResult = async (): Promise<void> => {
+  if (isAnimating) return;
+  const consoleOut = document.querySelector('#visual-console');
+
   const isFull = currentState.userOrder.every((item) => item !== null);
   if (!isFull) return;
 
@@ -17,9 +23,14 @@ export const checkResult = (): void => {
   );
 
   if (isCorrect) {
+    isAnimating = true;
+    if (consoleOut) consoleOut.textContent = '> SUCCESS! Starting visualization...';
     sendToAdapter(true, '0.00');
+    await runVisualLoop(currentState.currentTask.visualSteps);
+    isAnimating = false;
   } else {
-    console.log('Order is incorrect, try again');
+    if (consoleOut) consoleOut.textContent = '> ERROR: Incorrect order. Please try again.';
+    currentState.userOrder = Array.from({ length: currentState.userOrder.length }).fill(null);
   }
 };
 
