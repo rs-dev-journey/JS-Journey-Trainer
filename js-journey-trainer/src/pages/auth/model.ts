@@ -20,6 +20,7 @@ export function createSubmitHandler(
     const activeTab = getActiveTab();
     const errors = validateInputForm(data, activeTab);
 
+    const username = data.username.trim();
     const email = data.email.trim();
     const password = data.password.trim();
 
@@ -31,8 +32,14 @@ export function createSubmitHandler(
 
     try {
       await new Promise((resolve) => setTimeout(resolve, LOADER_DELAY_MS));
-      const successMessage = await submitAuth(activeTab, email, password);
+      const successMessage = await submitAuth(activeTab, username, email, password);
+
+      if (activeTab === 'signup') {
+        localStorage.setItem('explorer_username', username);
+      }
+
       setSuccessState(serverAnswer, successMessage);
+
       if (activeTab === 'signin') {
         await initAuth();
         navigate('/practice');
@@ -85,11 +92,16 @@ function setIdleState(serverAnswer: StatusAuth) {
   serverAnswer.submitButton.disabled = false;
 }
 
-async function submitAuth(activeTab: 'signup' | 'signin', email: string, password: string) {
+async function submitAuth(
+  activeTab: 'signup' | 'signin',
+  username: string,
+  email: string,
+  password: string,
+) {
   if (activeTab === 'signin') {
     await apiSignIn(email, password);
     return 'Logged in';
   }
-  await apiSignUp(email, password);
+  await apiSignUp(email, password, username);
   return 'Account created! Now sign in.';
 }
