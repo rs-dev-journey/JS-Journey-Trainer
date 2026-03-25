@@ -18,4 +18,5 @@ export interface SorterState {
   userOrder: (string | null)[];
   attempts: number;
   startTime: number;
+  isAnimating: boolean;
 }

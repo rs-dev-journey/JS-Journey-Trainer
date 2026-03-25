@@ -1,5 +1,6 @@
 import createElement from '../../shared/lib/dom/create-element';
 
+/* eslint-disable max-lines-per-function */
 export const renderSorterPage = (): HTMLElement => {
   return createElement('div', {
     classList: ['page-wrapper'],
@@ -28,6 +29,20 @@ export const renderSorterPage = (): HTMLElement => {
               }),
               createElement('div', { classList: ['slots', 'slots-row'] }),
               createElement('div', { classList: ['options'] }),
+              createElement('div', {
+                classList: ['controls'],
+                children: [
+                  createElement('button', {
+                    classList: ['hint-button'],
+                    textContent: 'Hint',
+                  }),
+                  createElement('button', {
+                    classList: ['next-button'],
+                    textContent: 'Next Task →',
+                    attributes: { disabled: true },
+                  }),
+                ],
+              }),
             ],
           }),
         ],
