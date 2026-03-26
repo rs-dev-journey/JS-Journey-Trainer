@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { formatDate } from './format-date';
-// import { formatDate } from '../format-date';
 
 const YEAR_1 = 2024;
 const MONTH_JANUARY = 0;

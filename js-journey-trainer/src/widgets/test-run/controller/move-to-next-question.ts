@@ -7,7 +7,7 @@ import { replaceQuestionSection } from '../ui/replace-question-section';
 export function moveToNextQuestion(
   layoutControls: TestRunLayoutControls,
   handleSubmitAnswer: (event: SubmitEvent) => void,
-) {
+): void {
   goNextQuestion();
 
   const currentQuestion = getCurrentQuestion();

@@ -9,3 +9,14 @@ export interface RunTestState {
   startedAt: number | null;
   isCompleted: boolean;
 }
+
+export interface TestResult {
+  id: string;
+  testId: string;
+  totalQuestions: number;
+  correctCount: number;
+  scorePercent: number;
+  finishedAt: number;
+  durationMs: number;
+  answers: Record<number, number>;
+}

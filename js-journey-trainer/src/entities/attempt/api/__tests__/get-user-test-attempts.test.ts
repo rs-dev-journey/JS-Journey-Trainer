@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-// import { mockConfig } from '@/shared/config/mock-config';
 import { getUserTestAttempts } from '../get-user-test-attempts';
 import { mockConfig } from '@/shared/config/mock-config';
 

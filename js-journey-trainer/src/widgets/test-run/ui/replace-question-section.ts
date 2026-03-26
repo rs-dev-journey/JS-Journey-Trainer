@@ -6,7 +6,7 @@ export function replaceQuestionSection(
   layoutControls: TestRunLayoutControls,
   question: Question,
   handleSubmitAnswer: (event: SubmitEvent) => void,
-) {
+): void {
   const nextQuestionSection = createQuestionSection(question);
 
   layoutControls.questionSection.replaceWith(nextQuestionSection.root);

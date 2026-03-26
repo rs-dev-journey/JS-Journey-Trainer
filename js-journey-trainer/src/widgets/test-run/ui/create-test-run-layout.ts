@@ -46,7 +46,7 @@ export function createTestRunLayout({
   headerViewModel,
   currentQuestion,
 }: TestRunLayoutProps): TestRunLayoutView {
-  const root = createElement('main', {
+  const root = createElement('section', {
     classList: ['test-run'],
   });
 

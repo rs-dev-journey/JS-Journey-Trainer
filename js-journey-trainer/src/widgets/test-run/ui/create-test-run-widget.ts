@@ -3,8 +3,12 @@ import { getTestRunHeaderViewModel } from '../model/get-test-run-header-view-mod
 import { createTestRunLayout } from './create-test-run-layout';
 import { getCurrentQuestion } from '@/features/run-test';
 import { createHandleSubmitAnswer } from '../controller/create-handle-submit-answer';
+import './test-run-widget.css';
+import { createHandleViewAnswers } from '../controller/create-handle-view-answers';
+import { handleGoToTestsPage } from '../model/go-to-tests-page';
+import { createHandleRestartTestRun } from '../controller/create-handle-restart-test-run';
 
-export function createTestRunWidget(test: Test): HTMLElement {
+export function createTestRunWidget(test: Test, userId: string): HTMLElement {
   const headerViewModel = getTestRunHeaderViewModel();
   const currentQuestion = getCurrentQuestion();
 
@@ -18,7 +22,13 @@ export function createTestRunWidget(test: Test): HTMLElement {
     currentQuestion,
   });
 
-  const handleSubmitAnswer = createHandleSubmitAnswer(layout.controls);
+  const handleSubmitAnswer = createHandleSubmitAnswer(
+    layout.controls,
+    userId,
+    createHandleRestartTestRun(layout, test, userId, createTestRunWidget),
+    handleGoToTestsPage,
+    createHandleViewAnswers(userId, test.id, layout.controls),
+  );
 
   layout.controls.questionForm.addEventListener('submit', handleSubmitAnswer);
 

@@ -3,7 +3,7 @@ import { createTestsListWidget } from '@/widgets/tests-list';
 import { handleOpenTest } from '../model/handle-open-test';
 import './tests-page.css';
 
-export function createTestPage(userId: string) {
+export function createTestsPage(userId: string) {
   const page = createElement('main', {
     classList: ['tests-page'],
   });
@@ -23,20 +23,4 @@ export function createTestPage(userId: string) {
   page.append(header, testsListWidget);
 
   return page;
-}
-
-export interface LastAttemptWrongAnswer {
-  // id: string;
-  userId: string;
-  testId: string;
-  attemptId: string; // под вопросом
-
-  questionId: string;
-  selectIndex: number;
-  correctIndex: number;
-
-  questionSnapshot: {
-    question: string;
-    options: string[];
-  };
 }

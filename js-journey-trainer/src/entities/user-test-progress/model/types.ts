@@ -7,3 +7,9 @@ export interface UserTestProgress {
   lastScorePercent: number | null;
   status: Status;
 }
+
+export type SaveUserProgressInput = {
+  userId: string;
+  testId: string;
+  scorePercent: number;
+};

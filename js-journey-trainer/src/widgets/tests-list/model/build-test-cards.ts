@@ -6,9 +6,6 @@ import type { Test } from '@/entities/test/model/types';
 export function buildTestCards(tests: Test[], progress: UserTestProgress[]): TestCardViewModel[] {
   const progressMap = buildProgressMap(progress);
 
-  console.log('tests:', tests);
-  console.log('progress:', progress);
-
   const cards = tests.map((test) => {
     const progressItem = progressMap.get(test.id);
 
@@ -32,8 +29,6 @@ export function buildTestCards(tests: Test[], progress: UserTestProgress[]): Tes
       progress: cardProgress,
     };
   });
-
-  console.log('cards:', cards);
 
   return cards;
 }
