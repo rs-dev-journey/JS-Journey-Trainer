@@ -42,6 +42,14 @@ export function getAuthState(): AuthState {
   };
 }
 
+export function getCurrentUserId(): string | undefined {
+  return authState.user?.id;
+}
+
+export function getCurrentUserName(): string | undefined {
+  return authState.user?.name;
+}
+
 export function isAuthenticated(): boolean {
   return authState.user !== null;
 }
