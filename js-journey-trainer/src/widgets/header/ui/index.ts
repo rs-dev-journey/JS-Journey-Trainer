@@ -1,4 +1,5 @@
 import createElement from '@/shared/lib/dom/create-element';
+import { SETTINGS_KEYS } from '../lib/constants';
 import './style.css';
 
 function createThemeButton() {
@@ -22,8 +23,29 @@ function createThemeButton() {
   return button;
 }
 
+function applySavedAvatarStyles() {
+  const savedTheme = localStorage.getItem(SETTINGS_KEYS.THEME) || 'light';
+  document.documentElement.dataset.theme = savedTheme;
+}
+
+function createUserDropdown(): HTMLElement {
+  const menuTrigger = createElement('div', {
+    classList: ['user-profile-trigger'],
+    textContent: 'Explorer ▼',
+  });
+
+  const container = createElement('div', {
+    classList: ['user-dropdown-container'],
+    children: [menuTrigger],
+  });
+
+  return container;
+}
+
 export function renderHeader(parent: HTMLElement | null): void {
   if (!parent) return;
+
+  applySavedAvatarStyles();
 
   const header = createElement('header', {
     classList: ['main-header'],
@@ -32,32 +54,15 @@ export function renderHeader(parent: HTMLElement | null): void {
         classList: ['nav-links'],
         children: [
           createElement('a', {
-            classList: ['nav-item'],
-            textContent: 'Practice',
+            classList: ['nav-logo'],
+            textContent: 'JS Journey Trainer',
             attributes: { href: '#/practice' },
           }),
         ],
       }),
       createElement('div', {
         classList: ['user-actions'],
-        children: [
-          createThemeButton(),
-          createElement('div', {
-            classList: ['user-profile'],
-            children: [
-              createElement('div', {
-                classList: ['user-avatar'],
-                children: [
-                  createElement('img', {
-                    attributes: { src: './camel.svg', alt: 'User icon' },
-                  }),
-                ],
-              }),
-              createElement('span', { classList: ['user-name'], textContent: 'User Name' }),
-            ],
-          }),
-          createElement('button', { classList: ['logout-btn'], textContent: 'Logout' }),
-        ],
+        children: [createThemeButton(), createUserDropdown()],
       }),
     ],
   });
