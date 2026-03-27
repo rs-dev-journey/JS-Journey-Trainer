@@ -86,6 +86,27 @@ function createAvatarPreview(): HTMLElement {
   });
 }
 
+function createSoundToggle(): HTMLElement {
+  const isMuted = localStorage.getItem(SETTINGS_KEYS.MUTED) === 'true';
+  document.documentElement.dataset.muted = String(isMuted);
+
+  const button = createElement('button', {
+    classList: ['dropdown-item', 'sound-toggle'],
+    textContent: isMuted ? 'Sound: OFF' : 'Sound: ON',
+  });
+
+  button.addEventListener('click', () => {
+    const currentState = document.documentElement.dataset.muted === 'true';
+    const newState = !currentState;
+
+    document.documentElement.dataset.muted = String(newState);
+    button.textContent = newState ? 'Sound: OFF' : 'Sound: ON';
+    localStorage.setItem(SETTINGS_KEYS.MUTED, String(newState));
+  });
+
+  return button;
+}
+
 function openSettingsModal() {
   const modalOverlay = createElement('div', { classList: ['modal-overlay'] });
 
@@ -96,6 +117,7 @@ function openSettingsModal() {
       createAvatarPreview(),
       createColorOption('Avatar Color: ', SETTINGS_KEYS.ACCENT, '--avatar-accent'),
       createColorOption('Background Color: ', SETTINGS_KEYS.BG, '--avatar-bg', '#e0f7fa'),
+      createSoundToggle(),
       createElement('button', { classList: ['close-modal-btn'], textContent: 'Done' }),
     ],
   });
