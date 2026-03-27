@@ -27,6 +27,11 @@ function createThemeButton() {
 function applySavedAvatarStyles() {
   const savedTheme = localStorage.getItem(SETTINGS_KEYS.THEME) || 'light';
   document.documentElement.dataset.theme = savedTheme;
+
+  const accent = localStorage.getItem(SETTINGS_KEYS.ACCENT);
+  const bg = localStorage.getItem(SETTINGS_KEYS.BG);
+  if (accent) document.documentElement.style.setProperty('--avatar-accent', accent);
+  if (bg) document.documentElement.style.setProperty('--avatar-bg', bg);
 }
 
 function createAvatarElement(classList: string[] = []): HTMLElement {
@@ -38,6 +43,73 @@ function createAvatarElement(classList: string[] = []): HTMLElement {
   updateIcon();
   globalThis.addEventListener('themeChanged', updateIcon);
   return container;
+}
+
+function createColorOption(
+  label: string,
+  storageKey: string,
+  cssVariable: string,
+  defaultColor?: string,
+): HTMLElement {
+  const savedColor = localStorage.getItem(storageKey);
+
+  const colorInput = createElement('input', {
+    attributes: {
+      type: 'color',
+      value: savedColor || defaultColor,
+    },
+    classList: ['color-picker-input'],
+  });
+
+  colorInput.addEventListener('input', (event) => {
+    if (event.target instanceof HTMLInputElement) {
+      const newColor = event.target.value;
+
+      document.documentElement.style.setProperty(cssVariable, newColor);
+      localStorage.setItem(storageKey, newColor);
+    }
+  });
+
+  return createElement('div', {
+    classList: ['dropdown-item', 'color-option'],
+    children: [createElement('label', { textContent: label }), colorInput],
+  });
+}
+
+function createAvatarPreview(): HTMLElement {
+  return createElement('div', {
+    classList: ['settings-avatar-preview'],
+    children: [
+      createAvatarElement(['preview-size']),
+      createElement('p', { classList: ['preview-label'], textContent: 'Preview' }),
+    ],
+  });
+}
+
+function openSettingsModal() {
+  const modalOverlay = createElement('div', { classList: ['modal-overlay'] });
+
+  const modalContent = createElement('div', {
+    classList: ['modal-content'],
+    children: [
+      createElement('h2', { textContent: 'Personalization' }),
+      createAvatarPreview(),
+      createColorOption('Avatar Color: ', SETTINGS_KEYS.ACCENT, '--avatar-accent'),
+      createColorOption('Background Color: ', SETTINGS_KEYS.BG, '--avatar-bg', '#e0f7fa'),
+      createElement('button', { classList: ['close-modal-btn'], textContent: 'Done' }),
+    ],
+  });
+
+  modalOverlay.append(modalContent);
+  document.body.append(modalOverlay);
+
+  modalOverlay.addEventListener('click', (event) => {
+    if (event.target === modalOverlay) modalOverlay.remove();
+  });
+
+  modalContent.querySelector('.close-modal-btn')?.addEventListener('click', () => {
+    modalOverlay.remove();
+  });
 }
 
 function createMenuTrigger(): HTMLElement {
@@ -54,14 +126,21 @@ function createMenuTrigger(): HTMLElement {
 function createUserDropdown(): HTMLElement {
   const menuTrigger = createMenuTrigger();
 
+  const settingsButton = createElement('button', {
+    classList: ['dropdown-item'],
+    textContent: 'Settings',
+  });
+  settingsButton.addEventListener('click', () => openSettingsModal());
+
   const dropdownMenu = createElement('div', {
     classList: ['user-dropdown-menu'],
     children: [
       createElement('a', {
         classList: ['dropdown-item'],
         textContent: 'About User',
-        attributes: { href: '#/about' },
+        attributes: { href: '/about' },
       }),
+      settingsButton,
       createElement('hr', { classList: ['dropdown-divider'] }),
       createElement('button', {
         classList: ['dropdown-item', 'logout-btn'],
@@ -103,7 +182,7 @@ export function renderHeader(parent: HTMLElement | null): void {
           createElement('a', {
             classList: ['nav-logo'],
             textContent: 'JS Journey Trainer',
-            attributes: { href: '#/practice' },
+            attributes: { href: '/practice' },
           }),
         ],
       }),
