@@ -1,14 +1,10 @@
 import 'normalize.css';
 import './style.css';
-import { renderHeader } from './widgets/header';
 
-console.log('hi!');
+import { startApp } from './app';
 
-const bootstrap = () => {
-  const root = document.body;
-  renderHeader(root);
+const root = document.createElement('div');
+root.id = 'app';
+document.body.append(root);
 
-  console.log('Header initialized 🚀');
-};
-
-document.addEventListener('DOMContentLoaded', bootstrap);
+void startApp(root);

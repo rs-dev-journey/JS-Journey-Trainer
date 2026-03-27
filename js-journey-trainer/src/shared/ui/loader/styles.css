@@ -1,0 +1,27 @@
+.loader-wrapper {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loader-wrapper .camel {
+  font-size: 40px;
+  animation: camelWalk 2s infinite linear;
+}
+
+@keyframes camelWalk {
+  0%,
+  100% {
+    transform: translateX(-30px) scaleX(1);
+  }
+  48% {
+    transform: translateX(30px) scaleX(1);
+  }
+  50% {
+    transform: translateX(30px) scaleX(-1);
+  }
+  98% {
+    transform: translateX(-30px) scaleX(-1);
+  }
+}
