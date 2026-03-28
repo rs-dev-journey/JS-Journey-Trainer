@@ -82,7 +82,7 @@ export default [
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: './tsconfig.json',
+          project: ['./tsconfig.json', './server/tsconfig.json'],
         },
         node: {
           extensions: ['.js', '.ts'],
@@ -95,6 +95,15 @@ export default [
     files: ['src/widgets/async-sorter/lib/audio-service.ts'],
     rules: {
       '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
+  {
+    files: ['server/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+      'no-console': 'off',
+      'unicorn/no-process-exit': 'off',
+      'unicorn/prefer-module': 'off',
     },
   },
   
