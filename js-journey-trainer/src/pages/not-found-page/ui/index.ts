@@ -42,6 +42,9 @@ function createPageLayout() {
 }
 
 export function renderNotFoundPage(root: HTMLElement): void {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+
+  document.documentElement.dataset.theme = savedTheme;
   const { backBtn, scoreBoard, content } = createPageLayout();
 
   root.append(backBtn, content, scoreBoard);
