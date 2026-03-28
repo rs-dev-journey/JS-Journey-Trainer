@@ -36,5 +36,3 @@ export const AVATAR_ICONS = {
 </svg>
   `,
 } as const;
-
-// #98FF98
