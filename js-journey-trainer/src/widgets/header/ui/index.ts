@@ -1,7 +1,7 @@
 import createElement from '@/shared/lib/dom/create-element';
 import { SETTINGS_KEYS } from '../lib/constants';
 import { AVATAR_ICONS } from '../lib/avatar-icons';
-import { logout } from '@/entities/user';
+import { getCurrentUserName, logout } from '@/entities/user';
 import { navigate } from '@/shared/lib/router/navigate';
 import './style.css';
 
@@ -137,11 +137,13 @@ function openSettingsModal() {
 }
 
 function createMenuTrigger(): HTMLElement {
+  const userName = getCurrentUserName() || 'Explorer';
+
   return createElement('div', {
     classList: ['user-profile-trigger'],
     children: [
       createAvatarElement(),
-      createElement('span', { classList: ['user-name'], textContent: 'Explorer' }),
+      createElement('span', { classList: ['user-name'], textContent: userName }),
       createElement('span', { classList: ['dropdown-caret'], textContent: '▼' }),
     ],
   });
