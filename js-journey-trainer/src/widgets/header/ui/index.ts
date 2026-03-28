@@ -1,6 +1,8 @@
 import createElement from '@/shared/lib/dom/create-element';
 import { SETTINGS_KEYS } from '../lib/constants';
 import { AVATAR_ICONS } from '../lib/avatar-icons';
+import { logout } from '@/entities/user';
+import { navigate } from '@/shared/lib/router/navigate';
 import './style.css';
 
 function createThemeButton() {
@@ -145,14 +147,55 @@ function createMenuTrigger(): HTMLElement {
   });
 }
 
+const headerActions = {
+  settingsButton: (() => {
+    const btn: HTMLElement = createElement('button', {
+      classList: ['dropdown-item'],
+      textContent: 'Settings',
+    });
+    btn.addEventListener('click', () => openSettingsModal());
+    return btn;
+  })(),
+
+  logoutButton: (() => {
+    const btn: HTMLElement = createElement('button', {
+      classList: ['dropdown-item', 'logout-btn'],
+      textContent: 'Logout',
+    });
+    btn.addEventListener('click', async (): Promise<void> => {
+      await logout();
+      navigate('/login');
+    });
+    return btn;
+  })(),
+
+  aboutButton: (() => {
+    const link: HTMLElement = createElement('a', {
+      classList: ['dropdown-item'],
+      textContent: 'About User',
+    });
+    link.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      navigate('/about');
+    });
+    return link;
+  })(),
+
+  logoButton: (() => {
+    const link: HTMLElement = createElement('a', {
+      classList: ['nav-logo'],
+      textContent: 'JS Journey Trainer',
+    });
+    link.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      navigate('/practice');
+    });
+    return link;
+  })(),
+};
+
 function createUserDropdown(): HTMLElement {
   const menuTrigger = createMenuTrigger();
-
-  const settingsButton = createElement('button', {
-    classList: ['dropdown-item'],
-    textContent: 'Settings',
-  });
-  settingsButton.addEventListener('click', () => openSettingsModal());
 
   const dropdownMenu = createElement('div', {
     classList: ['user-dropdown-menu'],
@@ -162,12 +205,9 @@ function createUserDropdown(): HTMLElement {
         textContent: 'About User',
         attributes: { href: '/about' },
       }),
-      settingsButton,
+      headerActions.settingsButton,
       createElement('hr', { classList: ['dropdown-divider'] }),
-      createElement('button', {
-        classList: ['dropdown-item', 'logout-btn'],
-        textContent: 'Logout',
-      }),
+      headerActions.logoutButton,
     ],
   });
 
@@ -200,13 +240,7 @@ export function renderHeader(parent: HTMLElement | null): void {
     children: [
       createElement('nav', {
         classList: ['nav-links'],
-        children: [
-          createElement('a', {
-            classList: ['nav-logo'],
-            textContent: 'JS Journey Trainer',
-            attributes: { href: '/practice' },
-          }),
-        ],
+        children: [headerActions.logoButton],
       }),
       createElement('div', {
         classList: ['user-actions'],
