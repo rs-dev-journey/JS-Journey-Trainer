@@ -174,11 +174,23 @@ const headerActions = {
   aboutButton: (() => {
     const link: HTMLElement = createElement('a', {
       classList: ['dropdown-item'],
-      textContent: 'About User',
+      textContent: 'About',
     });
     link.addEventListener('click', (event: Event) => {
       event.preventDefault();
       navigate('/about');
+    });
+    return link;
+  })(),
+
+  dashboardButton: (() => {
+    const link: HTMLElement = createElement('a', {
+      classList: ['dropdown-item'],
+      textContent: 'My Dashboard',
+    });
+    link.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      navigate('/dashboard');
     });
     return link;
   })(),
@@ -192,6 +204,7 @@ const headerActions = {
       event.preventDefault();
       navigate('/practice');
     });
+    link.dataset.hint = 'Start Practice';
     return link;
   })(),
 };
@@ -202,11 +215,8 @@ function createUserDropdown(): HTMLElement {
   const dropdownMenu = createElement('div', {
     classList: ['user-dropdown-menu'],
     children: [
-      createElement('a', {
-        classList: ['dropdown-item'],
-        textContent: 'About User',
-        attributes: { href: '/about' },
-      }),
+      headerActions.dashboardButton,
+      headerActions.aboutButton,
       headerActions.settingsButton,
       createElement('hr', { classList: ['dropdown-divider'] }),
       headerActions.logoutButton,

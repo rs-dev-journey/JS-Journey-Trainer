@@ -239,6 +239,34 @@
   background-color: var(--avatar-accent, #d2b48c);
 }
 
+.nav-logo::before {
+  content: attr(data-hint);
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%) translateX(-10px);
+  margin-left: 60px;
+  background-color: var(--acc-color, #007bff);
+  color: #fff;
+  white-space: nowrap; 
+  text-align: center;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  z-index: 100;
+}
+
+.nav-logo:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
