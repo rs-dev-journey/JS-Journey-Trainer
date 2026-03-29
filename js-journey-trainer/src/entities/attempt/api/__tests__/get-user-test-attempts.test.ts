@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { getUserTestAttempts } from '../get-user-test-attempts';
 import { mockConfig } from '@/shared/config/mock-config';
 
-const USER_ID = 'user-1';
+const USER_ID = 'b6adc2cb-8c65-4ace-bb8c-64e096b0018c';
 const TEST_ID = 'js-basics-types';
 const EXPECTED_ATTEMPTS_COUNT = 3;
 
