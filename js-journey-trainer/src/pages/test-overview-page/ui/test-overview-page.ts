@@ -1,22 +1,20 @@
-// import { getTestIdFromUrl } from '@/shared/lib/router/get-test-id-from-url';
 import { createTestOverviewWidget } from '@/widgets/test-overview';
-import { createHandleStartTest } from '../model/handle-start-test';
-import { createHandleShowAnswers } from '../model/handle-show-answers';
+import { getAuthState } from '@/entities/user';
+import { getTestIdFromUrl } from '@/shared/lib/router/get-test-id-from-url';
 
-export function createTestOverviewPage() {
-  // Достать userId из User entites
-  const userId = 'user-1';
-  const testId = 'js-basics-types';
-  // const testId = getTestIdFromUrl();
+export function createTestOverviewPage(root: HTMLElement): void {
+  const userId = getAuthState().user?.id;
+  const testId = getTestIdFromUrl();
 
-  if (testId === undefined) throw new Error('testId not fined');
+  if (!userId) {
+    throw new Error('User is not authenticated');
+  }
 
-  const page = createTestOverviewWidget(
-    userId,
-    testId,
-    createHandleStartTest(testId),
-    createHandleShowAnswers(userId, testId),
-  );
+  if (!testId) {
+    throw new Error('Test is not defined');
+  }
 
-  return page;
+  const page = createTestOverviewWidget(userId, testId);
+
+  root.append(page);
 }

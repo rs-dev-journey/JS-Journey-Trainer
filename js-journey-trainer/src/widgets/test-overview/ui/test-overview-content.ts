@@ -1,7 +1,6 @@
 import createElement from '@/shared/lib/dom/create-element';
 import type { Attempt } from '@/entities/attempt';
 import type { Test } from '@/entities/test';
-import './test-overview-content.css';
 import { createAttemptsTable } from './attempts-table';
 
 function createBackIcon() {
@@ -27,37 +26,6 @@ function createBackIcon() {
   return svg;
 }
 
-function createTestOverviewHeader(test: Test): HTMLElement {
-  const header = createElement('header', {
-    classList: ['test-overview__header'],
-  });
-
-  const heading = createElement('div', { classList: ['test-overview__heading'] });
-
-  // TODO: ВСТАВИТЬ ССЫЛКУ НА СТРАНИЦУ С ТЕСТАМИ
-  const backToTests = createElement('a', {
-    classList: ['test-overview__back'],
-    attributes: { href: './' },
-    children: [createBackIcon()],
-  });
-
-  const title = createElement('h2', {
-    textContent: test.title,
-    classList: ['test-overview__title'],
-  });
-
-  heading.append(backToTests, title);
-
-  const description = createElement('p', {
-    textContent: test.description,
-    classList: ['test-overview__description'],
-  });
-
-  header.append(heading, description);
-
-  return header;
-}
-
 function createEmptyAttemptsState(): HTMLParagraphElement {
   return createElement('p', {
     textContent: 'No attempts yet',
@@ -65,7 +33,7 @@ function createEmptyAttemptsState(): HTMLParagraphElement {
   });
 }
 
-function createTestOverviewActions(startTest: () => void, showAnswers: () => void): HTMLDivElement {
+function createTestOverviewActions(startTest: () => void, showAnswers: () => void) {
   const actions = createElement('div', { classList: ['test-overview__actions'] });
 
   const startTestButton = createElement('button', {
@@ -85,14 +53,46 @@ function createTestOverviewActions(startTest: () => void, showAnswers: () => voi
 
   actions.append(startTestButton, showAnswersButton);
 
-  return actions;
+  return { root: actions, controls: { showAnswersButton } };
 }
 
-function createTestOverviewAttempts(
+export function createTestOverviewHeader(test: Test, goTestsPage: () => void): HTMLElement {
+  const header = createElement('header', {
+    classList: ['test-overview__header'],
+  });
+
+  const heading = createElement('div', { classList: ['test-overview__heading'] });
+
+  const backToTests = createElement('button', {
+    classList: ['test-overview__back'],
+    attributes: { type: 'button' },
+    children: [createBackIcon()],
+  });
+
+  backToTests.addEventListener('click', goTestsPage);
+
+  const title = createElement('h2', {
+    textContent: test.title,
+    classList: ['test-overview__title'],
+  });
+
+  heading.append(backToTests, title);
+
+  const description = createElement('p', {
+    textContent: test.description,
+    classList: ['test-overview__description'],
+  });
+
+  header.append(heading, description);
+
+  return header;
+}
+
+export function createTestOverviewBody(
   attempts: Attempt[],
   startTest: () => void,
   showAnswers: () => void,
-): HTMLElement {
+) {
   const attemptsSection = createElement('section', { classList: ['test-overview__attempts'] });
 
   const attemptsHeader = createElement('header', { classList: ['test-overview__attempts-header'] });
@@ -104,11 +104,14 @@ function createTestOverviewAttempts(
 
   const actions = createTestOverviewActions(startTest, showAnswers);
 
-  attemptsHeader.append(attemptsTitle, actions);
+  attemptsHeader.append(attemptsTitle, actions.root);
 
   attemptsSection.append(attemptsHeader);
 
   if (attempts.length === 0) {
+    actions.controls.showAnswersButton.removeEventListener('click', showAnswers);
+    actions.controls.showAnswersButton.disabled = true;
+
     const emptyState = createEmptyAttemptsState();
     attemptsSection.append(emptyState);
 
@@ -119,19 +122,4 @@ function createTestOverviewAttempts(
   attemptsSection.append(attemptsTable);
 
   return attemptsSection;
-}
-
-export function createTestOverviewContent(
-  test: Test,
-  attempts: Attempt[],
-  startTest: () => void,
-  showAnswers: () => void,
-): DocumentFragment {
-  const content = document.createDocumentFragment();
-
-  const header = createTestOverviewHeader(test);
-  const attemptsSection = createTestOverviewAttempts(attempts, startTest, showAnswers);
-  content.append(header, attemptsSection);
-
-  return content;
 }

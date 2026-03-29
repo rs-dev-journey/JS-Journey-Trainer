@@ -13,9 +13,6 @@ import { moveToNextQuestion } from './move-to-next-question';
 import { moveToResult } from './move-to-result';
 import { saveIncorrectAttemptAnswers, saveUserTestAttempt } from '@/entities/attempt';
 import { saveUserProgress } from '@/entities/user-test-progress';
-import { attemptsMock } from '@/entities/attempt/mock/mock-attempts';
-import { userProgressMock } from '@/entities/user-test-progress/api/mock-user-progress';
-import { incorrectAttemptAnswersMock } from '@/entities/attempt/mock/mock-incorrect-attempt-answers';
 
 export function createHandleSubmitAnswer(
   layoutControls: TestRunLayoutControls,

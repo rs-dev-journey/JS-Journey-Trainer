@@ -28,7 +28,7 @@ describe('initTestRun', () => {
   it('initializes test run', async () => {
     getTestByIdMock.mockResolvedValue(test);
 
-    const result = await initTestRun();
+    const result = await initTestRun(test.id);
 
     expect(result).toBe(test);
     expect(setCurrentTestMock).toHaveBeenCalledWith(test);
@@ -38,6 +38,6 @@ describe('initTestRun', () => {
   it('throws if test is not found', async () => {
     getTestByIdMock.mockResolvedValue(null);
 
-    await expect(initTestRun()).rejects.toThrow('Test is not defined');
+    await expect(initTestRun(test.id)).rejects.toThrow('Test is not defined');
   });
 });

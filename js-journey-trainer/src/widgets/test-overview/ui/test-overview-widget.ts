@@ -1,27 +1,62 @@
 import createElement from '@/shared/lib/dom/create-element';
 import { loadTestOverview } from '../model/load-test-overview';
-import { createTestOverviewContent } from './test-overview-content';
+import { createLoader } from '@/shared/ui/loader';
+import { createHandleViewAnswers } from '../controller/create-handle-view-answers';
+import { createHandleStartTest } from '../model/create-handle-start-test';
+import { goTestsPage } from '../model/go-tests-page';
 import './test-overview-widget.css';
+import { createTestOverviewBody, createTestOverviewHeader } from './test-overview-content';
+import type { Attempt } from '@/entities/attempt';
 
-export function createTestOverviewWidget(
+function createOverviewBodySection(
   userId: string,
   testId: string,
-  startTest: () => void,
-  showAnswers: () => void,
+  attempts: Attempt[],
+  contentRoot: HTMLElement,
 ): HTMLElement {
-  const main = createElement('main', {
-    textContent: 'Loading test overview...',
-    classList: ['test-overview'],
+  let overviewBody: HTMLElement;
+
+  const handleViewAnswers = createHandleViewAnswers({
+    userId,
+    testId,
+    contentRoot,
+    getOverviewBody: () => overviewBody,
   });
+
+  overviewBody = createTestOverviewBody(attempts, createHandleStartTest(testId), handleViewAnswers);
+
+  return overviewBody;
+}
+
+function renderOverviewLayout(root: HTMLElement, header: HTMLElement, content: HTMLElement): void {
+  root.classList.remove('test-overview--loading');
+  root.replaceChildren(header, content);
+}
+
+export function createTestOverviewWidget(userId: string, testId: string): HTMLElement {
+  const testOverviewWidget = createElement('div', {
+    classList: ['test-overview', 'test-overview--loading'],
+  });
+
+  testOverviewWidget.append(createLoader());
 
   loadTestOverview(userId, testId)
     .then(({ test, attempts }) => {
-      const content = createTestOverviewContent(test, attempts, startTest, showAnswers);
-      main.replaceChildren(content);
+      const content = createElement('div', {
+        classList: ['test-overview__content'],
+      });
+
+      const overviewBody = createOverviewBodySection(userId, testId, attempts, content);
+
+      const header = createTestOverviewHeader(test, goTestsPage);
+
+      content.append(overviewBody);
+      renderOverviewLayout(testOverviewWidget, header, content);
     })
     .catch((error) => {
-      main.textContent = String(error);
+      testOverviewWidget.classList.remove('test-overview--loading');
+      testOverviewWidget.textContent = String(error);
     });
 
-  return main;
+  return testOverviewWidget;
 }

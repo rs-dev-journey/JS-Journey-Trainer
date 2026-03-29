@@ -2,9 +2,16 @@ import createElement from '@/shared/lib/dom/create-element';
 import { createTestsListWidget } from '@/widgets/tests-list';
 import { handleOpenTest } from '../model/handle-open-test';
 import './tests-page.css';
+import { getAuthState } from '@/entities/user';
 
-export function createTestsPage(userId: string) {
-  const page = createElement('main', {
+export function createTestsPage(root: HTMLElement): void {
+  const userId = getAuthState().user?.id;
+
+  if (!userId) {
+    throw new Error('User is not authenticated');
+  }
+
+  const testsPage = createElement('div', {
     classList: ['tests-page'],
   });
 
@@ -20,7 +27,7 @@ export function createTestsPage(userId: string) {
   const testsListWidget = createTestsListWidget(userId, handleOpenTest);
 
   header.append(title);
-  page.append(header, testsListWidget);
+  testsPage.append(header, testsListWidget);
 
-  return page;
+  root.append(testsPage);
 }

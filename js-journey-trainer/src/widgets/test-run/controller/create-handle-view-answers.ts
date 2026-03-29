@@ -1,10 +1,10 @@
-import createElement from '@/shared/lib/dom/create-element';
 import type { TestRunLayoutControls } from '../ui/types';
 import {
   createIncorrectAnswersSection,
   loadIncorrectAnswers,
 } from '@/features/show-incorrect-answers';
 import { replaceSection } from '../lib/replace-section';
+import { createLoader } from '@/shared/ui/loader';
 
 export function createHandleViewAnswers(
   userId: string,
@@ -35,8 +35,7 @@ export function createHandleViewAnswers(
 
     previousSection = currentSection;
 
-    const loader = createElement('div', { textContent: 'Loading...' });
-    replaceSection(layoutControls, loader);
+    replaceSection(layoutControls, createLoader());
 
     try {
       const data = await loadIncorrectAnswers(userId, testId);

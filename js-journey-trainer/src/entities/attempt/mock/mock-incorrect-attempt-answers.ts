@@ -2,7 +2,7 @@ import type { UserTestIncorrectAnswers } from '../model/types';
 
 export const incorrectAttemptAnswersMock: UserTestIncorrectAnswers[] = [
   {
-    userId: 'user-1',
+    userId: 'b6adc2cb-8c65-4ace-bb8c-64e096b0018c',
     testId: 'js-basics-types',
     attemptId: 'attempt-3',
     attemptAnswers: [
@@ -16,7 +16,7 @@ export const incorrectAttemptAnswersMock: UserTestIncorrectAnswers[] = [
   },
 
   {
-    userId: 'user-1',
+    userId: 'b6adc2cb-8c65-4ace-bb8c-64e096b0018c',
     testId: 'js-scope-closures',
     attemptId: 'attempt-5',
     attemptAnswers: [

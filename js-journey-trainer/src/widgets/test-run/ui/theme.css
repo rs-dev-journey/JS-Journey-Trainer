@@ -1,0 +1,39 @@
+:root {
+  --run-color-page: #f5f7fb;
+  --run-color-header: #ffffff;
+  --run-color-surface: #ffffff;
+  --run-color-surface-soft: #f8fafc;
+
+  --run-color-text-primary: #0f1724;
+  --run-color-text-secondary: #334155;
+
+  --run-border: rgba(15, 23, 36, 0.12);
+  --run-border-soft: rgba(15, 23, 36, 0.08);
+  --run-border-accent: rgba(44, 87, 182, 0.22);
+  --run-border-accent-strong: rgba(44, 87, 182, 0.4);
+  --run-divider: rgba(15, 23, 36, 0.12);
+
+  --run-accent: #2c57b6;
+  --run-focus: #2563eb;
+  --run-button-text: #ffffff;
+}
+
+[data-theme='dark'] {
+  --run-color-page: #131a26;
+  --run-color-header: #0f1724;
+  --run-color-surface: #1b2333;
+  --run-color-surface-soft: rgba(255, 255, 255, 0.04);
+
+  --run-color-text-primary: #e6edf3;
+  --run-color-text-secondary: #d7e2f4;
+
+  --run-border: rgba(255, 255, 255, 0.08);
+  --run-border-soft: rgba(255, 255, 255, 0.08);
+  --run-border-accent: rgba(132, 168, 255, 0.24);
+  --run-border-accent-strong: rgba(132, 168, 255, 0.45);
+  --run-divider: rgba(255, 255, 255, 0.15);
+
+  --run-accent: rgba(44, 87, 182, 0.95);
+  --run-focus: #89aefc;
+  --run-button-text: #e6edf3;
+}

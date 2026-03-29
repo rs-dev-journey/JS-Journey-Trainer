@@ -3,10 +3,11 @@ import { getTestRunHeaderViewModel } from '../model/get-test-run-header-view-mod
 import { createTestRunLayout } from './create-test-run-layout';
 import { getCurrentQuestion } from '@/features/run-test';
 import { createHandleSubmitAnswer } from '../controller/create-handle-submit-answer';
-import './test-run-widget.css';
 import { createHandleViewAnswers } from '../controller/create-handle-view-answers';
 import { handleGoToTestsPage } from '../model/go-to-tests-page';
 import { createHandleRestartTestRun } from '../controller/create-handle-restart-test-run';
+import './test-run-widget.css';
+import './theme.css';
 
 export function createTestRunWidget(test: Test, userId: string): HTMLElement {
   const headerViewModel = getTestRunHeaderViewModel();

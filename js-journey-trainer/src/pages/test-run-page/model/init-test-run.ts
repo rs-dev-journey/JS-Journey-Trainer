@@ -1,10 +1,7 @@
 import { getTestById, setCurrentTest, type Test } from '@/entities/test';
 import { startRun } from '@/features/run-test';
-// import { getTestIdFromPathname } from '../lib/get-test-id';
 
-export async function initTestRun(): Promise<Test> {
-  // const testId = getTestIdFromPathname();
-  const testId = 'js-basics-types';
+export async function initTestRun(testId: string): Promise<Test> {
   const test = await getTestById(testId);
 
   if (!test) {

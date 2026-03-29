@@ -2,19 +2,19 @@ import type { UserTestProgress } from '../model/types';
 
 export const userProgressMock: UserTestProgress[] = [
   {
-    userId: 'user-1',
+    userId: 'b6adc2cb-8c65-4ace-bb8c-64e096b0018c',
     testId: 'js-basics-types',
     status: 'completed',
     attemptsCount: 3,
-    lastScorePercent: 80,
+    lastScorePercent: 90,
   },
 
   {
-    userId: 'user-1',
+    userId: 'b6adc2cb-8c65-4ace-bb8c-64e096b0018c',
     testId: 'js-scope-closures',
     status: 'completed',
     attemptsCount: 2,
-    lastScorePercent: 50,
+    lastScorePercent: 80,
   },
 
   {
