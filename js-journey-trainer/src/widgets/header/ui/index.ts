@@ -212,12 +212,22 @@ const headerActions = {
 function createUserDropdown(): HTMLElement {
   const menuTrigger = createMenuTrigger();
 
+  const currentPath = globalThis.location.pathname;
+
+  const allLinks = [
+    { path: '/dashboard', element: headerActions.dashboardButton },
+    { path: '/about', element: headerActions.aboutButton },
+    { path: '/settings', element: headerActions.settingsButton },
+  ];
+
+  const visibleLinks = allLinks
+    .filter((navLinks) => navLinks.path !== currentPath)
+    .map((navLinks) => navLinks.element);
+
   const dropdownMenu = createElement('div', {
     classList: ['user-dropdown-menu'],
     children: [
-      headerActions.dashboardButton,
-      headerActions.aboutButton,
-      headerActions.settingsButton,
+      ...visibleLinks,
       createElement('hr', { classList: ['dropdown-divider'] }),
       headerActions.logoutButton,
     ],
