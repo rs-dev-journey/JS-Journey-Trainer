@@ -54,12 +54,13 @@
 }
 
 .test-run-result {
-  width: 100%;
+  width: calc(100% - 40px);
   max-width: 980px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   padding: 40px 32px;
+  margin: 0 20px;
   border-radius: 8px;
   background: var(--run-color-surface);
   position: relative;
@@ -190,8 +191,10 @@
 
 @media (max-width: 768px) {
   .test-run-result {
+    width: calc(100% - 20px);
     gap: 40px;
     padding: 40px 32px;
+    margin: 0 10px;
   }
 
   .test-run-result__score {

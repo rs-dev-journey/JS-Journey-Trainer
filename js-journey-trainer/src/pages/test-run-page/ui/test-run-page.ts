@@ -1,13 +1,13 @@
 import createElement from '@/shared/lib/dom/create-element';
 import { initTestRun } from '../model/init-test-run';
 import { createTestRunWidget } from '@/widgets/test-run';
-import { getAuthState } from '@/entities/user';
+import { getCurrentUserId } from '@/entities/user';
 import { getTestIdFromPathname } from '../lib/get-test-id';
 import { createLoader } from '@/shared/ui/loader';
 import './test-run-page.css';
 
 export function createTestRunPage(root: HTMLElement): void {
-  const userId = getAuthState().user?.id;
+  const userId = getCurrentUserId();
   const testId = getTestIdFromPathname();
 
   if (!userId) {

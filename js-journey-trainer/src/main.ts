@@ -1,7 +1,10 @@
 import 'normalize.css';
 import './style.css';
-import { createTestRunPage } from './pages/test-run-page';
 
-console.log('hi!');
+import { startApp } from './app';
 
-document.body.append(createTestRunPage());
+const root = document.createElement('div');
+root.id = 'app';
+document.body.append(root);
+
+void startApp(root);

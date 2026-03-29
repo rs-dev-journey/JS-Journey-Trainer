@@ -29,7 +29,6 @@
 
 .test-run {
   min-height: 100vh;
-  padding: 0 16px 32px;
   background: var(--run-color-page);
   color: var(--run-color-text-secondary);
   display: flex;
@@ -93,10 +92,10 @@
 }
 
 .test-run__question-section {
-  width: 100%;
+  width: calc(100% - 40px);
   max-width: 980px;
   padding-bottom: 50px;
-  margin: 0 auto;
+  margin: 40px 20px 0;
   border: 1px solid var(--run-border-soft);
   border-radius: 8px;
   background: var(--run-color-surface);
@@ -204,10 +203,6 @@
 }
 
 @media (max-width: 768px) {
-  .test-run {
-    padding: 0 12px 24px;
-  }
-
   .test-run__header {
     gap: 20px;
     align-items: normal;

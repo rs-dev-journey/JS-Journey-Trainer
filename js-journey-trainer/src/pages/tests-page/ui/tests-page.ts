@@ -2,10 +2,10 @@ import createElement from '@/shared/lib/dom/create-element';
 import { createTestsListWidget } from '@/widgets/tests-list';
 import { handleOpenTest } from '../model/handle-open-test';
 import './tests-page.css';
-import { getAuthState } from '@/entities/user';
+import { getCurrentUserId } from '@/entities/user';
 
 export function createTestsPage(root: HTMLElement): void {
-  const userId = getAuthState().user?.id;
+  const userId = getCurrentUserId();
 
   if (!userId) {
     throw new Error('User is not authenticated');

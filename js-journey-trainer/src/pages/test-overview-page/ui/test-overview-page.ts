@@ -1,9 +1,9 @@
 import { createTestOverviewWidget } from '@/widgets/test-overview';
-import { getAuthState } from '@/entities/user';
+import { getCurrentUserId } from '@/entities/user';
 import { getTestIdFromUrl } from '@/shared/lib/router/get-test-id-from-url';
 
 export function createTestOverviewPage(root: HTMLElement): void {
-  const userId = getAuthState().user?.id;
+  const userId = getCurrentUserId();
   const testId = getTestIdFromUrl();
 
   if (!userId) {

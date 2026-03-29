@@ -130,7 +130,7 @@ export const tests: Test[] = [
         order: 3,
         type: 'quiz',
         question:
-          'What will the code output?\nfor (var i=0;i<3;i++) setTimeout(()=>console.log(i),0)',
+          'What will the code output?\nfor (var i=0;i<3;i++) setTimeout(( )=>console.log(i),0)',
         options: ['0 1 2', '1 2 3', '3 3 3', 'undefined undefined undefined'],
         correctIndex: 2,
       },
@@ -139,7 +139,7 @@ export const tests: Test[] = [
         order: 4,
         type: 'quiz',
         question:
-          'What will the code output?\nfor (let i=0;i<3;i++) setTimeout(()=>console.log(i),0)',
+          'What will the code output?\nfor (let i=0;i<3;i++) setTimeout(( )=>console.log(i),0)',
         options: ['0 1 2', '3 3 3', '1 2 3', 'undefined undefined undefined'],
         correctIndex: 0,
       },

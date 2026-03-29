@@ -22,7 +22,7 @@ export const incorrectAttemptAnswersMock: UserTestIncorrectAnswers[] = [
     attemptAnswers: [
       {
         question:
-          'What will the code output?\nfor (var i=0;i<3;i++) setTimeout(()=>console.log(i),0)',
+          'What will the code output?\nfor (var i=0;i<3;i++) setTimeout(( )=>console.log(i),0)',
         options: ['0 1 2', '1 2 3', '3 3 3', 'undefined undefined undefined'],
         selectedAnswerIndex: 0,
       },

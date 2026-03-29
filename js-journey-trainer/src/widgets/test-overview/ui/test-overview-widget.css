@@ -3,7 +3,7 @@
   --overview-text-secondary: #334155;
   --overview-text-muted: #64748b;
 
-  --overview-bg-page: #f5f7fb;
+  --overview-bg-page: var(--bg-color);
   --overview-bg-header: #ffffff;
   --overview-bg-surface: #ffffff;
   --overview-bg-hover: #eef4fb;
@@ -65,6 +65,7 @@
   background: var(--overview-bg-page);
   color: var(--overview-text-secondary);
   height: 100vh;
+  width: 100%;
 }
 
 .test-overview--loading {

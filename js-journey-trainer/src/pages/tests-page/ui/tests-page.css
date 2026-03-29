@@ -1,5 +1,5 @@
 :root {
-  --bg-page: #f5f7fb;
+  --bg-page: var(--bg-color);
   --bg-surface: #ffffff;
 
   --text-primary: #0f1724;
