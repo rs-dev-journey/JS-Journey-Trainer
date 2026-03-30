@@ -1,11 +1,13 @@
 import * as d3 from 'd3';
 import { chartStore, createTooltip } from '../model/store';
 import type { ChartData } from '../model/types';
+
 import {
   HALF_DIVIDER,
   QUATER_DIVIDER,
   CHART_SIZE,
   RADIUS_PADDING,
+  CHART_COEFFICIENT,
   PIE_ANIMATION_DELAY,
   ANIMATION_DURATION,
   TOOLTIP_OFFSET,
@@ -44,11 +46,19 @@ export const drawPieChart = (
   const container = document.querySelector(selector);
   if (!container) return;
 
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  const finalColors =
+    colors && colors.length > 0 ? colors : isDark ? d3.schemeDark2 : d3.schemeAccent;
+
   const tooltip = createTooltip();
 
-  chartStore.set(selector, { data, colors: [...colors] });
+  chartStore.set(selector, { data, colors: [...finalColors] });
+  const containerWidth = container.clientWidth;
+  if (containerWidth === 0) return;
   const isWide = selector === '#chart-1';
-  const size = isWide ? CHART_SIZE.WIDE : CHART_SIZE.STANDARD;
+  const size = isWide
+    ? Math.min(containerWidth * CHART_COEFFICIENT, CHART_SIZE.WIDE)
+    : Math.min(containerWidth, CHART_SIZE.STANDARD);
   const radius = size / HALF_DIVIDER - RADIUS_PADDING;
 
   container.innerHTML = '';
@@ -70,7 +80,12 @@ export const drawPieChart = (
     .arc<d3.PieArcDatum<ChartData>>()
     .innerRadius(size / QUATER_DIVIDER)
     .outerRadius(radius);
-  const colorScale = d3.scaleOrdinal(colors);
+  const colorScale = d3
+    .scaleOrdinal<string>()
+    .domain(data.map((_, i) => i.toString()))
+    .range(finalColors);
+
+  chartStore.set(selector, { data, colors: [...finalColors] });
 
   const path = group
     .selectAll('path')
@@ -108,7 +123,9 @@ export const drawPieChart = (
     wrapper.append(node);
   }
   wrapper.append(createLegend(data, colorScale, isWide));
+  container.innerHTML = '';
   container.append(wrapper);
+  resizeObserver.observe(container);
 };
 
 export const resizeObserver = new ResizeObserver((entries) => {
@@ -116,7 +133,8 @@ export const resizeObserver = new ResizeObserver((entries) => {
     const id = `#${entry.target.id}`;
     const state = chartStore.get(id);
     if (state) {
-      drawPieChart(id, state.data, state.colors);
+      const colorsToUse = id === '#chart-1' ? [] : state.colors;
+      drawPieChart(id, state.data, colorsToUse);
     }
   }
 });

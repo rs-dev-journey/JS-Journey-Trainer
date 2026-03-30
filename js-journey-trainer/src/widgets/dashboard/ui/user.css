@@ -1,6 +1,7 @@
 .dashboard-user-header {
   margin-bottom: 2rem;
   padding: 10px 0;
+  margin-left: 20px;
   animation: fadeInDown 0.6s ease-out;
 }
 

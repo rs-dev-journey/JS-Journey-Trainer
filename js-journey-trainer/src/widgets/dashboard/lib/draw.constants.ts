@@ -11,5 +11,6 @@ export const CHART_SIZE = {
 export const HALF_DIVIDER = 2;
 export const QUATER_DIVIDER = 4;
 export const RADIUS_PADDING = 10;
+export const CHART_COEFFICIENT = 0.7;
 export const PIE_ANIMATION_DELAY = 500;
 export const ANIMATION_DURATION = 2000;

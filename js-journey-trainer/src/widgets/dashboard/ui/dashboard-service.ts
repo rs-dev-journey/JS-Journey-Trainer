@@ -13,6 +13,12 @@ const ASYNC_SORTER_ID = 1;
 const TRUE_FALSE_ID = 2;
 const MOCK_NETWORK_DELAY = 2000;
 
+const chartConfigs: DashboardCardConfig[] = [
+  { id: 'chart-1', title: 'Quizzes Skills', wide: true },
+  { id: 'chart-2', title: 'Async Sorter' },
+  { id: 'chart-3', title: 'True/False' },
+];
+
 export const DashboardService = {
   renderUserHeader(parent: HTMLElement, name: string): void {
     const headerContainer = createElement('div', {
@@ -69,12 +75,6 @@ export const DashboardService = {
     const finalName = authName || storedName || 'Explorer';
     this.renderUserHeader(parent, finalName);
 
-    const chartConfigs: DashboardCardConfig[] = [
-      { id: 'chart-1', title: 'Quizzes Skills', wide: true },
-      { id: 'chart-2', title: 'Async Sorter' },
-      { id: 'chart-3', title: 'True/False' },
-    ];
-
     chartConfigs.forEach((config) => {
       const card = createElement('div', {
         classList: ['chart-card', config.wide ? 'wide' : 'not-wide'],
@@ -102,10 +102,15 @@ export const DashboardService = {
         DataRepository.getActivity(ASYNC_SORTER_ID),
         DataRepository.getActivity(TRUE_FALSE_ID),
       ]);
-
-      drawPieChart('#chart-1', chartAdapters.forPie(quiz));
-      drawPieChart('#chart-2', chartAdapters.forProgress(asyncSorter), ['#39d8d8', '#eee']);
-      drawPieChart('#chart-3', chartAdapters.forProgress(trueFalse), ['#e9a9f1', '#eee']);
+      drawPieChart('#chart-1', chartAdapters.forPie(quiz), []);
+      drawPieChart('#chart-2', chartAdapters.forProgress(asyncSorter), [
+        'var(--color-async)',
+        'var(--color-empty)',
+      ]);
+      drawPieChart('#chart-3', chartAdapters.forProgress(trueFalse), [
+        'var(--color-quiz)',
+        'var(--color-empty)',
+      ]);
 
       this.renderStreaks(content, [1, 1, 0, 1, 1, 0, 1]);
     } catch {
