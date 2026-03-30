@@ -34,7 +34,7 @@ export const checkResult = async (): Promise<void> => {
 
     const endTime = Date.now();
     const timeSpent = ((endTime - currentState.startTime) / MS_PER_SEC).toFixed(HALF_DIVIDER);
-    sendToAdapter(true, timeSpent);
+    sendToAdapter(true, timeSpent, 'SORT_COMPLETD');
 
     await handleWin();
   } else {
@@ -89,10 +89,29 @@ export const preventStandardDragOver = (event: DragEvent): void => {
   event.preventDefault();
 };
 
-export const sendToAdapter = (status: boolean, time: string): void => {
+export const showHint = (): void => {
+  const { expected } = currentState.currentTask;
+  const nextEmptyIndex = currentState.userOrder.indexOf(null);
+
+  if (nextEmptyIndex === -1) return;
+
+  currentState.userOrder[nextEmptyIndex] = expected[nextEmptyIndex];
+
+  sounds.undo();
+  refreshSorterUI();
+
+  sendToAdapter(false, '0', `hint_step_${nextEmptyIndex + 1}`);
+
+  if (!currentState.userOrder.includes(null)) {
+    checkResult();
+  }
+};
+
+export const sendToAdapter = (status: boolean, time: string, type: string): void => {
   console.log('ADAPTER_LOG:', {
     exerciseId: `visual-task-${currentState.currentTask.id}`,
     passed: status,
     time: time,
+    type: type,
   });
 };

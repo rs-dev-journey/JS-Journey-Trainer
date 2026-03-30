@@ -1,6 +1,6 @@
 import { playlist } from '../../../entities/async-sorter/lib/static-data';
 import { renderOptions, renderSlots } from '../ui/async-sorter';
-import { currentState } from './sorter-engine';
+import { currentState, showHint } from './sorter-engine';
 import { runVisualLoop } from './visualizer';
 import { sounds } from '../lib/audio-service';
 
@@ -71,11 +71,19 @@ export const initAsyncSorter = (): void => {
   loadTask(0);
   console.log('Sorter Engine is initialized via loadTask');
   const nextButton = document.querySelector<HTMLButtonElement>('.next-button');
+  const hintButton = document.querySelector<HTMLButtonElement>('.hint-button');
 
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       sounds.click();
       loadNewTask();
+    });
+  }
+
+  if (hintButton) {
+    hintButton.addEventListener('click', () => {
+      sounds.click();
+      showHint();
     });
   }
 };
