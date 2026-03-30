@@ -1,6 +1,7 @@
 import createElement from '../../../shared/lib/dom/create-element';
 import type { VisualStep } from '../../../entities/async-sorter/model/types';
 import { ANIMATION_DELAY } from '../lib/constants';
+import { sounds } from '../lib/audio-service';
 
 const DESTINATIONS: Record<string, string> = {
   macro: 'webapi',
@@ -26,6 +27,7 @@ async function clearQueue(fromId: string, stack: Element): Promise<void> {
 
   for (const task of tasks) {
     stack.append(task);
+    sounds.fly();
     await delay(ANIMATION_DELAY.EXECUTE_DURATION);
     task.remove();
   }
@@ -49,6 +51,7 @@ export const runVisualLoop = async (steps: readonly VisualStep[]): Promise<void>
   for (const step of steps) {
     const element = createVisualNode(step);
     stack.append(element);
+    sounds.fly();
     await delay(ANIMATION_DELAY.STACK_DURATION);
 
     const targetId = DESTINATIONS[step.type];
@@ -56,10 +59,12 @@ export const runVisualLoop = async (steps: readonly VisualStep[]): Promise<void>
 
     if (targetContainer && step.type !== 'sync') {
       targetContainer.append(element);
+      sounds.fly();
 
       if (step.type === 'macro') {
         await delay(ANIMATION_DELAY.WEB_API_DURATION);
         macroQueue.append(element);
+        sounds.fly();
       }
     } else if (step.type === 'sync') {
       element.remove();

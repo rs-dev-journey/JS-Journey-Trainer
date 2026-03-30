@@ -32,6 +32,26 @@ class AudioService {
     this.playTone(400, 0.1, 'sine', 0.1);
     setTimeout(() => this.playTone(300, 0.15, 'sine', 0.05), 50);
   };
+
+  public fly = (): void => {
+    const duration = 0.6;
+    const oscillator = this.ctx.createOscillator();
+    const gainNode = this.ctx.createGain();
+
+    oscillator.type = 'sine';
+
+    oscillator.frequency.setValueAtTime(400, this.ctx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(600, this.ctx.currentTime + duration);
+
+    gainNode.gain.setValueAtTime(0.1, this.ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(this.ctx.destination);
+
+    oscillator.start();
+    oscillator.stop(this.ctx.currentTime + duration);
+  };
 }
 
 export const sounds = new AudioService();
