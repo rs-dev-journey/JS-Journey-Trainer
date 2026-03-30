@@ -154,7 +154,8 @@ body {
 }
 
 .dashboard-grid {
-  margin: 20px;
+  width: clamp(280px, 97%, 1200px);
+  margin: 20px auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -162,7 +163,6 @@ body {
 }
 
 @media (max-width: 480px) {
-
   .dashboard-grid {
     margin: 10px 0.2rem;
   }

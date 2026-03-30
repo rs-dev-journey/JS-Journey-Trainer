@@ -48,3 +48,12 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 480px) {
+  .dashboard-user-header {
+    margin-left: 10px;
+  }
+  .dashboard-user-header h2 {
+    font-size: 1.5rem;
+  }
+}
