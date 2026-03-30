@@ -1,0 +1,35 @@
+:root {
+  --bg-page: var(--bg-color);
+  --bg-surface: #ffffff;
+
+  --text-primary: #0f1724;
+
+  --border-color: rgba(15, 23, 36, 0.12);
+}
+
+[data-theme='dark'] {
+  --bg-page: #131a26;
+  --bg-surface: #0f1724;
+
+  --text-primary: #e6edf3;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+}
+
+.tests-page {
+  min-height: calc(100vh - 60px);
+  background: var(--bg-page);
+}
+
+.tests-page__header {
+  padding: 4px 16px;
+  margin-bottom: 28px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+}
+
+.tests-page__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+}

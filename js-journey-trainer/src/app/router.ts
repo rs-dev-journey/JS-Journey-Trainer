@@ -4,9 +4,9 @@ import { renderHomePage } from '@/pages/home/example';
 import { renderHeader } from '@/widgets/header';
 import { renderPracticePage } from '@/pages/practice/example';
 import { renderDashboardPage } from '@/pages/dashboard/example';
-import { createTestsPage } from '@/pages/tests-page/example';
-import { createTestOverviewPage } from '@/pages/test-overview-page/example';
-import { createTestRunPage } from '@/pages/test-run-page/example';
+import { createTestsPage } from '@/pages/tests-page';
+import { createTestOverviewPage } from '@/pages/test-overview-page';
+import { createTestRunPage } from '@/pages/test-run-page';
 import { renderNotFoundPage } from '@/pages/not-found-page/ui/index';
 import { ROUTE_CHANGE_EVENT } from '@/shared/lib/router/navigate';
 
