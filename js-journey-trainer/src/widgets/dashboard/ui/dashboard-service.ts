@@ -7,6 +7,7 @@ import type { DashboardCardConfig } from '../model/types';
 import createElement from '@/shared/lib/dom/create-element';
 import { createLoader } from '@/shared/ui/loader';
 import { getCurrentUserName } from '@/entities/user';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 const ASYNC_SORTER_ID = 1;
 const TRUE_FALSE_ID = 2;
@@ -43,6 +44,20 @@ export const DashboardService = {
       ],
     });
     parent.append(streakCard);
+  },
+
+  handleError(parent: HTMLElement): void {
+    parent.innerHTML = '';
+    parent.append(
+      renderErrorState({
+        title: 'Something went wrong.',
+        message: 'Failed to process dashboard statistics.\n Try to refresh.',
+        onRetry: () => {
+          parent.innerHTML = '';
+          this.init(parent);
+        },
+      }),
+    );
   },
 
   async init(parent: HTMLElement): Promise<void> {
@@ -93,8 +108,8 @@ export const DashboardService = {
       drawPieChart('#chart-3', chartAdapters.forProgress(trueFalse), ['#e9a9f1', '#eee']);
 
       this.renderStreaks(content, [1, 1, 0, 1, 1, 0, 1]);
-    } catch (error) {
-      console.error('Dashboard Initialization Error:', error);
+    } catch {
+      this.handleError(parent);
     }
   },
 };
