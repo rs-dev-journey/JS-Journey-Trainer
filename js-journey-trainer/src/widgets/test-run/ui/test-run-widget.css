@@ -28,7 +28,7 @@
 }
 
 .test-run {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   background: var(--run-color-page);
   color: var(--run-color-text-secondary);
   display: flex;

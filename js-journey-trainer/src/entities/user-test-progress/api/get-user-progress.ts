@@ -5,7 +5,7 @@ import type { UserTestProgress } from '../model/types';
 
 export async function getUserProgress(userId: string): Promise<UserTestProgress[]> {
   await delay(mockConfig.delayMs);
-  if (mockConfig.shouldFail) throw new Error('Mock error');
+  if (mockConfig.shouldFail) throw new Error('Error loading user progress');
 
   const userProgress = structuredClone(
     userProgressMock.filter((progress) => progress.userId === userId),

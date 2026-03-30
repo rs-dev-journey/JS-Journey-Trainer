@@ -1,7 +1,7 @@
 import { getAuthState, isAuthenticated } from '@/entities/user';
 import { renderLoginPage } from '@/pages/auth';
 import { renderHomePage } from '@/pages/home/example';
-import { renderHeader } from '@/shared/ui/example';
+import { renderHeader } from '@/widgets/header';
 import { renderPracticePage } from '@/pages/practice/example';
 import { renderDashboardPage } from '@/pages/dashboard/example';
 import { createTestsPage } from '@/pages/tests-page';
@@ -68,7 +68,7 @@ function renderPage(route: Route) {
   appRoot.innerHTML = '';
 
   if (route.withHeader) {
-    appRoot.append(renderHeader());
+    renderHeader(appRoot);
   }
 
   const pageRoot = document.createElement('main');

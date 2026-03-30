@@ -5,13 +5,13 @@ import { mockConfig } from '@/shared/config/mock-config';
 
 export async function getTests(): Promise<Test[]> {
   await delay(mockConfig.delayMs);
-  if (mockConfig.shouldFail) throw new Error('Mock error');
+  if (mockConfig.shouldFail) throw new Error('Error loading tests');
   return structuredClone(tests);
 }
 
 export async function getTestById(id: string): Promise<Test | undefined> {
   await delay(mockConfig.delayMs);
-  if (mockConfig.shouldFail) throw new Error('Mock error');
+  if (mockConfig.shouldFail) throw new Error('Error loading test');
 
   const test = tests.find((test) => test.id === id);
   return test ? structuredClone(test) : undefined;

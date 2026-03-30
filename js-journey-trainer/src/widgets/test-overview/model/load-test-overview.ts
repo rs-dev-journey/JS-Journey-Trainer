@@ -9,7 +9,7 @@ export async function loadTestOverview(userId: string, testId: string): Promise<
   ]);
 
   if (!test) {
-    throw new Error('Test not found');
+    throw new Error('Test is not defined');
   }
 
   return { test, attempts };

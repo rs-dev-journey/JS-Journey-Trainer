@@ -4,6 +4,7 @@ import type { OnOpenTest } from '../model/types';
 import { createTestsListContent } from './tests-list-content';
 import { createLoader } from '@/shared/ui/loader';
 import './tests-list-widget.css';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 export function createTestsListWidget(userId: string, onOpen: OnOpenTest): HTMLElement {
   const section = createElement('section', {
@@ -14,12 +15,14 @@ export function createTestsListWidget(userId: string, onOpen: OnOpenTest): HTMLE
 
   loadTestsList(userId)
     .then((cards) => {
-      section.classList.remove('tests-list--loading');
       const content = createTestsListContent(cards, onOpen);
       section.replaceChildren(content);
     })
     .catch((error) => {
-      section.textContent = `${error}`;
+      section.replaceChildren(renderErrorState(error));
+    })
+    .finally(() => {
+      section.classList.remove('tests-list--loading');
     });
 
   return section;

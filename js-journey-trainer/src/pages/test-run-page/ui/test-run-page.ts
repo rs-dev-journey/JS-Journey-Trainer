@@ -5,6 +5,7 @@ import { getCurrentUserId } from '@/entities/user';
 import { getTestIdFromPathname } from '../lib/get-test-id';
 import { createLoader } from '@/shared/ui/loader';
 import './test-run-page.css';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 export function createTestRunPage(root: HTMLElement): void {
   const userId = getCurrentUserId();
@@ -23,7 +24,7 @@ export function createTestRunPage(root: HTMLElement): void {
       testRunPage.replaceChildren(createTestRunWidget(test, userId));
     })
     .catch((error) => {
-      testRunPage.textContent = error.message;
+      testRunPage.replaceChildren(renderErrorState(error));
     });
 
   root.append(testRunPage);

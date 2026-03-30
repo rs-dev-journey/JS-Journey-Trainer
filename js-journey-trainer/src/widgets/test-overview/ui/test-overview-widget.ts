@@ -7,6 +7,7 @@ import { goTestsPage } from '../model/go-tests-page';
 import './test-overview-widget.css';
 import { createTestOverviewBody, createTestOverviewHeader } from './test-overview-content';
 import type { Attempt } from '@/entities/attempt';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 function createOverviewBodySection(
   userId: string,
@@ -55,7 +56,7 @@ export function createTestOverviewWidget(userId: string, testId: string): HTMLEl
     })
     .catch((error) => {
       testOverviewWidget.classList.remove('test-overview--loading');
-      testOverviewWidget.textContent = String(error);
+      testOverviewWidget.replaceChildren(renderErrorState(error));
     });
 
   return testOverviewWidget;
