@@ -64,6 +64,7 @@ export default [
             j: true,
             props: true,
             Props: true,
+            btn: true,
           },
         },
       ],

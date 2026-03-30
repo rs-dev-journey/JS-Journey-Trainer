@@ -1,17 +1,10 @@
 import 'normalize.css';
 import './style.css';
 
-console.log('hi!');
-import { DashboardService } from '@/widgets/dashboard';
+import { startApp } from './app';
 
-const bootstrap = async () => {
-  try {
-    await DashboardService.init();
+const root = document.createElement('div');
+root.id = 'app';
+document.body.append(root);
 
-    console.log('Dashboard successfully initialized 🐫');
-  } catch (error) {
-    console.error('App start error:', error);
-  }
-};
-
-document.addEventListener('DOMContentLoaded', bootstrap);
+void startApp(root);
