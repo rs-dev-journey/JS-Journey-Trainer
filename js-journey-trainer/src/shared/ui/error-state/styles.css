@@ -1,0 +1,45 @@
+:root {
+  --error-state-icon: url('./camel-face.svg');
+}
+
+[data-theme='dark'] {
+  --error-state-icon: url('./jellyfish.svg');
+}
+
+.error-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.error-state-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+  background-image: var(--error-state-icon, url('./jellyfish.svg'));
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.error-state-title {
+  color: #dc2626;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+.error-state-message {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  white-space: pre-line;
+}
+.error-state-button {
+  padding: 0.6rem 1.2rem;
+  background: #ef4444;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
