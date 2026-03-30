@@ -46,6 +46,8 @@ export const loadNewTask = (): void => {
 
   if (currentTaskIndex < playlist.length - 1) {
     loadTask(currentTaskIndex + 1);
+    if (consoleOut)
+      consoleOut.textContent = `> Task № ${currentTaskIndex + 1} of  ${playlist.length}`;
   } else {
     if (consoleOut) consoleOut.textContent = '> All tasks are finished! ';
   }
@@ -69,7 +71,6 @@ export const handleWin = async (): Promise<void> => {
 
 export const initAsyncSorter = (): void => {
   loadTask(0);
-  console.log('Sorter Engine is initialized via loadTask');
   const nextButton = document.querySelector<HTMLButtonElement>('.next-button');
   const hintButton = document.querySelector<HTMLButtonElement>('.hint-button');
 

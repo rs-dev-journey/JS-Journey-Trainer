@@ -13,7 +13,7 @@ export const currentState: SorterState = {
   isAnimating: false,
 };
 
-export const checkResult = async (): Promise<void> => {
+export const checkResult = async (isHintUsed: boolean): Promise<void> => {
   if (currentState.isAnimating) return;
 
   const consoleOut = document.querySelector('#visual-console');
@@ -22,7 +22,6 @@ export const checkResult = async (): Promise<void> => {
   if (!isFull) return;
 
   currentState.attempts++;
-  console.log(`Attempt №${currentState.attempts}`);
 
   const isCorrect = currentState.userOrder.every(
     (value, index) => value === currentState.currentTask.expected[index],
@@ -34,7 +33,7 @@ export const checkResult = async (): Promise<void> => {
 
     const endTime = Date.now();
     const timeSpent = ((endTime - currentState.startTime) / MS_PER_SEC).toFixed(HALF_DIVIDER);
-    sendToAdapter(true, timeSpent, 'SORT_COMPLETD');
+    sendToAdapter(!isHintUsed, timeSpent, isHintUsed ? 'hint_used' : 'SORT_COMPLETED');
 
     await handleWin();
   } else {
@@ -55,7 +54,7 @@ export const selectNumber = (value: string): void => {
   if (emptyIndex !== -1) {
     currentState.userOrder[emptyIndex] = value;
 
-    checkResult();
+    checkResult(false);
     refreshSorterUI();
 
     if (!currentState.userOrder.includes(null)) {
@@ -79,7 +78,7 @@ export const handleDrop = (value: string, index: number): void => {
     currentState.userOrder[index] = value;
 
     if (!currentState.userOrder.includes(null)) {
-      checkResult();
+      checkResult(false);
     }
     refreshSorterUI();
   }
@@ -103,7 +102,9 @@ export const showHint = (): void => {
   sendToAdapter(false, '0', `hint_step_${nextEmptyIndex + 1}`);
 
   if (!currentState.userOrder.includes(null)) {
-    checkResult();
+    const hintButton = document.querySelector<HTMLButtonElement>('.hint-button');
+    if (hintButton) hintButton.disabled = true;
+    checkResult(true);
   }
 };
 
