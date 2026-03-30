@@ -165,6 +165,7 @@ body {
 
 .hint-button:hover {
   background-color: #d35400;
+  font-weight: bold;
 }
 
 .next-button {
@@ -172,6 +173,12 @@ body {
   color: white !important;
   opacity: 1;
   transition: 0.3s;
+}
+
+.hint-button,
+.next-button {
+  width: min(150px, 30vw);
+  line-height: 2rem;
 }
 
 .next-button:disabled {
