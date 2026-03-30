@@ -1,3 +1,11 @@
+:root {
+  --error-state-icon: url('./camel-face.svg');
+}
+
+[data-theme='dark'] {
+  --error-state-icon: url('./jellyfish.svg');
+}
+
 .error-state-container {
   display: flex;
   flex-direction: column;
@@ -8,8 +16,8 @@
 }
 
 .error-state-icon {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   margin-bottom: 20px;
   background-image: var(--error-state-icon, url('./jellyfish.svg'));
   background-size: contain;
@@ -24,7 +32,8 @@
 .error-state-message {
   color: #6b7280;
   margin-bottom: 1.5rem;
-  max-width: 300px;
+  max-width: 600px;
+  white-space: pre-line;
 }
 .error-state-button {
   padding: 0.6rem 1.2rem;
@@ -33,12 +42,4 @@
   border-radius: 8px;
   border: none;
   cursor: pointer;
-}
-
-:root {
-  --error-state-icon: url('./camel.svg');
-}
-
-[data-theme='dark'] {
-  --error-state-icon: url('./jellyfish.svg');
 }
