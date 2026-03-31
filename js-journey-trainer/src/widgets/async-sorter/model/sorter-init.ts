@@ -42,6 +42,8 @@ export const loadTask = (index: number): void => {
 export const loadNewTask = (): void => {
   const nextButton = document.querySelector<HTMLButtonElement>('.next-button');
   if (nextButton) nextButton.disabled = true;
+  const hintButton = document.querySelector<HTMLButtonElement>('.hint-button');
+  if (hintButton) hintButton.disabled = false;
   const consoleOut = document.querySelector('#visual-console');
 
   if (currentTaskIndex < playlist.length - 1) {

@@ -35,6 +35,9 @@ export const checkResult = async (isHintUsed: boolean): Promise<void> => {
     const timeSpent = ((endTime - currentState.startTime) / MS_PER_SEC).toFixed(HALF_DIVIDER);
     sendToAdapter(!isHintUsed, timeSpent, isHintUsed ? 'hint_used' : 'SORT_COMPLETED');
 
+    const hintButton = document.querySelector<HTMLButtonElement>('.hint-button');
+    if (hintButton) hintButton.disabled = true;
+
     await handleWin();
   } else {
     sounds.wrong();
