@@ -1,82 +1,38 @@
-import { isAnswerCorrect } from '../lib/check-answer';
+import type {
+  TrueFalseQuestion,
+  TrueFalseSessionResult,
+  TrueFalseWidgetState,
+} from '../model/types';
+import { createButton, createTextBlock } from './create-true-false-element';
+import {
+  updateAnswerButtons,
+  calculatePercentage,
+  handleCheckAnswer,
+} from '../lib/true-false-helpers';
 import createElement from '@/shared/lib/dom/create-element';
-import type { TrueFalseQuestion, TrueFalseResult, TrueFalseWidgetState } from '../model/types';
+import './true-false-widget.css';
 
-function createButton(text: string, className: string, disabled = false): HTMLButtonElement {
-  return createElement('button', {
-    classList: [className],
-    textContent: text,
-    attributes: {
-      type: 'button',
-      disabled,
-    },
-  });
-}
+type TrueFalseWidgetElements = {
+  container: HTMLDivElement;
+  progressText: HTMLParagraphElement;
+  statement: HTMLParagraphElement;
+  buttonTrue: HTMLButtonElement;
+  buttonFalse: HTMLButtonElement;
+  buttonCheck: HTMLButtonElement;
+  buttonNext: HTMLButtonElement;
+  infoText: HTMLParagraphElement;
+  explanationText: HTMLParagraphElement;
+};
 
-function createTextBlock(className: string, hidden = false): HTMLParagraphElement {
-  return createElement('p', {
-    classList: [className],
-    attributes: {
-      hidden,
-    },
-  });
-}
-
-function updateAnswerButtons(
-  buttonTrue: HTMLButtonElement,
-  buttonFalse: HTMLButtonElement,
-  selectedAnswer: boolean | null,
-): void {
-  buttonTrue.classList.toggle('is-active', selectedAnswer === true);
-  buttonFalse.classList.toggle('is-active', selectedAnswer === false);
-}
-
-function handleCheckAnswer(
-  question: TrueFalseQuestion,
-  state: TrueFalseWidgetState,
-  infoText: HTMLParagraphElement,
-  explanationText: HTMLParagraphElement,
-  buttonTrue: HTMLButtonElement,
-  buttonFalse: HTMLButtonElement,
-  buttonCheck: HTMLButtonElement,
-  onComplete?: (result: TrueFalseResult) => void,
-): void {
-  if (state.selectedAnswer === null) return;
-
-  const isCorrect = isAnswerCorrect(question.correct, state.selectedAnswer);
-
-  state.status = 'checked';
-
-  infoText.textContent = isCorrect ? 'You did great!' : 'Incorrect';
-  explanationText.textContent = question.explanation;
-  explanationText.hidden = false;
-
-  buttonTrue.disabled = true;
-  buttonFalse.disabled = true;
-  buttonCheck.disabled = true;
-
-  onComplete?.({
-    questionId: question.id,
-    selectedAnswer: state.selectedAnswer,
-    isCorrect,
-  });
-}
-
-export function renderTrueFalseWidget(
-  question: TrueFalseQuestion,
-  onComplete?: (result: TrueFalseResult) => void,
-): HTMLElement {
-  const state: TrueFalseWidgetState = {
-    status: 'idle',
-    selectedAnswer: null,
-  };
-
+function createWidgetElements(): TrueFalseWidgetElements {
+  const progressText = createTextBlock('true-false-progress');
   const statement = createTextBlock('true-false-statement');
-  statement.textContent = question.statement;
 
   const buttonTrue = createButton('TRUE', 'true-false-button');
   const buttonFalse = createButton('FALSE', 'true-false-button');
   const buttonCheck = createButton('CHECK', 'button-check', true);
+  const buttonNext = createButton('NEXT', 'button-next', true);
+  buttonNext.hidden = true;
 
   const infoText = createTextBlock('true-false-infotext');
   const explanationText = createTextBlock('true-false-explanation', true);
@@ -88,32 +44,160 @@ export function renderTrueFalseWidget(
 
   const container = createElement('div', {
     classList: ['true-false-widget'],
-    children: [statement, buttonsWrapper, buttonCheck, infoText, explanationText],
+    children: [
+      progressText,
+      statement,
+      buttonsWrapper,
+      buttonCheck,
+      buttonNext,
+      infoText,
+      explanationText,
+    ],
   });
+
+  return {
+    container,
+    progressText,
+    statement,
+    buttonTrue,
+    buttonFalse,
+    buttonCheck,
+    buttonNext,
+    infoText,
+    explanationText,
+  };
+}
+
+export function renderTrueFalseWidget(
+  userId: string,
+  questions: TrueFalseQuestion[],
+  onFinish?: (result: TrueFalseSessionResult) => void,
+): HTMLElement {
+  const state: TrueFalseWidgetState = {
+    currentIndex: 0,
+    score: 0,
+    status: 'idle',
+    selectedAnswer: null,
+  };
+
+  const elements = createWidgetElements();
+
+  function getCurrentQuestion(): TrueFalseQuestion {
+    return questions[state.currentIndex];
+  }
 
   function selectAnswer(answer: boolean): void {
     if (state.status === 'checked') return;
+
     state.selectedAnswer = answer;
     state.status = 'answered';
-    buttonCheck.disabled = false;
+    elements.buttonCheck.disabled = false;
 
-    updateAnswerButtons(buttonTrue, buttonFalse, state.selectedAnswer);
+    updateAnswerButtons(elements.buttonTrue, elements.buttonFalse, state.selectedAnswer);
   }
-  buttonTrue.addEventListener('click', () => selectAnswer(true));
 
-  buttonFalse.addEventListener('click', () => selectAnswer(false));
+  elements.buttonTrue.addEventListener('click', () => selectAnswer(true));
+  elements.buttonFalse.addEventListener('click', () => selectAnswer(false));
 
-  buttonCheck.addEventListener('click', () => {
+  elements.buttonCheck.addEventListener('click', () => {
     handleCheckAnswer(
-      question,
+      getCurrentQuestion(),
       state,
-      infoText,
-      explanationText,
-      buttonTrue,
-      buttonFalse,
-      buttonCheck,
-      onComplete,
+      elements.infoText,
+      elements.explanationText,
+      elements.buttonTrue,
+      elements.buttonFalse,
+      elements.buttonCheck,
+      elements.buttonNext,
     );
   });
-  return container;
+
+  elements.buttonNext.addEventListener('click', () => {
+    const isLastQuestion = state.currentIndex === questions.length - 1;
+
+    if (isLastQuestion) {
+      showFinalResult(elements.container, userId, questions, state, onFinish);
+      return;
+    }
+    state.currentIndex += 1;
+    renderCurrentQuestionView(elements, state, getCurrentQuestion(), questions.length);
+  });
+
+  renderCurrentQuestionView(elements, state, getCurrentQuestion(), questions.length);
+
+  return elements.container;
+}
+
+function renderCurrentQuestionView(
+  elements: TrueFalseWidgetElements,
+  state: TrueFalseWidgetState,
+  question: TrueFalseQuestion,
+  totalQuestions: number,
+): void {
+  const {
+    progressText,
+    statement,
+    buttonTrue,
+    buttonFalse,
+    buttonCheck,
+    buttonNext,
+    infoText,
+    explanationText,
+  } = elements;
+
+  progressText.textContent = `Question ${state.currentIndex + 1} of ${totalQuestions}`;
+  statement.textContent = question.statement;
+
+  state.selectedAnswer = null;
+  state.status = 'idle';
+
+  infoText.textContent = '';
+  infoText.classList.remove('is-correct', 'is-incorrect');
+
+  explanationText.textContent = '';
+  explanationText.hidden = true;
+
+  buttonTrue.disabled = false;
+  buttonFalse.disabled = false;
+  buttonCheck.disabled = true;
+  buttonNext.hidden = true;
+  buttonNext.disabled = true;
+
+  updateAnswerButtons(buttonTrue, buttonFalse, state.selectedAnswer);
+}
+
+function showFinalResult(
+  container: HTMLDivElement,
+  userId: string,
+  questions: TrueFalseQuestion[],
+  state: TrueFalseWidgetState,
+  onFinish?: (result: TrueFalseSessionResult) => void,
+): void {
+  const totalQuestions = questions.length;
+  const correctAnswers = state.score;
+  const wrongAnswers = totalQuestions - correctAnswers;
+  const percentage = calculatePercentage(correctAnswers, totalQuestions);
+
+  state.status = 'finished';
+
+  container.innerHTML = '';
+
+  const resultTitle = createElement('h2', {
+    classList: ['true-false-result-title'],
+    textContent: 'Completed!',
+  });
+
+  const resultText = createElement('p', {
+    classList: ['true-false-result-text'],
+    textContent: `Correct answers: ${correctAnswers} / ${totalQuestions}`,
+  });
+
+  const resultPercentage = createElement('p', {
+    classList: ['true-false-result-percentage'],
+    textContent: `Score: ${percentage}%`,
+  });
+
+  container.append(resultTitle, resultText, resultPercentage);
+
+  onFinish?.({ userId, totalQuestions, correctAnswers, wrongAnswers, percentage });
 }
