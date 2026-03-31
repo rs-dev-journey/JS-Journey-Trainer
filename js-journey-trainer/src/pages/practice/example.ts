@@ -2,6 +2,7 @@
 import { getCurrentUserId, logout } from '@/entities/user';
 import { navigate } from '@/shared/lib/router/navigate';
 import { trueFalseQuestion, renderTrueFalseWidget } from '@/widgets/true-false';
+import { saveTrueFalseResult } from '@/widgets/true-false/lib/save-true-false-result';
 
 export function renderPracticePage(root: HTMLElement) {
   const userId = getCurrentUserId();
@@ -21,7 +22,7 @@ export function renderPracticePage(root: HTMLElement) {
   });
 
   const widget = renderTrueFalseWidget(userId, trueFalseQuestion, (result) => {
-    console.log(result);
+    saveTrueFalseResult(result);
   });
 
   root.append(title, button, widget);
