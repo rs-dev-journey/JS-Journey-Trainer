@@ -1,9 +1,22 @@
 class AudioService {
-  private readonly ctx: AudioContext = new globalThis.AudioContext();
+  private _ctx?: AudioContext;
+
+  private get ctx(): AudioContext {
+    if (!this._ctx) {
+      this._ctx = new globalThis.AudioContext();
+    }
+
+    if (this._ctx.state === 'suspended') {
+      void this._ctx.resume();
+    }
+
+    return this._ctx;
+  }
 
   private playTone(frequency: number, duration: number, type: OscillatorType, volume = 0.2): void {
-    const oscillator = this.ctx.createOscillator();
-    const gainNode = this.ctx.createGain();
+    const context = this.ctx;
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
 
     oscillator.type = type;
     oscillator.frequency.setValueAtTime(frequency, this.ctx.currentTime);
