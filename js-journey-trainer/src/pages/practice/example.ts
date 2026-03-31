@@ -1,8 +1,13 @@
 // TODO: temporary page
-import { logout } from '@/entities/user';
+import { getCurrentUserId, logout } from '@/entities/user';
 import { navigate } from '@/shared/lib/router/navigate';
+import { trueFalseQuestion, renderTrueFalseWidget } from '@/widgets/true-false';
 
 export function renderPracticePage(root: HTMLElement) {
+  const userId = getCurrentUserId();
+  if (!userId) {
+    throw new Error('User is not authenticated');
+  }
   const title = document.createElement('h1');
   title.textContent = 'Practice page';
 
@@ -15,5 +20,9 @@ export function renderPracticePage(root: HTMLElement) {
     navigate('/login');
   });
 
-  root.append(title, button);
+  const widget = renderTrueFalseWidget(userId, trueFalseQuestion, (result) => {
+    console.log(result);
+  });
+
+  root.append(title, button, widget);
 }

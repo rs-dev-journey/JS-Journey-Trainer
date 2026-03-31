@@ -5,18 +5,17 @@ export type TrueFalseQuestion = {
   explanation: string;
 };
 
-export type UserAnswer = {
-  questionId: number;
-  answer: boolean;
-};
-
 export type TrueFalseWidgetState = {
-  status: 'idle' | 'answered' | 'checked';
+  currentIndex: number;
+  score: number;
+  status: 'idle' | 'answered' | 'checked' | 'finished';
   selectedAnswer: boolean | null;
 };
 
-export type TrueFalseResult = {
-  questionId: number;
-  selectedAnswer: boolean;
-  isCorrect: boolean;
+export type TrueFalseSessionResult = {
+  userId: string;
+  totalQuestions: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+  percentage: number;
 };
