@@ -1,7 +1,17 @@
 import type { TrueFalseSessionResult } from '../model/types';
 
-const STORAGE_KEY = 'true-false-resuly';
+const STORAGE_KEY = 'true-false-result';
+
+type TrueFalseDashboardData = {
+  done: number;
+  all: number;
+};
 
 export function saveTrueFalseResult(result: TrueFalseSessionResult): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+  const dashboardData: TrueFalseDashboardData = {
+    done: result.correctAnswers,
+    all: result.totalQuestions,
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(dashboardData));
 }
