@@ -2,7 +2,7 @@ import { getAuthState, isAuthenticated } from '@/entities/user';
 import { renderLoginPage } from '@/pages/auth';
 import { renderHomePage } from '@/pages/home/example';
 import { renderHeader } from '@/widgets/header';
-import { renderPracticePage } from '@/pages/practice/example';
+import { renderPracticePage } from '@/pages/practice';
 import { renderDashboardPage } from '@/pages/dashboard/example';
 import { createTestsPage } from '@/pages/tests-page';
 import { createTestOverviewPage } from '@/pages/test-overview-page';
