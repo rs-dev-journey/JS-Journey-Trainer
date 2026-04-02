@@ -24,8 +24,8 @@ export function handleCheckAnswer(
   buttonFalse: HTMLButtonElement,
   buttonCheck: HTMLButtonElement,
   buttonNext: HTMLButtonElement,
-): void {
-  if (state.selectedAnswer === null) return;
+): boolean | null {
+  if (state.selectedAnswer === null) return null;
 
   const isCorrect = isAnswerCorrect(question.correct, state.selectedAnswer);
 
@@ -47,4 +47,6 @@ export function handleCheckAnswer(
   buttonCheck.disabled = true;
   buttonNext.disabled = false;
   buttonNext.hidden = false;
+
+  return isCorrect;
 }

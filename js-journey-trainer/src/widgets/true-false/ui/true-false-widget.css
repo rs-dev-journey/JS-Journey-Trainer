@@ -74,6 +74,7 @@
 .true-false-widget {
   width: 100%;
   max-width: 640px;
+  margin: 60px auto 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -84,6 +85,9 @@
   background: var(--true-false-bg-surface);
   color: var(--true-false-text-primary);
   box-shadow: var(--true-false-shadow-surface);
+
+  position: relative;
+  overflow: hidden;
 }
 
 .true-false-progress {
@@ -239,6 +243,30 @@
 .true-false-result-percentage {
   font-weight: 700;
   color: var(--true-false-status-success);
+}
+
+.true-answer-particle {
+  position: absolute;
+  z-index: 2;
+  font-size: 30px;
+  pointer-events: none;
+  animation: true-answer-fly 900ms ease-out forwards;
+}
+
+@keyframes true-answer-fly {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(120px) scale(1.1);
+  }
 }
 
 @media (max-width: 768px) {

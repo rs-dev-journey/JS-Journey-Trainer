@@ -11,6 +11,7 @@ import {
 } from '../lib/true-false-helpers';
 import createElement from '@/shared/lib/dom/create-element';
 import './true-false-widget.css';
+import { playTrueAnswerAnimation } from '../lib/play-true-answer-animation';
 
 type TrueFalseWidgetElements = {
   container: HTMLDivElement;
@@ -100,16 +101,7 @@ export function renderTrueFalseWidget(
   elements.buttonFalse.addEventListener('click', () => selectAnswer(false));
 
   elements.buttonCheck.addEventListener('click', () => {
-    handleCheckAnswer(
-      getCurrentQuestion(),
-      state,
-      elements.infoText,
-      elements.explanationText,
-      elements.buttonTrue,
-      elements.buttonFalse,
-      elements.buttonCheck,
-      elements.buttonNext,
-    );
+    handleCheckButtonClick(state, elements, getCurrentQuestion);
   });
 
   elements.buttonNext.addEventListener('click', () => {
@@ -122,10 +114,29 @@ export function renderTrueFalseWidget(
     state.currentIndex += 1;
     renderCurrentQuestionView(elements, state, getCurrentQuestion(), questions.length);
   });
-
   renderCurrentQuestionView(elements, state, getCurrentQuestion(), questions.length);
-
   return elements.container;
+}
+
+function handleCheckButtonClick(
+  state: TrueFalseWidgetState,
+  elements: TrueFalseWidgetElements,
+  getCurrentQuestion: () => TrueFalseQuestion,
+): void {
+  const result = handleCheckAnswer(
+    getCurrentQuestion(),
+    state,
+    elements.infoText,
+    elements.explanationText,
+    elements.buttonTrue,
+    elements.buttonFalse,
+    elements.buttonCheck,
+    elements.buttonNext,
+  );
+
+  if (result === true) {
+    playTrueAnswerAnimation(elements.container);
+  }
 }
 
 function renderCurrentQuestionView(
