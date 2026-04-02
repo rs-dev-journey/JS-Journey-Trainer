@@ -187,6 +187,27 @@
   outline-offset: 3px;
 }
 
+.button-restart {
+  align-self: flex-end;
+  min-height: 42px;
+  min-width: 128px;
+  padding: 10px 18px;
+  border: 1px solid var(--true-false-border-accent);
+  border-radius: 8px;
+  background: var(--true-false-accent);
+  color: var(--true-false-button-text);
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.button-restart:hover:not(:disabled) {
+  filter: brightness(1.05);
+  box-shadow: var(--true-false-shadow-button-hover);
+}
+
 .true-false-infotext {
   margin: 0;
   min-height: 24px;

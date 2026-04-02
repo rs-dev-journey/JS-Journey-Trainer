@@ -195,7 +195,7 @@ function showFinalResult(
 
   const resultTitle = createElement('h2', {
     classList: ['true-false-result-title'],
-    textContent: 'Completed!',
+    textContent: 'Completed! You are really cool!',
   });
 
   const resultText = createElement('p', {
@@ -208,7 +208,16 @@ function showFinalResult(
     textContent: `Score: ${percentage}%`,
   });
 
-  container.append(resultTitle, resultText, resultPercentage);
+  const restartButton = createElement('button', {
+    classList: ['button-restart'],
+    textContent: 'Restart',
+  });
+
+  restartButton.addEventListener('click', () => {
+    const newWidget = renderTrueFalseWidget(userId, questions, onFinish);
+    container.replaceWith(newWidget);
+  });
+  container.append(resultTitle, resultText, resultPercentage, restartButton);
 
   onFinish?.({ userId, totalQuestions, correctAnswers, wrongAnswers, percentage });
 }
