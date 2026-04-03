@@ -1,13 +1,29 @@
-import { mockConfig } from '@/shared/config/mock-config';
-import delay from '@/shared/lib/delay/delay';
+import { supabase } from '@/shared/api/supabase/client';
 import type { Attempt } from '../model/types';
-import { attemptsMock } from '../mock/mock-attempts';
+import { isAttemptRowArray } from '../lib/is-attempt-row';
+import { mapAttemptRow } from '../lib/map-attempt-row';
+
+const ATTEMPT_COLUMNS = 'id, user_id, test_id, finished_at, duration_ms, score_percent, status';
 
 export async function getUserTestAttempts(userId: string, testId: string): Promise<Attempt[]> {
-  await delay(mockConfig.delayMs);
-  if (mockConfig.shouldFail) throw new Error('Failed to load attempts');
+  const { data, error } = await supabase
+    .from('user_test_attempts')
+    .select(ATTEMPT_COLUMNS)
+    .eq('user_id', userId)
+    .eq('test_id', testId)
+    .order('finished_at', { ascending: false });
 
-  return structuredClone(
-    attemptsMock.filter((attempt) => attempt.userId === userId && attempt.testId === testId),
-  );
+  if (error) {
+    throw new Error(`Failed to load attempts: ${error.message}`);
+  }
+
+  if (!data) {
+    return [];
+  }
+
+  if (!isAttemptRowArray(data)) {
+    throw new Error('Invalid attempts data format');
+  }
+
+  return data.map(mapAttemptRow);
 }

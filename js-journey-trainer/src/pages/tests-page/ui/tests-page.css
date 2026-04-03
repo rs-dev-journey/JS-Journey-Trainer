@@ -22,7 +22,7 @@
 }
 
 .tests-page__header {
-  padding: 4px 16px;
+  padding: 16px;
   margin-bottom: 28px;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
