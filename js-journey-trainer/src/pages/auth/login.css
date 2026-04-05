@@ -34,7 +34,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
 .container-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -45,19 +44,20 @@
   position: relative;
   overflow: hidden;
 
-  background:
-    url('./images/image-auth3.png') center / cover no-repeat;
+  background: url('./images/image-auth3.png') center / cover no-repeat;
 }
 
 .container-form::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,
-      rgba(15, 23, 36, 0.08) 0%,
-      rgba(15, 23, 36, 0.14) 35%,
-      rgba(15, 23, 36, 0.42) 68%,
-      rgba(15, 23, 36, 0.72) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 36, 0.08) 0%,
+    rgba(15, 23, 36, 0.14) 35%,
+    rgba(15, 23, 36, 0.42) 68%,
+    rgba(15, 23, 36, 0.72) 100%
+  );
 }
 
 .text-auth,
@@ -135,7 +135,8 @@
   cursor: pointer;
   padding: 0.6rem 0.8rem;
 
-  transition: background-color 0.2s ease,
+  transition:
+    background-color 0.2s ease,
     color 0.2s ease,
     transform 0.2s ease;
 }
@@ -179,7 +180,8 @@
   color: var(--login-input-text);
   border-radius: 12px;
   outline: none;
-  transition: border-color 0.2s ease,
+  transition:
+    border-color 0.2s ease,
     box-shadow 0.2s ease,
     background-color 0.2s ease;
 }
@@ -200,7 +202,8 @@
   background: var(--login-button-bg);
   color: var(--login-button-text);
   font-weight: 700;
-  transition: transform 0.15s ease,
+  transition:
+    transform 0.15s ease,
     box-shadow 0.15s ease,
     opacity 0.15s ease;
 
