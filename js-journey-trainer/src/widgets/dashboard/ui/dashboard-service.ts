@@ -10,7 +10,6 @@ import { getCurrentUserName, getCurrentUserId } from '@/entities/user';
 import { renderErrorState } from '@/shared/ui/error-state';
 
 const ASYNC_SORTER_ID = 1;
-const TRUE_FALSE_ID = 2;
 const MOCK_NETWORK_DELAY = 2000;
 
 const chartConfigs: DashboardCardConfig[] = [
@@ -100,7 +99,7 @@ export const DashboardService = {
       const [testStats, asyncSorter, trueFalse] = await Promise.all([
         DataRepository.getUserProgress(current_userId),
         DataRepository.getActivity(ASYNC_SORTER_ID),
-        DataRepository.getActivity(TRUE_FALSE_ID),
+        DataRepository.getTrueFalseStats(),
       ]);
       drawPieChart('#chart-1', chartAdapters.forTestsProgress(testStats), []);
       drawPieChart('#chart-2', chartAdapters.forProgress(asyncSorter), [

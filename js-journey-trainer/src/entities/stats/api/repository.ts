@@ -1,6 +1,7 @@
 import type { QuizItem, ActivityData } from '../model/types';
 import type { UserTestProgress } from '@/entities/user-test-progress';
 import { getUserProgress } from '@/entities/user-test-progress';
+import { getTrueFalseResult } from '@/entities/user-true-false';
 
 export const DataRepository = {
   async getQuizzes(): Promise<QuizItem[]> {
@@ -14,6 +15,10 @@ export const DataRepository = {
   },
   async getActivity(id: number): Promise<ActivityData> {
     return id === 1 ? { done: 7, all: 10 } : { done: 3, all: 10 };
+  },
+  async getTrueFalseStats(): Promise<ActivityData> {
+    const result = getTrueFalseResult();
+    return result || { done: 0, all: 10 };
   },
   async getUserProgress(userId: string): Promise<UserTestProgress[]> {
     if (!userId) return [];

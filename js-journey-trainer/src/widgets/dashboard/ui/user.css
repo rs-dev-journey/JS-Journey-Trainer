@@ -13,8 +13,7 @@
   background: linear-gradient(90deg, #e0b939, #a651b1);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  -webkit-text-fill-color: transparent; 
 }
 
 .header-accent-line {
