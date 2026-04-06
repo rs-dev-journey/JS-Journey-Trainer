@@ -196,9 +196,16 @@ const headerActions = {
   })(),
 
   logoButton: (() => {
+    const logoImg = createElement('div', {
+      classList: ['logo-icon'],
+    });
+    const textLabel = createElement('span', {
+      classList: ['logo-text'],
+      textContent: 'JS Journey Trainer',
+    });
     const link: HTMLElement = createElement('a', {
       classList: ['nav-logo'],
-      textContent: 'JS Journey Trainer',
+      children: [logoImg, textLabel],
     });
     link.addEventListener('click', (event: Event) => {
       event.preventDefault();
