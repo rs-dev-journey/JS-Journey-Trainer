@@ -9,9 +9,14 @@ export function createLoginLayout() {
 
   const authText = document.createElement('aside');
   authText.className = 'text-auth';
-  authText.innerHTML = `
-    <h2>Explore the World of JavaScript!</h2>
-    <p>Join us to level up your skills and prepare for coding interviews.</p>`;
+
+  const title = document.createElement('h2');
+  title.textContent = 'Explore the World of JavaScript!';
+
+  const description = document.createElement('p');
+  description.textContent = 'Join us to level up your skills and prepare for coding interviews.';
+
+  authText.append(title, description);
 
   const section = document.createElement('section');
   section.className = 'section-form';

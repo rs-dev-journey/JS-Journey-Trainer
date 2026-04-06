@@ -1,0 +1,259 @@
+:root {
+  --result-bg-card: #f8fafc;
+  --result-bg-accent-soft: rgba(44, 87, 182, 0.08);
+  --result-bg-accent-soft-hover: rgba(44, 87, 182, 0.14);
+  --result-text-success: #5f7f2f;
+  --result-accent-strong: #4f8cff;
+
+  --result-shadow-surface:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 20px 40px rgba(15, 23, 36, 0.08),
+    0 0 0 1px rgba(44, 87, 182, 0.06);
+
+  --result-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 12px 28px rgba(15, 23, 36, 0.08);
+
+  --result-shadow-review:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 6px 18px rgba(37, 99, 235, 0.16);
+
+  --result-shadow-review-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 26px rgba(37, 99, 235, 0.22);
+
+  --result-shadow-action:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px rgba(37, 99, 235, 0.2);
+
+  --result-shadow-action-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 14px 30px rgba(37, 99, 235, 0.25);
+
+  --result-score-glow: 0 0 12px rgba(95, 127, 47, 0.18);
+}
+
+[data-theme='dark'] {
+  --result-bg-card: #0f1724;
+  --result-bg-accent-soft: rgba(79, 140, 255, 0.1);
+  --result-bg-accent-soft-hover: rgba(79, 140, 255, 0.2);
+  --result-text-success: #5f7f2f;
+  --result-accent-strong: #4f8cff;
+
+  --result-shadow-surface:
+    inset 0 1px 0 #1b2333, 0 20px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(79, 140, 255, 0.06);
+
+  --result-shadow-card: inset 0 1px 0 #1b2333, 0 12px 28px rgba(0, 0, 0, 0.22);
+
+  --result-shadow-review:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 18px rgba(18, 42, 96, 0.25);
+
+  --result-shadow-review-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 26px rgba(18, 42, 96, 0.35);
+
+  --result-shadow-action:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 20px rgba(18, 42, 96, 0.28);
+
+  --result-shadow-action-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 14px 30px rgba(18, 42, 96, 0.42);
+
+  --result-score-glow: 0 0 12px rgba(205, 223, 166, 0.25);
+}
+
+.test-run-result {
+  width: calc(100% - 40px);
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px 32px;
+  margin: 0 20px;
+  border-radius: 8px;
+  background: var(--run-color-surface);
+  position: relative;
+  box-shadow: var(--result-shadow-surface);
+  color: var(--run-color-text-primary);
+  border: 1px solid var(--run-border);
+}
+
+.test-run-result__card {
+  border: 1px solid var(--run-border-soft);
+  background: var(--result-bg-card);
+  position: relative;
+  box-shadow: var(--result-shadow-card);
+  border-radius: 16px;
+  padding: 24px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.test-run-result__score {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--result-text-success);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--run-border-soft);
+  text-shadow: var(--result-score-glow);
+}
+
+.test-run-result__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--run-border-soft);
+}
+
+.test-run-result__stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--run-color-text-secondary);
+  transition: all 0.2s;
+}
+
+.test-run-result__stat:hover {
+  color: var(--run-color-text-primary);
+  transform: translateX(2px);
+}
+
+.test-run-result__stat::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.9;
+}
+
+.test-run-result__stat--correct::before {
+  background-image: url('../images/done.png');
+}
+
+.test-run-result__stat--time::before {
+  background-image: url('../images/clock.png');
+}
+
+.test-run-result__review-button {
+  align-self: center;
+  margin-top: 8px;
+  min-height: 40px;
+  width: clamp(180px, 50vw, 320px);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--run-border-accent-strong);
+  background: var(--result-bg-accent-soft);
+  color: var(--run-color-text-primary);
+  box-shadow: var(--result-shadow-review);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.test-run-result__review-button:hover {
+  background: var(--result-bg-accent-soft-hover);
+  border-color: var(--result-accent-strong);
+  box-shadow: var(--result-shadow-review-hover);
+}
+
+.test-run-result__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.test-run-result__action-button {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--run-border-accent);
+  background: var(--run-accent);
+  color: var(--run-button-text);
+  box-shadow: var(--result-shadow-action);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.test-run-result__action-button:hover {
+  filter: brightness(1.05);
+  box-shadow: var(--result-shadow-action-hover);
+}
+
+.test-run-result__action-button:active {
+  filter: brightness(0.98);
+}
+
+.test-run-result__action-button:focus-visible {
+  outline: 2px solid var(--run-focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .test-run-result {
+    width: calc(100% - 20px);
+    gap: 40px;
+    padding: 40px 32px;
+    margin: 0 10px;
+  }
+
+  .test-run-result__score {
+    font-size: 32px;
+  }
+
+  .test-run-result__stat {
+    font-size: 14px;
+  }
+
+  .test-run-result__review-button {
+    font-size: 15px;
+  }
+
+  .test-run-result__action-button {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .test-run-result {
+    gap: 28px;
+    padding: 24px 18px;
+  }
+
+  .test-run-result__card {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .test-run-result__score {
+    font-size: 28px;
+  }
+
+  .test-run-result__stat {
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .test-run-result__stat::before {
+    width: 16px;
+    height: 16px;
+  }
+
+  .test-run-result__review-button {
+    width: 100%;
+    font-size: 14px;
+    padding: 9px 12px;
+  }
+
+  .test-run-result__action-button {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .test-run-result__action-button {
+    padding: 8px;
+  }
+}

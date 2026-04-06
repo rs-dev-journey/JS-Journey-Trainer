@@ -25,9 +25,13 @@ function getUserFromSession(session: Session | null): AuthUser | null {
     return null;
   }
 
+  const metadataName = session.user.user_metadata?.['name'];
+  const name = typeof metadataName === 'string' ? metadataName : undefined;
+
   return {
     id: session.user.id,
     email: session.user.email ?? '',
+    name,
   };
 }
 
@@ -36,6 +40,14 @@ export function getAuthState(): AuthState {
     user: authState.user,
     isLoading: authState.isLoading,
   };
+}
+
+export function getCurrentUserId(): string | undefined {
+  return authState.user?.id;
+}
+
+export function getCurrentUserName(): string | undefined {
+  return authState.user?.name;
 }
 
 export function isAuthenticated(): boolean {
