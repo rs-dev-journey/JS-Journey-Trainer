@@ -6,7 +6,7 @@ import { drawPieChart, resizeObserver } from '../lib/draw';
 import type { DashboardCardConfig } from '../model/types';
 import createElement from '@/shared/lib/dom/create-element';
 import { createLoader } from '@/shared/ui/loader';
-import { getCurrentUserName } from '@/entities/user';
+import { getCurrentUserName, getCurrentUserId } from '@/entities/user';
 import { renderErrorState } from '@/shared/ui/error-state';
 
 const ASYNC_SORTER_ID = 1;
@@ -67,7 +67,8 @@ export const DashboardService = {
   },
 
   async init(parent: HTMLElement): Promise<void> {
-    if (!parent) return;
+    const current_userId = getCurrentUserId();
+    if (!parent || !current_userId) return;
     const content = createElement('div', { classList: ['dashboard-grid'] });
     parent.append(content);
     const authName = getCurrentUserName();
@@ -76,15 +77,14 @@ export const DashboardService = {
     this.renderUserHeader(parent, finalName);
 
     chartConfigs.forEach((config) => {
+      const chartDiv = createElement('div', {
+        children: [createLoader()],
+      });
+      chartDiv.id = config.id;
+
       const card = createElement('div', {
         classList: ['chart-card', config.wide ? 'wide' : 'not-wide'],
-        children: [
-          createElement('h3', { textContent: config.title }),
-          createElement('div', {
-            attributes: { id: config.id },
-            children: [createLoader()],
-          }),
-        ],
+        children: [createElement('h3', { textContent: config.title }), chartDiv],
       });
 
       content.append(card);
@@ -97,12 +97,12 @@ export const DashboardService = {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, MOCK_NETWORK_DELAY));
-      const [quiz, asyncSorter, trueFalse] = await Promise.all([
-        DataRepository.getQuizzes(),
+      const [testStats, asyncSorter, trueFalse] = await Promise.all([
+        DataRepository.getUserProgress(current_userId),
         DataRepository.getActivity(ASYNC_SORTER_ID),
         DataRepository.getActivity(TRUE_FALSE_ID),
       ]);
-      drawPieChart('#chart-1', chartAdapters.forPie(quiz), []);
+      drawPieChart('#chart-1', chartAdapters.forTestsProgress(testStats), []);
       drawPieChart('#chart-2', chartAdapters.forProgress(asyncSorter), [
         'var(--color-async)',
         'var(--color-empty)',
