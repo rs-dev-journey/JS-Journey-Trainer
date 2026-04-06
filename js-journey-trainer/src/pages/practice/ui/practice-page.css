@@ -19,7 +19,7 @@
   padding: 16px;
   font-size: 28px;
   font-weight: 700;
-  background: var(--bg-surface);
+  background: var(--bg-surface, #ecd2a4);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
 }
