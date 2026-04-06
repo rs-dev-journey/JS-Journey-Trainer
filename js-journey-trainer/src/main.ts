@@ -1,7 +1,10 @@
-import { renderSorterPage } from './pages/async-sorter/sorter-page';
-import { initAsyncSorter } from './widgets/async-sorter';
+import 'normalize.css';
+import './style.css';
 
-globalThis.addEventListener('DOMContentLoaded', () => {
-  document.body.append(renderSorterPage());
-  initAsyncSorter();
-});
+import { startApp } from './app';
+
+const root = document.createElement('div');
+root.id = 'app';
+document.body.append(root);
+
+void startApp(root);

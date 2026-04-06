@@ -3,13 +3,14 @@ import { renderLoginPage } from '@/pages/auth';
 import { renderHomePage } from '@/pages/home/example';
 import { renderHeader } from '@/widgets/header';
 import { renderPracticePage } from '@/pages/practice';
-import { renderDashboardPage } from '@/pages/dashboard/example';
+// import { renderDashboardPage } from '@/pages/dashboard/example';
 import { createTestsPage } from '@/pages/tests-page';
 import { createTestOverviewPage } from '@/pages/test-overview-page';
 import { createTestRunPage } from '@/pages/test-run-page';
 import { renderNotFoundPage } from '@/pages/not-found-page/ui/index';
 import { ROUTE_CHANGE_EVENT } from '@/shared/lib/router/navigate';
 import { renderTrueFalsePage } from '@/pages/true-false-page';
+import { renderAsyncSorterPage } from '@/pages/async-sorter/sorter-page';
 
 type Route = {
   render: (root: HTMLElement) => void;
@@ -21,7 +22,8 @@ const staticRoutes: Record<string, Route> = {
   '/': { render: renderHomePage, isProtected: false, withHeader: true },
   '/login': { render: renderLoginPage, isProtected: false, withHeader: false },
   '/practice': { render: renderPracticePage, isProtected: true, withHeader: true },
-  '/dashboard': { render: renderDashboardPage, isProtected: true, withHeader: true },
+  // '/dashboard': { render: renderDashboardPage, isProtected: true, withHeader: true },
+  '/async-sorter': { render: renderAsyncSorterPage, isProtected: true, withHeader: true },
   '/tests': { render: createTestsPage, isProtected: true, withHeader: true },
   '/true-false': { render: renderTrueFalsePage, isProtected: true, withHeader: true },
   '/404': { render: renderNotFoundPage, isProtected: false, withHeader: false },

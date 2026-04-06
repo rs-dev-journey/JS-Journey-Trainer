@@ -1,4 +1,5 @@
 import createElement from '../../shared/lib/dom/create-element';
+import { initAsyncSorter } from '@/widgets/async-sorter';
 
 export const createControls = () => {
   const hintButton = createElement('button', {
@@ -17,7 +18,7 @@ export const createControls = () => {
   return container;
 };
 
-export const renderSorterPage = (): HTMLElement => {
+export const renderSorter = (): HTMLElement => {
   return createElement('div', {
     classList: ['page-wrapper'],
     children: [
@@ -67,3 +68,12 @@ function createContainer(id: string, title: string): HTMLElement {
     children: [createElement('h3', { textContent: title })],
   });
 }
+
+export const renderAsyncSorterPage = async (parent: HTMLElement): Promise<void> => {
+  parent.innerHTML = '';
+
+  const page = renderSorter();
+  parent.append(page);
+
+  initAsyncSorter();
+};
