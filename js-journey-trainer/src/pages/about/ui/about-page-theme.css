@@ -1,0 +1,49 @@
+:root {
+  --about-page-bg: var(--bg-color, #f8fafc);
+  --about-surface: var(--bg-surface-strong, #ffffff);
+  --about-surface-soft: rgba(15, 23, 36, 0.03);
+
+  --about-text-primary: var(--text-primary, #0f1724);
+  --about-text-secondary: var(--text-secondary, #475569);
+  --about-text-muted: var(--text-muted, #94a3b8);
+
+  --about-border: var(--border-color, rgba(15, 23, 36, 0.12));
+  --about-divider: rgba(15, 23, 36, 0.12);
+
+  --about-shadow-card: 0 8px 20px var(--shadow-card, rgba(15, 23, 36, 0.08));
+  --about-shadow-card-hover: 0 12px 28px var(--shadow-card-hover, rgba(15, 23, 36, 0.16));
+
+  --about-accent: #2c57b6;
+  --about-accent-hover: #1d4ed8;
+  --about-accent-border: rgba(44, 87, 182, 0.22);
+  --about-focus: #2563eb;
+
+  --about-button-text: var(--button-text, #e6edf3);
+  --about-button-bg: var(--button-gradient, linear-gradient(135deg, #3b82f6, #2563eb));
+  --about-button-shadow-hover: var(--button-shadow-hover, rgba(37, 99, 235, 0.25));
+}
+
+[data-theme='dark'] {
+  --about-page-bg: #131a26;
+  --about-surface: #1b2333;
+  --about-surface-soft: rgba(255, 255, 255, 0.03);
+
+  --about-text-primary: var(--text-primary, #e6edf3);
+  --about-text-secondary: var(--text-secondary, #9aa7b5);
+  --about-text-muted: var(--text-muted, #8b98a7);
+
+  --about-border: var(--border-color, rgba(255, 255, 255, 0.08));
+  --about-divider: rgba(255, 255, 255, 0.15);
+
+  --about-shadow-card: 0 8px 20px var(--shadow-card, rgba(0, 0, 0, 0.25));
+  --about-shadow-card-hover: 0 12px 28px var(--shadow-card-hover, rgba(0, 0, 0, 0.35));
+
+  --about-accent: rgba(44, 87, 182, 0.95);
+  --about-accent-hover: #e2e8f0;
+  --about-accent-border: rgba(132, 168, 255, 0.22);
+  --about-focus: #89aefc;
+
+  --about-button-text: var(--button-text, #e6edf3);
+  --about-button-bg: var(--button-gradient, linear-gradient(135deg, #3b82f6, #2563eb));
+  --about-button-shadow-hover: var(--button-shadow-hover, rgba(37, 99, 235, 0.4));
+}

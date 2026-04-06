@@ -10,6 +10,7 @@ import { createTestRunPage } from '@/pages/test-run-page';
 import { renderNotFoundPage } from '@/pages/not-found-page/ui/index';
 import { ROUTE_CHANGE_EVENT } from '@/shared/lib/router/navigate';
 import { renderTrueFalsePage } from '@/pages/true-false-page';
+import { renderAboutPage } from '@/pages/about';
 
 type Route = {
   render: (root: HTMLElement) => void;
@@ -25,6 +26,7 @@ const staticRoutes: Record<string, Route> = {
   '/tests': { render: createTestsPage, isProtected: true, withHeader: true },
   '/true-false': { render: renderTrueFalsePage, isProtected: true, withHeader: true },
   '/404': { render: renderNotFoundPage, isProtected: false, withHeader: false },
+  '/about': { render: renderAboutPage, isProtected: true, withHeader: true },
 };
 
 let appRoot: HTMLElement | null = null;
