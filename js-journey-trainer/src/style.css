@@ -12,9 +12,9 @@
 }
 
 :root {
-  --bg-color: #ffecb3;  
+  --bg-color: #ffecb3;
 }
 
 :root[data-theme='dark'] {
-  --bg-color: #131a26; 
+  --bg-color: #131a26;
 }
