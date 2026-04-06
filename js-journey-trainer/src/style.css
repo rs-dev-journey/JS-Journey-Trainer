@@ -8,4 +8,13 @@
   align-items: stretch;
   width: 100%;
   min-height: 100vh;
+  background: var(--bg-color);
+}
+
+:root {
+  --bg-color: #ffecb3;
+}
+
+:root[data-theme='dark'] {
+  --bg-color: #131a26;
 }

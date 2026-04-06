@@ -5,20 +5,21 @@
 }
 
 [data-theme='dark'] {
-  --bg-color: #1a237e;
+  --bg-color-game: #1a237e;
   --text-color: #ffffff;
   --glow-color: rgba(0, 191, 255, 0.6);
 }
 
-body,
-html {
+body:has(.not-found-container),
+html:has(.not-found-container) {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--bg-color);
+  overflow: hidden;
+  background-color: var(--bg-color-game);
   font-family: 'Arial Black', sans-serif;
   transition: background-color 1s ease;
 }
@@ -36,27 +37,27 @@ html {
   text-align: center;
   z-index: 10;
   pointer-events: none;
-}
 
-h1 {
-  font-size: clamp(2.5rem, 10vw, 7rem);
-  margin: 0;
-  color: var(--text-color);
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  text-shadow:
-    0 0 15px var(--glow-color),
-    0 0 30px var(--glow-color);
-  opacity: 0.9;
-}
+  h1 {
+    font-size: clamp(2.5rem, 10vw, 7rem);
+    margin: 0;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow:
+      0 0 15px var(--glow-color),
+      0 0 30px var(--glow-color);
+    opacity: 0.9;
+  }
 
-p {
-  font-family: sans-serif;
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  color: var(--text-color);
-  margin-top: 10px;
-  opacity: 0.8;
-  font-weight: bold;
+  p {
+    font-family: sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-color);
+    margin-top: 10px;
+    opacity: 0.8;
+    font-weight: bold;
+  }
 }
 
 .btn-back {
@@ -80,7 +81,7 @@ p {
 
 .btn-back:hover {
   background-color: var(--text-color);
-  color: var(--bg-color);
+  color: var(--bg-color-game);
   box-shadow: 0 0 15px var(--glow-color);
 }
 
