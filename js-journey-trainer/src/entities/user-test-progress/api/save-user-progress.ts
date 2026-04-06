@@ -1,28 +1,94 @@
+import { supabase } from '@/shared/api/supabase/client';
 import type { SaveUserProgressInput, UserTestProgress } from '../model/types';
-import { userProgressMock } from './mock-user-progress';
+import type { UserTestProgressRow } from './types';
+import { mapUserProgressRow } from '../lib/map-user-progress-row';
+import { isUserTestProgressRow } from '../lib/is-user-test-progress';
 
-export function saveUserProgress(input: SaveUserProgressInput): UserTestProgress {
-  const existing = userProgressMock.find(
-    (item) => item.userId === input.userId && item.testId === input.testId,
-  );
+async function loadExistingUserProgressRow(
+  input: SaveUserProgressInput,
+): Promise<UserTestProgressRow | null> {
+  const { data, error } = await supabase
+    .from('user_test_progress')
+    .select('id, user_id, test_id, attempts_count, last_score_percent, status')
+    .eq('user_id', input.userId)
+    .eq('test_id', input.testId)
+    .maybeSingle();
 
-  if (existing) {
-    existing.attemptsCount += 1;
-    existing.lastScorePercent = input.scorePercent;
-    existing.status = 'completed';
-
-    return structuredClone(existing);
+  if (error) {
+    throw new Error(`Error loading user progress: ${error.message}`);
   }
 
-  const newProgress: UserTestProgress = {
-    userId: input.userId,
-    testId: input.testId,
-    status: 'completed',
-    attemptsCount: 1,
-    lastScorePercent: input.scorePercent,
-  };
+  if (!data) {
+    return null;
+  }
 
-  userProgressMock.push(newProgress);
+  if (!isUserTestProgressRow(data)) {
+    throw new Error('Invalid existing user progress data format');
+  }
 
-  return structuredClone(newProgress);
+  return data;
+}
+
+async function updateUserProgressRow(
+  row: UserTestProgressRow,
+  input: SaveUserProgressInput,
+): Promise<UserTestProgress> {
+  const { data, error } = await supabase
+    .from('user_test_progress')
+    .update({
+      attempts_count: row.attempts_count + 1,
+      last_score_percent: input.scorePercent,
+      status: 'completed',
+    })
+    .eq('id', row.id)
+    .select('id, user_id, test_id, attempts_count, last_score_percent, status')
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`Error updating user progress: ${error.message}`);
+  }
+
+  if (!data || !isUserTestProgressRow(data)) {
+    throw new Error('Invalid updated user progress data format');
+  }
+
+  return mapUserProgressRow(data);
+}
+
+async function insertUserProgressRow(input: SaveUserProgressInput): Promise<UserTestProgress> {
+  const { data, error } = await supabase
+    .from('user_test_progress')
+    .insert({
+      user_id: input.userId,
+      test_id: input.testId,
+      attempts_count: 1,
+      last_score_percent: input.scorePercent,
+      status: 'completed',
+    })
+    .select('id, user_id, test_id, attempts_count, last_score_percent, status')
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`Error creating user progress: ${error.message}`);
+  }
+
+  if (!data || !isUserTestProgressRow(data)) {
+    throw new Error('Invalid inserted user progress data format');
+  }
+
+  return mapUserProgressRow(data);
+}
+
+export function saveUserProgress(input: SaveUserProgressInput) {
+  loadExistingUserProgressRow(input)
+    .then((existingRow) => {
+      if (existingRow) {
+        updateUserProgressRow(existingRow, input);
+      } else {
+        insertUserProgressRow(input);
+      }
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 }

@@ -36,9 +36,7 @@ function createAttemptsTableRow(attempt: Attempt): HTMLTableRowElement {
 function createAttemptsTableBody(attempts: Attempt[]): HTMLTableSectionElement {
   const body = createElement('tbody');
 
-  for (let i = attempts.length - 1; i >= 0; i--) {
-    body.append(createAttemptsTableRow(attempts[i]));
-  }
+  attempts.forEach((attempt) => body.append(createAttemptsTableRow(attempt)));
 
   return body;
 }

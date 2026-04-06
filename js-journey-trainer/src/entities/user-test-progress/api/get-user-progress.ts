@@ -1,15 +1,25 @@
-import delay from '@/shared/lib/delay/delay';
-import { mockConfig } from '@/shared/config/mock-config';
-import { userProgressMock } from './mock-user-progress';
+import { isUserTestProgressRowArray } from '../lib/is-user-test-progress';
+import { mapUserProgressRow } from '../lib/map-user-progress-row';
 import type { UserTestProgress } from '../model/types';
+import { supabase } from '@/shared/api/supabase/client';
 
 export async function getUserProgress(userId: string): Promise<UserTestProgress[]> {
-  await delay(mockConfig.delayMs);
-  if (mockConfig.shouldFail) throw new Error('Error loading user progress');
+  const { data, error } = await supabase
+    .from('user_test_progress')
+    .select('id, user_id, test_id, attempts_count, last_score_percent, status')
+    .eq('user_id', userId);
 
-  const userProgress = structuredClone(
-    userProgressMock.filter((progress) => progress.userId === userId),
-  );
+  if (error) {
+    throw new Error(`Error loading user progress: ${error.message}`);
+  }
 
-  return userProgress;
+  if (!data) {
+    return [];
+  }
+
+  if (!isUserTestProgressRowArray(data)) {
+    throw new Error('Invalid user progress data format');
+  }
+
+  return data.map(mapUserProgressRow);
 }
