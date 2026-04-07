@@ -17,7 +17,7 @@
 }
 
 .tests-page {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 100px);
   background: var(--bg-page);
 }
 

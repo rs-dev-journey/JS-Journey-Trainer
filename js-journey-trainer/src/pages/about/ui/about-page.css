@@ -1,0 +1,24 @@
+.about-page {
+  min-height: calc(100vh - 100px);
+  padding: 32px 20px 56px;
+  background: var(--about-page-bg);
+  color: var(--about-text-primary);
+}
+
+.about-page__container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 20px 12px 32px;
+  }
+
+  .about-page__container {
+    gap: 24px;
+  }
+}
