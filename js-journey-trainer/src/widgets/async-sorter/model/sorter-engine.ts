@@ -4,6 +4,11 @@ import { refreshSorterUI } from '../ui/async-sorter';
 import { RESULT_DELAY, HALF_DIVIDER, MS_PER_SEC } from '../lib/constants';
 import { handleWin } from './sorter-init';
 import { sounds } from '../lib/audio-service';
+import { getCurrentUserId } from '@/entities/user';
+import type { SorterResult } from '@/shared/api/async-sorter/sorter-api';
+import { saveSorterResult } from '@/shared/api/async-sorter/sorter-api';
+import { createLoader } from '@/shared/ui/loader';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 export const currentState: SorterState = {
   currentTask: playlist[0],
@@ -112,7 +117,11 @@ export const showHint = (): void => {
 };
 
 export const sendToAdapter = async (status: boolean, time: string, type: string): Promise<void> => {
-  const payload = {
+  const consoleOut = document.querySelector<HTMLElement>('#visual-console');
+  const userId = getCurrentUserId() ?? 'Explorer';
+
+  const payload: SorterResult = {
+    user_id: userId,
     task_id: `visual-task-${currentState.currentTask.id}`,
     passed: status,
     time_spent: Number.parseFloat(time),
@@ -120,18 +129,28 @@ export const sendToAdapter = async (status: boolean, time: string, type: string)
     event_type: type,
   };
 
+  if (consoleOut) {
+    consoleOut.innerHTML = '';
+    consoleOut.append(createLoader());
+  }
+
   console.log('ADAPTER_LOG:', payload);
 
   try {
-    await fetch('http://localhost:5000/api/save-result', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log('Data saved in SQLite');
-  } catch (error) {
-    console.error('Failed to send data on server:', error);
+    await saveSorterResult(payload);
+    if (consoleOut) {
+      consoleOut.textContent = '> Result saved successfully.';
+    }
+  } catch {
+    if (consoleOut) {
+      consoleOut.innerHTML = '';
+      consoleOut.append(
+        renderErrorState({
+          title: 'Sync Error',
+          message: 'Could not save your progress.',
+          onRetry: () => sendToAdapter(status, time, type),
+        }),
+      );
+    }
   }
 };

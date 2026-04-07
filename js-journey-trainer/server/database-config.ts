@@ -10,6 +10,7 @@ export async function initDatabase(): Promise<Database> {
   await database.exec(`
     CREATE TABLE IF NOT EXISTS results (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id TEXT,
       task_id TEXT,
       passed BOOLEAN,
       time_spent REAL,

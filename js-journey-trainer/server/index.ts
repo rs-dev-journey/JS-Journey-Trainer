@@ -24,8 +24,15 @@ const start = async () => {
           const data = JSON.parse(body);
 
           await database.run(
-            `INSERT INTO results (task_id, passed, time_spent, attempts, event_type) VALUES (?, ?, ?, ?, ?)`,
-            [data.task_id, data.passed, data.time_spent, data.attempts, data.event_type],
+            `INSERT INTO results (user_id, task_id, passed, time_spent, attempts, event_type) VALUES (?, ?, ?, ?, ?, ?)`,
+            [
+              data.user_id,
+              data.task_id,
+              data.passed,
+              data.time_spent,
+              data.attempts,
+              data.event_type,
+            ],
           );
 
           console.log('Data saved', data);
