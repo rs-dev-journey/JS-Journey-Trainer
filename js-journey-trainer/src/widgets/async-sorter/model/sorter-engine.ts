@@ -111,11 +111,27 @@ export const showHint = (): void => {
   }
 };
 
-export const sendToAdapter = (status: boolean, time: string, type: string): void => {
-  console.log('ADAPTER_LOG:', {
-    exerciseId: `visual-task-${currentState.currentTask.id}`,
+export const sendToAdapter = async (status: boolean, time: string, type: string): Promise<void> => {
+  const payload = {
+    task_id: `visual-task-${currentState.currentTask.id}`,
     passed: status,
-    time: time,
-    type: type,
-  });
+    time_spent: Number.parseFloat(time),
+    attempts: currentState.attempts,
+    event_type: type,
+  };
+
+  console.log('ADAPTER_LOG:', payload);
+
+  try {
+    await fetch('http://localhost:5000/api/save-result', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    console.log('Data saved in SQLite');
+  } catch (error) {
+    console.error('Failed to send data on server:', error);
+  }
 };
