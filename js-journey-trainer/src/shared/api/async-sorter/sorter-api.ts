@@ -14,3 +14,10 @@ export const saveSorterResult = async (payload: SorterResult): Promise<void> => 
     body: JSON.stringify(payload),
   });
 };
+
+export const fetchSolvedCount = async (userId: string): Promise<number> => {
+  const response = await fetch(`http://localhost:5000/api/user-progress?user_id=${userId}`);
+  if (!response.ok) return 0;
+  const data = await response.json();
+  return data.solved_count;
+};

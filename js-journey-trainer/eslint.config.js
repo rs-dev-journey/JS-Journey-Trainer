@@ -124,6 +124,7 @@ export default [
       'no-console': 'off',
       'unicorn/no-process-exit': 'off',
       'unicorn/prefer-module': 'off',
+      'max-lines-per-function': 'off',
     },
   },
 
