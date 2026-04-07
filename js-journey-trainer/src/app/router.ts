@@ -3,7 +3,7 @@ import { renderLoginPage } from '@/pages/auth';
 import { renderHomePage } from '@/pages/home/example';
 import { renderHeader } from '@/widgets/header';
 import { renderPracticePage } from '@/pages/practice';
-import { renderDashboardPage } from '@/pages/dashboard/example';
+import { renderDashboardPage } from '@/pages/dashboard';
 import { createTestsPage } from '@/pages/tests-page';
 import { createTestOverviewPage } from '@/pages/test-overview-page';
 import { createTestRunPage } from '@/pages/test-run-page';
