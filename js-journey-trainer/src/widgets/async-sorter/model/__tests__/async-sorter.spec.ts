@@ -16,7 +16,7 @@ class MockAudioContext {
   destination = {};
   currentTime = 0;
   state = 'running';
-  resume = vi.fn().mockResolvedValue();
+  resume = vi.fn().mockResolvedValue(null);
 }
 
 vi.stubGlobal('AudioContext', MockAudioContext);
