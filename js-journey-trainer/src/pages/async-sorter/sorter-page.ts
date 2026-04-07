@@ -1,5 +1,6 @@
 import createElement from '../../shared/lib/dom/create-element';
 import { initAsyncSorter } from '@/widgets/async-sorter';
+import { renderErrorState } from '@/shared/ui/error-state';
 
 export const createControls = () => {
   const hintButton = createElement('button', {
@@ -70,10 +71,22 @@ function createContainer(id: string, title: string): HTMLElement {
 }
 
 export const renderAsyncSorterPage = async (parent: HTMLElement): Promise<void> => {
-  parent.innerHTML = '';
+  try {
+    parent.innerHTML = '';
 
-  const page = renderSorter();
-  parent.append(page);
+    const page = renderSorter();
+    parent.append(page);
 
-  initAsyncSorter();
+    initAsyncSorter();
+  } catch {
+    parent.innerHTML = '';
+
+    parent.append(
+      renderErrorState({
+        title: 'Something went wrong.',
+        message: 'We couldn’t load Sorter page.\n Try to refresh.',
+        onRetry: () => globalThis.location.reload(),
+      }),
+    );
+  }
 };
