@@ -3,7 +3,7 @@ import { renderLoginPage } from '@/pages/auth';
 import { renderHomePage } from '@/pages/home/example';
 import { renderHeader } from '@/widgets/header';
 import { renderPracticePage } from '@/pages/practice';
-// import { renderDashboardPage } from '@/pages/dashboard/example';
+import { renderDashboardPage } from '@/pages/dashboard';
 import { createTestsPage } from '@/pages/tests-page';
 import { createTestOverviewPage } from '@/pages/test-overview-page';
 import { createTestRunPage } from '@/pages/test-run-page';
@@ -23,7 +23,7 @@ const staticRoutes: Record<string, Route> = {
   '/': { render: renderHomePage, isProtected: false, withHeader: true },
   '/login': { render: renderLoginPage, isProtected: false, withHeader: false },
   '/practice': { render: renderPracticePage, isProtected: true, withHeader: true },
-  // '/dashboard': { render: renderDashboardPage, isProtected: true, withHeader: true },
+  '/dashboard': { render: renderDashboardPage, isProtected: true, withHeader: true },
   '/async-sorter': { render: renderAsyncSorterPage, isProtected: true, withHeader: true },
   '/tests': { render: createTestsPage, isProtected: true, withHeader: true },
   '/true-false': { render: renderTrueFalsePage, isProtected: true, withHeader: true },

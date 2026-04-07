@@ -1,0 +1,171 @@
+:root {
+  --color-quiz: #e9a9f1;
+  --color-empty: #999999;
+  --color-async: #39d8d8;
+  --card-color: #ecd2a4;
+  --card-text: #333333;
+  --legend-text: #555555;
+}
+
+:root[data-theme=dark] {
+  --color-quiz: #5d0768;
+  --color-empty: #555555;
+  --color-async: #0e1577;
+  --card-color: #110339;
+  --bg-page: #12153b;
+  --card-text: #879fe6;
+  --legend-text: #a2b3e6;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-page, #f8f9fa);
+}
+
+.chart-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px;
+  background: var(--card-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 280px;
+}
+.chart-card.wide {
+  flex: 2;
+  width: clamp(280px, 40%, 800px);
+}
+.chart-card h3 {
+  margin-bottom: 20px;
+  color: var(--card-text);
+  width: 100%;
+  text-align: center;
+}
+.chart-card .card-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+.chart-card .card-content.row {
+  flex-direction: row;
+}
+.chart-card .card-content.column {
+  flex-direction: column;
+}
+.chart-card [id^=chart-] {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.chart-card:first-child {
+  flex-basis: 100%;
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+}
+.legend.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 10px;
+}
+.legend.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--legend-text);
+  white-space: nowrap;
+}
+.legend .legend-item .color-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.streak-card {
+  flex-basis: 100%;
+  margin-top: 20px;
+}
+.streak-card .streak-dots {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 15px;
+}
+.streak-card .streak-dots .dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: #eee;
+  transition: all 0.3s;
+}
+.streak-card .streak-dots .dot.active {
+  background: #4caf50;
+  box-shadow: 0 0 10px rgba(76, 172, 80, 0.3);
+}
+
+.d3-tooltip {
+  position: absolute;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1000;
+  transition: opacity 0.2s;
+}
+
+.dashboard-grid {
+  width: clamp(280px, 97%, 1200px);
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+@media (max-width: 480px) {
+  .dashboard-grid {
+    margin: 10px 0.2rem;
+  }
+  .card-content {
+    flex-direction: column !important;
+    gap: 15px;
+  }
+  .chart-card {
+    padding: 0;
+    padding-bottom: 10px;
+  }
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+  }
+}/*# sourceMappingURL=dashboard.css.map */
