@@ -21,9 +21,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: clamp(280px, 97%, 1200px);
   gap: 15px;
-  margin-bottom: 30px;
+  margin: 30px auto;
   padding: 20px;
   border-radius: 15px;
   border: 1px solid #333;
@@ -153,11 +153,12 @@
 }
 
 .console-out {
-  width: 100%;
+  width: clamp(280px, 97%, 1200px);
   height: 50px;
   background: #000;
   color: #2ed573;
   padding: 10px;
+  margin: 15px auto;
   border-radius: 5px;
   font-family: monospace;
   display: flex;
