@@ -9,7 +9,7 @@
 }
 
 .test-run-page {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 100px);
   background-color: var(--test-run-bg-page);
   color: var(--test-run-bg-page);
   display: flex;
