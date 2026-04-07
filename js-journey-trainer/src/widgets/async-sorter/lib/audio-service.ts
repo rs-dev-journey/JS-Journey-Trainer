@@ -1,6 +1,13 @@
 class AudioService {
   private _ctx?: AudioContext;
 
+  private get isMuted(): boolean {
+    return (
+      localStorage.getItem('isMuted') === 'true' ||
+      document.documentElement.dataset.muted === 'true'
+    );
+  }
+
   private get ctx(): AudioContext {
     if (!this._ctx) {
       this._ctx = new globalThis.AudioContext();
@@ -14,6 +21,7 @@ class AudioService {
   }
 
   private playTone(frequency: number, duration: number, type: OscillatorType, volume = 0.2): void {
+    if (this.isMuted) return;
     const context = this.ctx;
     const oscillator = context.createOscillator();
     const gainNode = context.createGain();
@@ -47,6 +55,7 @@ class AudioService {
   };
 
   public fly = (): void => {
+    if (this.isMuted) return;
     const duration = 0.6;
     const oscillator = this.ctx.createOscillator();
     const gainNode = this.ctx.createGain();
