@@ -1,6 +1,6 @@
 # Self-Assessment
 
-Ссылка на PR с self-assessment: PR link will be added after creating the pull request.
+Ссылка на PR с self-assessment: [PR #54](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/54)
 
 ## Personal Features
 
