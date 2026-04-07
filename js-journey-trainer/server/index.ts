@@ -1,9 +1,57 @@
-import http from 'node:http';
+import http, { IncomingMessage, ServerResponse } from 'node:http';
 import { initDatabase } from './database-config';
+import type { Database } from 'sqlite';
 
 const PORT = 5000;
 const start = async () => {
   const database = await initDatabase();
+
+  interface DateRow {
+    active_date: string;
+  }
+
+  const handleGetStreaks = async (
+    request: IncomingMessage,
+    response: ServerResponse,
+    database: Database,
+  ): Promise<void> => {
+    if (!request.url) return;
+
+    const urlParameters = new URL(request.url, `http://${request.headers.host}`);
+    const userId = urlParameters.searchParams.get('user_id');
+
+    if (!userId) {
+      response.writeHead(400);
+      response.end(JSON.stringify({ error: 'user_id is required' }));
+      return;
+    }
+
+    const sql = `
+    SELECT DISTINCT DATE(created_at) as active_date
+    FROM results
+    WHERE user_id = ? 
+      AND created_at >= DATE('now', '-6 days')
+    ORDER BY active_date ASC
+  `;
+
+    try {
+      const rows = await database.all<DateRow[]>(sql, [userId]);
+      const activeDates = new Set(rows.map((row) => row.active_date));
+
+      const days = Array.from({ length: 7 }).map((_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - (6 - i));
+        const dateString = d.toISOString().split('T')[0];
+        return activeDates.has(dateString) ? 1 : 0;
+      });
+
+      response.writeHead(200, { 'Content-Type': 'application/json' });
+      response.end(JSON.stringify(days));
+    } catch (error) {
+      response.writeHead(500);
+      response.end(JSON.stringify({ error: error instanceof Error ? error.message : 'DB Error' }));
+    }
+  };
 
   http
     .createServer(async (request, response) => {
@@ -73,6 +121,9 @@ const start = async () => {
           response.end(JSON.stringify({ error: message }));
         }
         return;
+      }
+      if (request.url?.startsWith('/api/streaks') && request.method === 'GET') {
+        return handleGetStreaks(request, response, database);
       }
     })
     .listen(PORT, () => console.log(`🚀 Server is running on http://localhost:${PORT}`));
