@@ -1,4 +1,5 @@
 import { getCurrentUserId } from '@/entities/user';
+import { saveTrueFalseResult } from '@/entities/user-true-false';
 import { renderErrorState } from '@/shared/ui/error-state';
 import { createLoader } from '@/shared/ui/loader';
 import { renderTrueFalseWidget, trueFalseQuestion } from '@/widgets/true-false';
@@ -27,7 +28,12 @@ export async function renderTrueFalsePage(root: HTMLElement): Promise<void> {
       throw new Error('Questions are empty');
     }
 
-    const widget = renderTrueFalseWidget(userId, questions);
+    const widget = renderTrueFalseWidget(userId, questions, (result) => {
+      saveTrueFalseResult({
+        done: result.correctAnswers,
+        all: result.totalQuestions,
+      });
+    });
     root.replaceChildren(widget);
   } catch (error) {
     root.replaceChildren(

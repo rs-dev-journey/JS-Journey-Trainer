@@ -1,0 +1,12 @@
+export const RESULT_DELAY = 300;
+
+export const ANIMATION_DELAY = {
+  STACK_DURATION: 1000,
+  WEB_API_DURATION: 1500,
+  EXECUTE_DURATION: 1000,
+  STEP_GAP: 600,
+  START_PAUSE: 1000,
+} as const;
+
+export const HALF_DIVIDER = 2;
+export const MS_PER_SEC = 1000;

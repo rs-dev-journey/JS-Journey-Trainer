@@ -13,7 +13,7 @@
   background: linear-gradient(90deg, #e0b939, #a651b1);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent; 
+  -webkit-text-fill-color: transparent;
 }
 
 .header-accent-line {
@@ -29,7 +29,7 @@
   background: linear-gradient(90deg, #39d8d8, #e9a9f1);
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 0 10px rgba(57, 216, 216, 0.4));
+  text-shadow: 0 0 10px rgba(57, 216, 216, 0.4);
 }
 
 [data-theme='dark'] .header-accent-line {

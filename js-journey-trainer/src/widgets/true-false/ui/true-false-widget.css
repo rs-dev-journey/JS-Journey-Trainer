@@ -85,8 +85,6 @@
   background: var(--true-false-bg-surface);
   color: var(--true-false-text-primary);
   box-shadow: var(--true-false-shadow-surface);
-
-  position: relative;
   overflow: hidden;
 }
 

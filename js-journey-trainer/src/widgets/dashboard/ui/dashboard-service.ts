@@ -8,8 +8,8 @@ import createElement from '@/shared/lib/dom/create-element';
 import { createLoader } from '@/shared/ui/loader';
 import { getCurrentUserName, getCurrentUserId } from '@/entities/user';
 import { renderErrorState } from '@/shared/ui/error-state';
+import { fetchActivityStreaks } from '../model/api/streaks-api';
 
-const ASYNC_SORTER_ID = 1;
 const MOCK_NETWORK_DELAY = 2000;
 
 const chartConfigs: DashboardCardConfig[] = [
@@ -96,10 +96,11 @@ export const DashboardService = {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, MOCK_NETWORK_DELAY));
-      const [testStats, asyncSorter, trueFalse] = await Promise.all([
+      const [testStats, asyncSorter, trueFalse, streaks] = await Promise.all([
         DataRepository.getUserProgress(current_userId),
-        DataRepository.getActivity(ASYNC_SORTER_ID),
+        DataRepository.getAsyncSorterStats(current_userId),
         DataRepository.getTrueFalseStats(),
+        fetchActivityStreaks(current_userId),
       ]);
       drawPieChart('#chart-1', chartAdapters.forTestsProgress(testStats), []);
       drawPieChart('#chart-2', chartAdapters.forProgress(asyncSorter), [
@@ -111,7 +112,7 @@ export const DashboardService = {
         'var(--color-empty)',
       ]);
 
-      this.renderStreaks(content, [1, 1, 0, 1, 1, 0, 1]);
+      this.renderStreaks(content, streaks);
     } catch {
       this.handleError(parent);
     }

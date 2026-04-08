@@ -83,7 +83,7 @@ export default [
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: './tsconfig.json',
+          project: ['./tsconfig.json', './server/tsconfig.json'],
         },
         node: {
           extensions: ['.js', '.ts'],
@@ -92,6 +92,12 @@ export default [
     },
   },
 
+  {
+    files: ['src/widgets/async-sorter/lib/audio-service.ts'],
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
   {
     files: ['**/__tests__/**/*.ts', '**/*.spec.ts', '**/*.test.ts'],
     languageOptions: {
@@ -111,5 +117,16 @@ export default [
       'max-lines-per-function': 'off',
     },
   },
+  {
+    files: ['server/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-magic-numbers': 'off',
+      'no-console': 'off',
+      'unicorn/no-process-exit': 'off',
+      'unicorn/prefer-module': 'off',
+      'max-lines-per-function': 'off',
+    },
+  },
+
   prettierConfig,
 ];
