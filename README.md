@@ -71,9 +71,9 @@ The team collaborated on architectural decisions and maintained consistent codin
 
 Self-assessment describes personal contributions, implemented features, architecture decisions, and individual evaluation.
 
-🔗 Self-assessment PR-lertti: [PR#55]()
+🔗 Self-assessment PR-lertti: [PR#57](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/57)
 
-🔗 Self-assessment PR-kupzov2000: [PR#56]()
+🔗 Self-assessment PR-kupzov2000: [PR#56](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/56)
 
 🔗 Self-assessment PR-sabinabatrakova: [PR#54](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/54)
 
