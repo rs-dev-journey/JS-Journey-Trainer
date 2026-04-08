@@ -2,16 +2,16 @@
   --bg-header: #f4e4bc;
   --text-main: #5d4037;
   --acc-color: #d2b48c;
-  --avatar-icon: url('./camel.svg');
-  --nav-logo: url('./logo-camel.png');
+  --avatar-icon: url('/camel.svg');
+  --nav-logo: url('/logo-camel.png');
 }
 
 :root[data-theme='dark'] {
   --bg-header: #001f3f;
   --text-main: #e0f7fa;
   --acc-color: #0074d9;
-  --avatar-icon: url('./jellyfish.svg');
-  --nav-logo: url('./logo-jellyfish.png');
+  --avatar-icon: url('/jellyfish.svg');
+  --nav-logo: url('/logo-jellyfish.png');
 }
 .logo-icon {
   width: 70px;
