@@ -1,7 +1,7 @@
 # Self-Assessment: Evgeny Kuptsov
 
 **GitHub:** [kupzov2000](https://github.com/kupzov2000)  
-**Pull Request:** [PR Link](ДОБАВИТЬ)  
+**Pull Request:** [PR #56](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/56)  
 **Total self score:** 145
 
 ## 📋 Personal Features Table
