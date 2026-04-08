@@ -109,6 +109,7 @@ Self-assessment describes personal contributions, implemented features, architec
 
 ### Clone the repository
 
+
 ```bash
 git clone https://github.com/rs-dev-journey/JS-Journey-Trainer.git
 cd JS-Journey-Trainer
@@ -118,15 +119,24 @@ Install dependencies for the frontend:
 cd js-journey-trainer
 npm install
 ```
+
 If the project includes a backend server, install dependencies in the server folder:
 ```
 cd ../server
 npm install
 cd ..
 ```
+
+Environment variables
+
+Create a .env file inside js-journey-trainer/ and add the required Supabase variables:
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 Start the application
 
-Run the frontend locally:
+Run frontend and backend together:
 ```
 cd js-journey-trainer
 npm run dev
@@ -135,6 +145,11 @@ Frontend runs at:
 ```
 http://localhost:5173/
 ```
+
+Backend runs at:
+```
+http://localhost:5000/
+```
 ### Start services separately (optional)
 
 If needed, run frontend and backend separately in different terminal windows.
@@ -142,7 +157,7 @@ If needed, run frontend and backend separately in different terminal windows.
 Start frontend:
 ```
 cd js-journey-trainer
-npm run dev
+npm run start
 ```
 
 Start backend:
@@ -160,7 +175,7 @@ Lint project:
 ```
 npm run lint
 ```
-Format code:
+Check formatting:
 ```
 npm run format:check
 ```
