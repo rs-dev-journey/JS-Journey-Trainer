@@ -7,7 +7,7 @@
   --legend-text: #555555;
 }
 
-:root[data-theme=dark] {
+:root[data-theme='dark'] {
   --color-quiz: #5d0768;
   --color-empty: #555555;
   --color-async: #0e1577;
@@ -23,7 +23,7 @@ body {
   gap: 20px;
   flex-wrap: wrap;
   padding-bottom: 20px;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg-page, #f8f9fa);
 }
 
@@ -64,7 +64,7 @@ body {
 .chart-card .card-content.column {
   flex-direction: column;
 }
-.chart-card [id^=chart-] {
+.chart-card [id^='chart-'] {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -168,4 +168,4 @@ body {
     min-width: -moz-fit-content;
     min-width: fit-content;
   }
-}/*# sourceMappingURL=dashboard.css.map */
+} /*# sourceMappingURL=dashboard.css.map */
