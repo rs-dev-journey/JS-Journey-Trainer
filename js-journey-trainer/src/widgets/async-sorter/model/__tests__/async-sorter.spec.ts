@@ -1,6 +1,26 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { currentState, selectNumber, undoStep, checkResult } from '../sorter-engine';
 
+vi.mock('@/shared/api/supabase/client', () => ({
+  supabase: {
+    auth: {
+      getSession: vi.fn().mockResolvedValue({
+        data: { session: { user: { id: 'test-user' } } },
+        error: null,
+      }),
+    },
+  },
+}));
+
+vi.mock('@/shared/lib/auth/get-user-id', () => ({
+  getCurrentUserId: vi.fn().mockResolvedValue('test-user'),
+}));
+
+vi.mock('@/shared/api/async-sorter/sorter-api', () => ({
+  saveSorterResult: vi.fn().mockResolvedValue(null),
+  fetchSolvedCount: vi.fn().mockResolvedValue(0),
+}));
+
 class MockAudioContext {
   createOscillator = vi.fn(() => ({
     connect: vi.fn(),
@@ -26,6 +46,7 @@ describe('Sorter Engine', () => {
   beforeEach(() => {
     currentState.userOrder = [null, null, null];
     currentState.currentTask = { id: 1, expected: ['1', '2', '3'], code: '', visualSteps: [] };
+    currentState.attempts = 0;
   });
 
   it('should add number to the first empty slot', () => {
