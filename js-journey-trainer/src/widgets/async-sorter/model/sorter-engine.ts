@@ -134,8 +134,6 @@ export const sendToAdapter = async (status: boolean, time: string, type: string)
     consoleOut.append(createLoader());
   }
 
-  console.log('ADAPTER_LOG:', payload);
-
   try {
     await saveSorterResult(payload);
     if (consoleOut) {
