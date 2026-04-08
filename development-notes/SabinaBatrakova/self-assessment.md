@@ -35,18 +35,15 @@ Authentication интегрирован с router, который контрол
 
 ### Цель фичи - создать единый источник данных пользователя и централизованно управлять доступом к страницам приложения.
 
-## Таблица баллов
+## Таблица баллов -> Authentication flow (Supabase) + Router
 
-| Категория        | Описание                                          | Баллы |
-|------------------|---------------------------------------------------|------:|
-| Rich UI Screen   | страница логина с состояниями загрузки и ошибок  | 20 |
-| BaaS Auth        | регистрация и авторизация через Supabase         | 15 |
-| API Layer        | выделенный слой работы с Supabase                | 10 |
-| Design Patterns  | разделение слоев, public API entities            | 10 |
-| Architect        | проектирование router и auth flow                | 10 |
-| Responsive       | адаптивная верстка login страницы                | 5 |
+| Категория      | Описание                                   | Баллы |
+|----------------|--------------------------------------------|------:|
+| Rich UI Screen | страница логина с состояниями и валидацией | 20 |
+| BaaS Auth      | регистрация и авторизация через Supabase   | 15 |
+| API Layer      | выделенный слой работы с Supabase          | 10 |
 
-### **Итого: 70 баллов**
+### **Итого: 45 баллов**
 
 
 ### Flow работы авторизации
@@ -148,19 +145,14 @@ TypeScript, Supabase Auth, Feature-Sliced Design, Vite, CSS variables, SPA route
 
 ### Цель фичи - создать переиспользуемый интерактивный компонент с понятной логикой состояния и разделением UI и бизнес-логики.
 
-## Таблица баллов
+## Таблица баллов -> True - False widget
 
-| Категория              | Описание                                      | Баллы |
-|------------------------|-----------------------------------------------|------:|
-| Complex Component      | интерактивный widget с управлением состояния | 25 |
-| Rich UI Screen         | интеграция widget на странице practice       | 20 |
-| Unit Tests (Basic)     | тесты логики widget                          | 10 |
-| Advanced Animations    | микро-анимации правильного ответа            | 10 |
-| Responsive             | адаптивная верстка widget                    | 5 |
-| Design Patterns        | state machine, разделение слоев              | 10 |
-| Architect              | проектирование структуры widget              | 10 |
+| Категория         | Описание                                             | Баллы |
+|-------------------|------------------------------------------------------|------:|
+| Complex Component | интерактивный widget с состоянием и результатом      | 25 |
+| Rich UI Screen    | интеграция widget на отдельной странице practice     | 20 |
 
-### **Итого: 90 баллов**
+### **Итого: 45 баллов**
 
 ### Description of my work
 
@@ -234,16 +226,25 @@ TypeScript, DOM API, Feature-Sliced Design, localStorage, Vitest, CSS animations
 - Основной PR - CI/CD GitHub Actions + Netlify deploy : [PR #16](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/16)
 - PR - Netlify redirect config: [PR #42](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/42)
 
-| Категория | Описание | Баллы |
-|----------|----------|------:|
-| Auto-deploy | настройка CI/CD и автоматического деплоя Netlify | 5 |
+| Категория           | Описание                                                       | Баллы |
+|---------------------|----------------------------------------------------------------|------:|
+| Unit Tests (Basic)  | тесты validation, widget logic и localStorage                 | 5 |
+| Advanced Animations | микро-анимация правильного ответа                             | 5 |
+| Responsive          | адаптивная верстка login page и true-false widget             | 5 |
+| Design Patterns     | state machine, callback pattern, public API, route guards     | 10 |
+| Architect           | FSD структура, router-level orchestration, разделение слоев   | 10 |
+| Auto-deploy         | настройка CI/CD и автоматического деплоя Netlify              | 5 |
 
-### TOTAL PERSONAL FEATURES SCORE
+**Итого: 40 баллов**
 
-| Feature | Баллы |
+
+
+## TOTAL PERSONAL FEATURES SCORE
+
+| Раздел | Баллы |
 |--------|------:|
-| Authentication + Router | 70 |
-| True / False widget | 90 |
-| CI/CD + Auto-deploy | 5 |
+| Feature 1 - Authentication flow (Supabase) + Router | 45 |
+| Feature 2 - True / False widget | 45 |
+| Additional contributions (tests, animations, responsive, architecture, CI/CD) | 40 |
 
-### Итого: 165 баллов
+### **ИТОГО: 130 баллов**
