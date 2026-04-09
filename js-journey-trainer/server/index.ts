@@ -2,7 +2,9 @@ import http, { IncomingMessage, ServerResponse } from 'node:http';
 import { initDatabase } from './database-config';
 import type { Database } from 'sqlite';
 
-const PORT = 5000;
+const API_URL = process.env.VITE_API_URL || 'http://localhost:5000';
+const PORT = new URL(API_URL).port || 5000;
+
 const start = async () => {
   const database = await initDatabase();
 
@@ -126,7 +128,7 @@ const start = async () => {
         return handleGetStreaks(request, response, database);
       }
     })
-    .listen(PORT, () => console.log(`🚀 Server is running on http://localhost:${PORT}`));
+    .listen(PORT, () => console.log(`🚀 Server is running on ${API_URL}`));
 };
 
 start();
