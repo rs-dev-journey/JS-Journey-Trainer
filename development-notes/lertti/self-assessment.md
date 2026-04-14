@@ -1,3 +1,7 @@
+# Self-Assessment  
+**Pull Request:** [PR #57](https://github.com/rs-dev-journey/JS-Journey-Trainer/pull/57)  
+**Total Self-Assessment Score:** 210
+
 # 🚀 Event Loop Master - Async Sorter
 An interactive educational platform designed to master JavaScript's asynchronous
 nature. Users solve execution order puzzles while watching a real-time visualization of
